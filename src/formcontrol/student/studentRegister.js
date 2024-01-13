@@ -210,11 +210,13 @@ export default function Signup() {
               flexDirection: "column",
             }}
           >
-            <ArrowBackIosIcon alignItem="left" />
-            <p alignItem="left"></p>back
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <p align="left">
+              <Typography component="h5" variant="h6" color="#580990">
+                <ArrowBackIosIcon alignItem="left" />
+                Back{" "}
+              </Typography>
+            </p>
+
             <p>
               <h3 color="red">Register as a Student!</h3>
 
@@ -257,7 +259,6 @@ export default function Signup() {
                 variant="outlined"
                 size="small"
                 autoComplete="lastName"
-                autoFocus
                 style={{ backgroundColor: "#F3EDFB" }}
               />
 
@@ -275,7 +276,6 @@ export default function Signup() {
                 variant="outlined"
                 size="small"
                 autoComplete="email"
-                autoFocus
                 style={{ backgroundColor: "#F3EDFB" }}
               />
               <p>
@@ -292,7 +292,6 @@ export default function Signup() {
                   variant="outlined"
                   size="small"
                   autoComplete="regNum"
-                  autoFocus
                   style={{ backgroundColor: "#F3EDFB" }}
                 />
               </p>

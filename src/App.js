@@ -11,7 +11,6 @@ import Paper from "@mui/material/Paper";
 
 import Login from "./formcontrol/login";
 import Signup from "./formcontrol/student/studentRegister";
-//import mtsignup from "./formcontrol/mentor/mentorRegister";
 
 function App() {
   return (
