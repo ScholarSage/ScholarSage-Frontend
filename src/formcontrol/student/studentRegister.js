@@ -1,9 +1,8 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 
 //mui imports
 import IconButton from "@mui/material/IconButton";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-//import FilledInput from "@mui/material/FilledInput";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -11,36 +10,14 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
 import Alert from "@mui/material/Alert";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-
-//import Checkbox from "@mui/material/Checkbox";
-//import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-//import Divider from "@mui/material/Divider";
-import { styled } from "@mui/material/styles";
-
-//icons
-//import AccountCircle from "@mui/icons-material/AccountCircle";
-
-// const Root = styled("div")(({ theme }) => ({
-//   width: "100%",
-//   ...theme.typography.body2,
-//   color: theme.palette.text.secondary,
-//   "& > :not(style) ~ :not(style)": {
-//     marginTop: theme.spacing(2),
-//   },
-// }));
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -50,8 +27,7 @@ const isRegNum = (regNum) => /^[A-Z]{2}\/\d{4}\/\d+$/i.test(regNum);
 
 //asd
 
-export default function Signup() {
-  // new
+export default function StudentSignup() {
   //first time password
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -186,8 +162,9 @@ export default function Signup() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: "100vh",overflow: "hidden" }}>
         <CssBaseline />
+
         <Grid
           item
           xs={false}
@@ -199,8 +176,76 @@ export default function Signup() {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
+            backgroundColor:
+              "linear-gradient(to bottom, transparent 0%, rgba(152,56,121) 100%)",
           }}
-        />
+        >
+          {/* Transparent Color Above the Grid */}
+          <div
+            xs={false}
+            sm={4}
+            md={7}
+            style={{
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background:
+                "linear-gradient(to bottom, transparent 0%, rgba(152,56,121) 100%)",
+              pointerEvents: "none", // Prevent the overlay from capturing mouse events
+            }}
+          />
+          {/* Content */}
+          <div
+            xs={false}
+            sm={4}
+            md={7}
+            style={{
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background:
+                "linear-gradient(to bottom, transparent 0%, rgba(152,56,121) 100%)",
+              pointerEvents: "none", // Prevent the overlay from capturing mouse events
+            }}
+          />
+          {/* Content */}
+          <div
+            align="left"
+            style={{
+              position: "absolute",
+              top: "100px",
+              left: "50px",
+              right: "700px",
+              color: "white",
+            }}
+          >
+            <div>
+              <img
+                src={require("../ logo.png")}
+                alt="My Logo"
+                style={{ 
+                  width: "300px", 
+                  height: "55px",
+                  filter: "brightness(0) invert(1)", 
+                }}
+              />
+              {/* Additional content or components can be added here */}
+            </div>
+    
+            <Typography variant="h6"
+             align="justify"  style={{
+              position: "absolute",
+              top: "300px",
+              right: '100px', 
+              left: "100px", 
+            }}>
+              ❝ Unlock a world of support! Fill in your details to access personalized mentorship, stress relief, and academic guidance. Connect with mentors, shape study plans, and enhance your skills effortlessly. Your academic success starts with ScholarSage—register now!  ❞
+            </Typography>
+          </div>
+        </Grid>
+
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -210,13 +255,15 @@ export default function Signup() {
               flexDirection: "column",
             }}
           >
-            <p align="left">
-              <Typography component="h5" variant="h6" color="#580990">
-                <ArrowBackIosIcon alignItem="left" />
-                Back{" "}
-              </Typography>
-            </p>
-
+            {/* Back button */}
+            <Link to="/" style={{ textDecoration: "none",alignSelf: "flex-start" }}>
+              <Button
+                size="small"
+                style={{ backgroundColor: "#9837DC", color: "white", marginBottom: "10px" }}
+              >
+                &lt; Back
+              </Button>
+            </Link>
             <p>
               <h3 color="red">Register as a Student!</h3>
 
