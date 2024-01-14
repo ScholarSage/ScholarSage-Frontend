@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-//import logo from "./content/logo2.png";
 
 //mui imports
 import IconButton from "@mui/material/IconButton";
@@ -12,27 +11,17 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Alert from "@mui/material/Alert";
-
-//import LoginIcon from "@mui/icons-material/Login";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-
 import Checkbox from "@mui/material/Checkbox";
-//import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
 
-//images
-
-//icons
-//import AccountCircle from "@mui/icons-material/AccountCircle";
 
 const Root = styled("div")(({ theme }) => ({
   width: "100%",
@@ -43,7 +32,6 @@ const Root = styled("div")(({ theme }) => ({
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -51,7 +39,6 @@ const isEmail = (email) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
 export default function Signup() {
-  // new
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -122,7 +109,7 @@ export default function Signup() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: "100vh" ,overflow: "hidden"}}>
         <CssBaseline />
 
         <Grid
@@ -137,7 +124,7 @@ export default function Signup() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundColor:
-              "linear-gradient(to bottom, transparent 0%, rgba(152,56,121) 100%)",
+              "linear-gradient(to bottom, transparent 0%, #9837DC 100%)",
           }}
         >
           {/* Transparent Color Above the Grid */}
@@ -168,18 +155,22 @@ export default function Signup() {
           >
             <div>
               <img
-                src={require("./study.jpg")}
+                src={require("./ logo.png")}
                 alt="My Logo"
-                style={{ width: "200px", height: "150px" }}
+                style={{ width: "300px", height: "55px" ,filter: "brightness(0) invert(1)",}}
               />
               {/* Additional content or components can be added here */}
             </div>
-            <Typography variant="h4">ScholarSage</Typography>
-            <Typography variant="h6">
-              The passage experienced a surge in popularity during the 1960s
-              when Letraset used it on their dry-transfer sheets, and again
-              during the 90s as desktop publishers bundled the text with their
-              software.
+    
+            <Typography variant="h6"
+             align="justify"  style={{
+              position: "absolute",
+              top: "300px",
+              right: '100px', 
+              left: "100px", 
+            }}>
+              ❝ Welcome to ScholarSage! Your stress-free study buddy. Connect with mentors, make study plans, 
+              and boost skills effortlessly. It's your go-to for a smooth academic journey. Log in now! ❞
             </Typography>
           </div>
         </Grid>
@@ -194,11 +185,14 @@ export default function Signup() {
               alignItems: "center",
             }}
           >
-            <img
-              src={require("./study.jpg")}
-              alt="My Logo"
-              style={{ width: "200px", height: "150px" }}
-            />
+            <div>
+              <img
+                src={require("./ logo.png")}
+                alt="My Logo"
+                style={{ width: "300px", height: "55px" ,}}
+              />
+              {/* Additional content or components can be added here */}
+            </div>
 
             <Typography component="h5" variant="h6">
               Sign in to your account here!
@@ -293,7 +287,7 @@ export default function Signup() {
 
               <p align="left">Don't have an account?</p>
               <p>
-                <Link to="/stReg">
+                <Link to="/Reg">
                   <Button
                     variant="outlined"
                     style={{

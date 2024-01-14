@@ -1,17 +1,12 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-//import logo from "./content/logo2.png";
+import Login from "./formcontrol/login";
+import Register from "./formcontrol/Register";
+import MentorSignup from "./formcontrol/mentor/mentorRegister";
+import StudentSignup from "./formcontrol/student/studentRegister";
 
 //mui imports
 import Paper from "@mui/material/Paper";
-//import Box from "@mui/material/Box";
-//import TextField from "@mui/material/TextField";
-
-//import { useState } from "react";
-
-import Login from "./formcontrol/login";
-import Signup from "./formcontrol/student/studentRegister";
-//import mtsignup from "./formcontrol/mentor/mentorRegister";
 
 function App() {
   return (
@@ -19,9 +14,10 @@ function App() {
       <div className="App">
         <Paper elevation={3}>
           <Routes>
-            <Route path="/stReg" element={<Signup />} />
-            <Route exact path="/" element={<Login />} />
-            {/* <Route path="/mentorReg" element={<mtsignup />} /> */}
+            <Route path="/stReg" element={<StudentSignup />} />
+            <Route path="/mtReg" element={<StudentSignup/>} />
+            <Route path="/Reg" element={<Register />} />
+            <Route exact path="/" element={<Login />} /> 
           </Routes>
         </Paper>
       </div>
