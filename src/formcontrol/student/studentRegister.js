@@ -264,7 +264,6 @@ export default function StudentSignup() {
                 &lt; Back
               </Button>
             </Link>
-
             <p>
               <h3 color="red">Register as a Student!</h3>
 
@@ -307,7 +306,6 @@ export default function StudentSignup() {
                 variant="outlined"
                 size="small"
                 autoComplete="lastName"
-                autoFocus
                 style={{ backgroundColor: "#F3EDFB" }}
               />
 
@@ -325,7 +323,6 @@ export default function StudentSignup() {
                 variant="outlined"
                 size="small"
                 autoComplete="email"
-                autoFocus
                 style={{ backgroundColor: "#F3EDFB" }}
               />
               <p>
@@ -342,7 +339,6 @@ export default function StudentSignup() {
                   variant="outlined"
                   size="small"
                   autoComplete="regNum"
-                  autoFocus
                   style={{ backgroundColor: "#F3EDFB" }}
                 />
               </p>
