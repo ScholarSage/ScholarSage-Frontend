@@ -223,7 +223,7 @@ export default function StudentSignup() {
           >
             <div>
               <img
-                src={require("../ logo.png")}
+                src={require("../../content/logo.png")}
                 alt="My Logo"
                 style={{ 
                   width: "300px", 
@@ -256,13 +256,15 @@ export default function StudentSignup() {
             }}
           >
             {/* Back button */}
-            <Link to="/" style={{ textDecoration: "none",alignSelf: "flex-start" }}>
-              <Button
-                size="small"
-                style={{ backgroundColor: "#9837DC", color: "white", marginBottom: "10px" }}
+            <Link to="/Reg" style={{ textDecoration: "none", alignSelf: "flex-start" }}>
+              <Typography
+                component="span"
+                variant="body2"
+                color="#580990"
+                style={{ cursor: "pointer" }}
               >
                 &lt; Back
-              </Button>
+              </Typography>
             </Link>
 
             <p>
@@ -307,7 +309,6 @@ export default function StudentSignup() {
                 variant="outlined"
                 size="small"
                 autoComplete="lastName"
-                autoFocus
                 style={{ backgroundColor: "#F3EDFB" }}
               />
 
@@ -325,7 +326,6 @@ export default function StudentSignup() {
                 variant="outlined"
                 size="small"
                 autoComplete="email"
-                autoFocus
                 style={{ backgroundColor: "#F3EDFB" }}
               />
               <p>
@@ -342,7 +342,6 @@ export default function StudentSignup() {
                   variant="outlined"
                   size="small"
                   autoComplete="regNum"
-                  autoFocus
                   style={{ backgroundColor: "#F3EDFB" }}
                 />
               </p>

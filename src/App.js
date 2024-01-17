@@ -7,6 +7,13 @@ import StudentSignup from "./formcontrol/student/studentRegister";
 
 //mui imports
 import Paper from "@mui/material/Paper";
+//import Box from "@mui/material/Box";
+//import TextField from "@mui/material/TextField";
+
+//import { useState } from "react";
+
+import Signup from "./formcontrol/student/studentRegister";
+//import mtsignup from "./formcontrol/mentor/mentorRegister";
 
 function App() {
   return (

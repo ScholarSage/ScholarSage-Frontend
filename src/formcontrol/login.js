@@ -155,7 +155,7 @@ export default function Signup() {
           >
             <div>
               <img
-                src={require("./ logo.png")}
+                src={require("../content/logo.png")}
                 alt="My Logo"
                 style={{ width: "300px", height: "55px" ,filter: "brightness(0) invert(1)",}}
               />
@@ -187,7 +187,7 @@ export default function Signup() {
           >
             <div>
               <img
-                src={require("./ logo.png")}
+                src={require("../content/logo.png")}
                 alt="My Logo"
                 style={{ width: "300px", height: "55px" ,}}
               />

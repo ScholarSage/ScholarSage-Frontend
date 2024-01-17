@@ -14,14 +14,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const defaultTheme = createTheme();
 
 export default function Register() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -85,7 +77,7 @@ export default function Register() {
           >
             <div>
               <img
-                src={require("./ logo.png")}
+                src={require("../content/logo.png")}
                 alt="My Logo"
                 style={{ 
                   width: "300px", 
@@ -121,7 +113,7 @@ export default function Register() {
             }}
           >
             
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate  sx={{ mt: 1 }}>
               <Typography variant="body2" color="text.secondary" align="right" sx={{ mt: 2 }}>
                 Already have an account? <Link to="/" color="primary" style={{ color: '#9837DC' }}>Sign In</Link><br/><br/><br/><br/>
               </Typography>
