@@ -223,7 +223,7 @@ export default function MentorSignup() {
           >
             <div>
               <img
-                src={require("../ logo.png")}
+                src={require("../../content/logo.png")}
                 alt="My Logo"
                 style={{ 
                   width: "300px", 
@@ -241,7 +241,7 @@ export default function MentorSignup() {
               right: '100px', 
               left: "100px", 
             }}>
-              ❝ Unlock a world of support! Fill in your details to access personalized mentorship, stress relief, and academic guidance. Connect with mentors, shape study plans, and enhance your skills effortlessly. Your academic success starts with ScholarSage—register now!  ❞
+              ❝ Ready to guide and inspire? Register as a Mentor and share your expertise. Shape the academic journey of students, offer support, and foster success. Join ScholarSage in making a positive impact. Register today!❞
             </Typography>
           </div>
         </Grid>
@@ -256,14 +256,17 @@ export default function MentorSignup() {
             }}
           >
             {/* Back button */}
-            <Link to="/" style={{ textDecoration: "none",alignSelf: "flex-start" }}>
-              <Button
-                size="small"
-                style={{ backgroundColor: "#9837DC", color: "white", marginBottom: "10px" }}
+            <Link to="/Reg" style={{ textDecoration: "none", alignSelf: "flex-start" }}>
+              <Typography
+                component="span"
+                variant="body2"
+                color="#580990"
+                style={{ cursor: "pointer" }}
               >
                 &lt; Back
-              </Button>
+              </Typography>
             </Link>
+
             <p>
               <h3 color="red">Register as a Mentor!</h3>
 

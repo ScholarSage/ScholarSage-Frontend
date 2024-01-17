@@ -223,7 +223,7 @@ export default function StudentSignup() {
           >
             <div>
               <img
-                src={require("../ logo.png")}
+                src={require("../../content/logo.png")}
                 alt="My Logo"
                 style={{ 
                   width: "300px", 
@@ -256,14 +256,17 @@ export default function StudentSignup() {
             }}
           >
             {/* Back button */}
-            <Link to="/" style={{ textDecoration: "none",alignSelf: "flex-start" }}>
-              <Button
-                size="small"
-                style={{ backgroundColor: "#9837DC", color: "white", marginBottom: "10px" }}
+            <Link to="/Reg" style={{ textDecoration: "none", alignSelf: "flex-start" }}>
+              <Typography
+                component="span"
+                variant="body2"
+                color="#580990"
+                style={{ cursor: "pointer" }}
               >
                 &lt; Back
-              </Button>
+              </Typography>
             </Link>
+
             <p>
               <h3 color="red">Register as a Student!</h3>
 
