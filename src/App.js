@@ -22,7 +22,7 @@ function App() {
         <Paper elevation={3}>
           <Routes>
             <Route path="/stReg" element={<StudentSignup />} />
-            <Route path="/mtReg" element={<StudentSignup/>} />
+            <Route path="/mtReg" element={<MentorSignup/>} />
             <Route path="/Reg" element={<Register />} />
             <Route exact path="/" element={<Login />} /> 
           </Routes>
