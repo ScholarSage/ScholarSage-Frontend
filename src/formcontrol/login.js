@@ -22,7 +22,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
 
-
 const Root = styled("div")(({ theme }) => ({
   width: "100%",
   ...theme.typography.body2,
@@ -32,14 +31,13 @@ const Root = styled("div")(({ theme }) => ({
   },
 }));
 
-
 const defaultTheme = createTheme();
 
 const isEmail = (email) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
 export default function Signup() {
-
+  // Initializing a state variable named 'showPassword' using the useState hook.
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -50,6 +48,15 @@ export default function Signup() {
   const [emailInput, setEmailInput] = React.useState();
   const [passwordInput, setPasswordInput] = React.useState();
   const [rememberMe, setRememberMe] = React.useState();
+
+  //input errors
+
+  const [emailError, setEmailError] = React.useState(false);
+  const [passwordError, setPasswordError] = React.useState(false);
+
+  //form validity
+  const [formValid, setFormValid] = React.useState();
+  const [success, setSuccess] = React.useState();
 
   //input validation
 
@@ -68,15 +75,11 @@ export default function Signup() {
     setFormValid(null);
     setSuccess("Form Submited Successfuly");
 
+    //How the output be
     console.log("Email : " + emailInput);
     console.log("Password : " + passwordInput);
     console.log("Remember user : " + rememberMe);
   };
-
-  //input errors
-
-  const [emailError, setEmailError] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState(false);
 
   //validation for onBlur Email
   const handleEmail = () => {
@@ -95,7 +98,7 @@ export default function Signup() {
     if (
       !passwordInput ||
       passwordInput.length < 8 ||
-      !passwordRegex.test(passwordInput)
+      !passwordRegex.test(passwordInput) //conditions
     ) {
       setPasswordError(true);
     } else {
@@ -103,17 +106,18 @@ export default function Signup() {
     }
   };
 
-  //form validity
-  const [formValid, setFormValid] = React.useState();
-  const [success, setSuccess] = React.useState();
-
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" ,overflow: "hidden"}}>
+      <Grid
+        container
+        component="main"
+        sx={{ height: "100vh", overflow: "hidden" }}
+      >
         <CssBaseline />
 
         <Grid
           item
+          //For the responsiveness
           xs={false}
           sm={4}
           md={7}
@@ -157,20 +161,28 @@ export default function Signup() {
               <img
                 src={require("../content/logo.png")}
                 alt="My Logo"
-                style={{ width: "300px", height: "55px" ,filter: "brightness(0) invert(1)",}}
+                style={{
+                  width: "300px",
+                  height: "55px",
+                  filter: "brightness(0) invert(1)",
+                }}
               />
               {/* Additional content or components can be added here */}
             </div>
-    
-            <Typography variant="h6"
-             align="justify"  style={{
-              position: "absolute",
-              top: "300px",
-              right: '100px', 
-              left: "100px", 
-            }}>
-              ❝ Welcome to ScholarSage! Your stress-free study buddy. Connect with mentors, make study plans, 
-              and boost skills effortlessly. It's your go-to for a smooth academic journey. Log in now! ❞
+
+            <Typography
+              variant="h6"
+              align="justify"
+              style={{
+                position: "absolute",
+                top: "300px",
+                right: "100px",
+                left: "100px",
+              }}
+            >
+              ❝ Welcome to ScholarSage! Your stress-free study buddy. Connect
+              with mentors, make study plans, and boost skills effortlessly.
+              It's your go-to for a smooth academic journey. Log in now! ❞
             </Typography>
           </div>
         </Grid>
@@ -189,7 +201,7 @@ export default function Signup() {
               <img
                 src={require("../content/logo.png")}
                 alt="My Logo"
-                style={{ width: "300px", height: "55px" ,}}
+                style={{ width: "300px", height: "55px" }}
               />
               {/* Additional content or components can be added here */}
             </div>
@@ -205,21 +217,21 @@ export default function Signup() {
               sx={{ mt: 1 }}
             >
               <TextField
-                margin="normal"
-                required
-                fullWidth
-                error={emailError}
-                label="Enter Your Email Address"
-                value={emailInput}
-                onBlur={handleEmail}
-                onChange={(event) => setEmailInput(event.target.value)}
-                variant="filled"
-                size="small"
-                autoComplete="email"
-                autoFocus
-                style={{ backgroundColor: "#F3EDFB" }}
+                // Styling and configuration for a text input field
+                margin="normal" //  margin  to the normal spacing.
+                required // input is required mark.
+                fullWidth // take up the full width of the container.
+                error={emailError} //  If emailError is true, visually indicate an error.
+                label="Enter Your Email Address" // label
+                value={emailInput} // Binds the value of the input field to the emailInput variable.
+                onBlur={handleEmail} // Calls the handleEmail function when the input field loses focus (on blur).
+                onChange={(event) => setEmailInput(event.target.value)} // Updates the emailInput state variable with the new value when the input value changes.
+                variant="filled" //apply filled variant for the TextField, there are others like "outlined"
+                size="small" //Sets the size of the TextField to small.
+                autoComplete="email" //Provides a hint to the browser for autofilling the input with an email address.
+                autoFocus // Sets the focus on the TextField when the component opened(page).
+                style={{ backgroundColor: "#F3EDFB" }} // Applies inline styling to set the background color of the TextField to #F3EDFB.
               />
-
               <FormControl sx={{ width: "100%" }} variant="filled">
                 <InputLabel htmlFor="password">Enter Your Password</InputLabel>
                 <FilledInput
@@ -270,7 +282,7 @@ export default function Signup() {
               </div>
               <p>{formValid && <Alert severity="error">{formValid}</Alert>}</p>
               <p>
-                <Button
+                <Button //add button
                   onClick={handleSubmit}
                   variant="contained"
                   style={{ backgroundColor: "#42026F", borderRadius: 10 }}
@@ -284,8 +296,7 @@ export default function Signup() {
                   <Divider>OR</Divider>
                 </Root>
               </p>
-
-              <p align="left">Don't have an account?</p>
+              <p align="left"> Don't have an account? </p>
               <p>
                 <Link to="/Reg">
                   <Button
