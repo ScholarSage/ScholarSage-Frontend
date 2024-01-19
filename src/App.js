@@ -4,6 +4,8 @@ import Login from "./formcontrol/login";
 import Register from "./formcontrol/Register";
 import MentorSignup from "./formcontrol/mentor/mentorRegister";
 import StudentSignup from "./formcontrol/student/studentRegister";
+import StudentDashBoard from "./formcontrol/student/StudentDashBoard";
+import MentorDashBoard from "./formcontrol/mentor/MentorDashBoard";
 
 //mui imports
 import Paper from "@mui/material/Paper";
@@ -25,6 +27,8 @@ function App() {
             <Route path="/mtReg" element={<MentorSignup/>} />
             <Route path="/Reg" element={<Register />} />
             <Route exact path="/" element={<Login />} /> 
+            <Route path="/Student-Dashboard" element={<StudentDashBoard />} />
+            <Route path="/Mentor-Dashboard" element={<MentorDashBoard />} />
           </Routes>
         </Paper>
       </div>

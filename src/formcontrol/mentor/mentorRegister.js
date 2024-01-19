@@ -18,6 +18,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -48,7 +49,7 @@ export default function MentorSignup() {
 
   //input validation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccess(null);
 
@@ -80,9 +81,9 @@ export default function MentorSignup() {
       return;
     }
 
-    setFormValid(null);
-    setSuccess("Registered Successfuly");
-
+    //setFormValid(null);
+    //setSuccess("Registered Successfuly");
+/*
     console.log("First Name : " + firstNameInput);
     console.log("Last Name : " + lastNameInput);
     console.log("Email : " + emailInput);
@@ -90,7 +91,26 @@ export default function MentorSignup() {
     console.log("Password : " + passwordInput);
     console.log("confirmPassword : " + confirmPasswordInput);
   };
-
+*/
+try {
+  const response = await axios.post('http://localhost:5000/MentorRegister', {
+    fname: firstNameInput,
+    lname: lastNameInput,
+    email: emailInput,
+    mentorid: regNumInput,
+    password: passwordInput,
+    confirmpassword: confirmPasswordInput,
+    usertype: "Mentor",
+  });
+  if (response.data.status === "ok") {
+    alert("Registered successfully");
+    window.location.href = "./";
+  }
+} catch (error) {
+  console.error(error.response.data);
+  alert("Invalid logging!");
+}
+};
   //input errors
 
   const [firstNameError, setFirstNameError] = React.useState(false);
