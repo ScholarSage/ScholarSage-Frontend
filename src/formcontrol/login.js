@@ -21,6 +21,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
+import axios from "axios";
 
 const Root = styled("div")(({ theme }) => ({
   width: "100%",
@@ -79,7 +80,42 @@ export default function Signup() {
     console.log("Email : " + emailInput);
     console.log("Password : " + passwordInput);
     console.log("Remember user : " + rememberMe);
-  };
+
+    try {
+      axios.post('http://localhost:5000/login-user', {
+  email: emailInput,
+  password: passwordInput,
+})
+  .then((data) => {
+    console.log(data, "userRegister");
+    if (data.status === "ok") {
+      alert("Login successful");
+      window.localStorage.setItem("token", data.data);
+      window.localStorage.setItem("loggedIn", true);
+      if (data.UT === "Student") {
+        window.localStorage.setItem("User", "Student");
+        window.location.href = "./Student-Dashboard";
+      } else {
+        window.localStorage.setItem("User", "Mentor");
+        window.location.href = "./Mentor-Dashboard";
+      }
+    } else {
+      alert("Invalid Email or Password");
+    }
+  })
+
+
+
+      // if (response.data.status === "ok") {
+        // alert("Registered successfully");
+        // window.location.href = "./";
+      // }
+    } catch (error) {
+      console.error(error.response.data);
+      alert("Invalid logging!");
+    }
+    };
+
 
   //validation for onBlur Email
   const handleEmail = () => {

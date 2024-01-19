@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
+
 //mui imports
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -18,6 +19,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -48,7 +50,7 @@ export default function StudentSignup() {
 
   //input validation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccess(null);
 
@@ -83,14 +85,35 @@ export default function StudentSignup() {
     setFormValid(null);
     setSuccess("Registered Successfuly");
 
-    console.log("First Name : " + firstNameInput);
-    console.log("Last Name : " + lastNameInput);
-    console.log("Email : " + emailInput);
-    console.log("Registration Number : " + regNumInput);
-    console.log("Password : " + passwordInput);
-    console.log("confirmPassword : " + confirmPasswordInput);
-  };
+   // console.log("First Name : " + firstNameInput);
+   // console.log("Last Name : " + lastNameInput);
+   // console.log("Email : " + emailInput);
+    //console.log("Registration Number : " + regNumInput);
+    //console.log("Password : " + passwordInput);
+    //console.log("confirmPassword : " + confirmPasswordInput);
 
+    
+    try {
+      const response = await axios.post('http://localhost:5000/StudentRegister', {
+        fname: firstNameInput,
+        lname: lastNameInput,
+        email: emailInput,
+        scnumber: regNumInput,
+        password: passwordInput,
+        confirmpassword: confirmPasswordInput,
+        usertype: "Student",
+      });
+  
+      if (response.data.status === "ok") {
+        alert("Registered successfully");
+        window.location.href = "./";
+      }
+    } catch (error) {
+      console.error(error.response.data);
+      alert("Invalid logging!");
+    }
+  };
+  
   //input errors
 
   const [firstNameError, setFirstNameError] = React.useState(false);
@@ -99,9 +122,9 @@ export default function StudentSignup() {
   const [regNumError, setRegNumError] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
   //const [confirmPasswordError, setConfirmPasswordError] = React.useState(false);
-
+  
   //validation for onBlur Email
-
+  
   const handleEmail = () => {
     if (!isEmail(emailInput)) {
       setEmailError(true);
