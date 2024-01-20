@@ -104,9 +104,15 @@ export default function StudentSignup() {
         usertype: "Student",
       });
   
-      if (response.data.status === "ok") {
-        alert("Registered successfully");
-        window.location.href = "./";
+      if(response.data.error === "Email Already Used"){
+        alert("Email Already Used");
+      }else if(response.data.error==="Student Number Already Used"){
+        alert("Student Number Already Used");
+      }else{
+        if (response.data.status === "ok") {
+          alert("Registered successfully");
+          window.location.href = "./";
+        }
       }
     } catch (error) {
       console.error(error.response.data);

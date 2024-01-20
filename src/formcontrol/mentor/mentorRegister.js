@@ -102,9 +102,16 @@ try {
     confirmpassword: confirmPasswordInput,
     usertype: "Mentor",
   });
-  if (response.data.status === "ok") {
-    alert("Registered successfully");
-    window.location.href = "./";
+
+  if(response.data.error === "Email Already Exists"){
+    alert("Email Already Used");
+  }else if(response.data.error==="Mentor ID Already Used"){
+    alert("Mentor ID Already Used");
+  }else{
+    if (response.data.status === "ok") {
+      alert("Registered successfully");
+      window.location.href = "./";
+    }
   }
 } catch (error) {
   console.error(error.response.data);

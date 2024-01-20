@@ -1,49 +1,47 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-export default class StudentDashBoard extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            userData:"",
+export default function StudentDashBoard() {
+  const [userData, setUserData] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/userData", {
+          token: window.localStorage.getItem("token"),
+        });
+
+        const data = response.data;
+        console.log(data, "userData");
+        setUserData(data.data);
+
+        if (data.data === "token expired") {
+          alert("Token expired login again");
+          window.localStorage.clear();
+          window.location.href = "./";
         }
-    }
-    componentDidMount(){
-        fetch("http://localhost:5000/userData",{
-      method:"POST",
-      crossDomain:true,
-      headers:{
-        "Content-Type":"application/json",
-        Accept:"application/json",
-        "Access-Control-Allow-Origin":"*",
-      },
-      body:JSON.stringify({
-        token:window.localStorage.getItem("token"),
-      }),
-    })
-      .then((res)=>res.json())
-      .then((data)=>{
-        console.log(data,"userData");
-        this.setState({userData: data.data});
-        if(data.data=='token expired'){
-            alert("Token expired login again");
-            window.localStorage.clear();
-            window.location.href="./";
-        }
-      });
-    }
-    logout=()=>{
-        window.localStorage.clear();
-        window.location.href="./";
-    }
-    render(){
-        return(
-            <div>
-                <h1>Student</h1>
-                Name<h1>{this.state.userData.fullname}</h1>
-                Email<h1>{this.state.userData.email}</h1>
-                <br/>
-                <button onClick={this.logout} className="btn btn-primary">Log Out</button>
-            </div>
-        );
-    }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // empty dependency array means useEffect runs once after the initial render
+
+  const logout = () => {
+    window.localStorage.clear();
+    window.location.href = "./";
+  };
+
+  return (
+    <div>
+      <h1>Student</h1>
+      Name<h1>{userData.fname}</h1>
+      Email<h1>{userData.email}</h1>
+      <br />
+      <button onClick={logout} className="btn btn-primary">
+        Log Out
+      </button>
+    </div>
+  );
 }

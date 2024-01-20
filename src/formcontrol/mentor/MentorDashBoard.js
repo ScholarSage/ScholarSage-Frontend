@@ -1,49 +1,59 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-export default class MentorDashBoard extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            userData:"",
+export default function MentorDashBoard() {
+  const [userData, setUserData] = useState("");
+  const [tokenExpired, setTokenExpired] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/userData", {
+          token: window.localStorage.getItem("token"),
+        });
+
+        const data = response.data;
+        console.log(data, "userData");
+        setUserData(data.data);
+
+        if (data.data === "token expired") {
+          setTokenExpired(true);
         }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // empty dependency array means useEffect runs once after the initial render
+
+  const logout = () => {
+    window.localStorage.clear();
+    window.location.href = "./";
+  };
+
+  // Redirect if the token is expired
+  useEffect(() => {
+    if (tokenExpired) {
+      alert("Token expired, login again");
+      window.localStorage.clear();
+      window.location.href = "./";
     }
-    componentDidMount(){
-        fetch("http://localhost:5000/userData",{
-      method:"POST",
-      crossDomain:true,
-      headers:{
-        "Content-Type":"application/json",
-        Accept:"application/json",
-        "Access-Control-Allow-Origin":"*",
-      },
-      body:JSON.stringify({
-        token:window.localStorage.getItem("token"),
-      }),
-    })
-      .then((res)=>res.json())
-      .then((data)=>{
-        console.log(data,"userData");
-        this.setState({userData: data.data});
-        if(data.data=='token expired'){
-            alert("Token expired login again");
-            window.localStorage.clear();
-            window.location.href="./";
-        }
-      });
-    }
-    logout=()=>{
-        window.localStorage.clear();
-        window.location.href="./";
-    }
-    render(){
-        return(
-            <div>
-                <h1>Mentor</h1>
-                Name<h1>{this.state.userData.fullname}</h1>
-                Email<h1>{this.state.userData.email}</h1>
-                <br/>
-                <button onClick={this.logout} className="btn btn-primary">Log Out</button>
-            </div>
-        );
-    }
+  }, [tokenExpired]);
+
+  if (tokenExpired) {
+    return null; // Render nothing while redirecting
+  }
+
+  return (
+    <div>
+      <h1>Mentor</h1>
+      Name<h1>{userData.fname}</h1>
+      Email<h1>{userData.email}</h1>
+      <br />
+      <button onClick={logout} className="btn btn-primary">
+        Log Out
+      </button>
+    </div>
+  );
 }
