@@ -6,6 +6,7 @@ import MentorSignup from "./formcontrol/mentor/mentorRegister";
 import StudentSignup from "./formcontrol/student/studentRegister";
 import StudentDashBoard from "./formcontrol/student/StudentDashBoard";
 import MentorDashBoard from "./formcontrol/mentor/MentorDashBoard";
+import ForgotPassword from "./formcontrol/forgotPassword";
 
 //mui imports
 import Paper from "@mui/material/Paper";
@@ -14,7 +15,7 @@ import Paper from "@mui/material/Paper";
 
 //import { useState } from "react";
 
-import Signup from "./formcontrol/student/studentRegister";
+//import Signup from "./formcontrol/student/studentRegister";
 //import mtsignup from "./formcontrol/mentor/mentorRegister";
 
 function App() {
@@ -27,8 +28,10 @@ function App() {
             <Route path="/mtReg" element={<MentorSignup/>} />
             <Route path="/Reg" element={<Register />} />
             <Route exact path="/" element={<Login />} /> 
+            <Route path="/forgot-password" element={<ForgotPassword/>}/>
             <Route path="/Student-Dashboard" element={<StudentDashBoard />} />
             <Route path="/Mentor-Dashboard" element={<MentorDashBoard />} />
+            
           </Routes>
         </Paper>
       </div>
