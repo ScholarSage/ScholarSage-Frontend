@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-
 
 //mui imports
 import IconButton from "@mui/material/IconButton";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+//import FilledInput from "@mui/material/FilledInput";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -11,15 +11,38 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
 import Alert from "@mui/material/Alert";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
+import SnackbarContent from "@mui/material/SnackbarContent";
+
+//import Checkbox from "@mui/material/Checkbox";
+//import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from 'axios';
+//import Divider from "@mui/material/Divider";
+import { styled } from "@mui/material/styles";
+import axios from "axios";
+
+//icons
+//import AccountCircle from "@mui/icons-material/AccountCircle";
+
+// const Root = styled("div")(({ theme }) => ({
+//   width: "100%",
+//   ...theme.typography.body2,
+//   color: theme.palette.text.secondary,
+//   "& > :not(style) ~ :not(style)": {
+//     marginTop: theme.spacing(2),
+//   },
+// }));
+
+// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -29,7 +52,26 @@ const isRegNum = (regNum) => /^[A-Z]{2}\/\d{4}\/\d+$/i.test(regNum);
 
 //asd
 
-export default function StudentSignup() {
+export default function StudentRegister() {
+  //   const onFinish = async (value) => {
+  //     console.log("Received values of form:", values);
+
+  //       try{
+  //         const response=await axios.post("/api/user/register:,values");
+  //         if(response.data.success){
+  //           toast.success(response.data.message);
+
+  //         }else{
+  //           toast.error(response.data.message);
+
+  //         }
+
+  //     } catch (error) {
+  //       toast.error("Something went wrong");
+
+  //     }
+  //   };
+  // new
   //first time password
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -50,7 +92,7 @@ export default function StudentSignup() {
 
   //input validation
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setSuccess(null);
 
@@ -85,41 +127,14 @@ export default function StudentSignup() {
     setFormValid(null);
     setSuccess("Registered Successfuly");
 
-   // console.log("First Name : " + firstNameInput);
-   // console.log("Last Name : " + lastNameInput);
-   // console.log("Email : " + emailInput);
-    //console.log("Registration Number : " + regNumInput);
-    //console.log("Password : " + passwordInput);
-    //console.log("confirmPassword : " + confirmPasswordInput);
-
-    
-    try {
-      const response = await axios.post('http://localhost:5000/StudentRegister', {
-        fname: firstNameInput,
-        lname: lastNameInput,
-        email: emailInput,
-        scnumber: regNumInput,
-        password: passwordInput,
-        confirmpassword: confirmPasswordInput,
-        usertype: "Student",
-      });
-  
-      if(response.data.error === "Email Already Used"){
-        alert("Email Already Used");
-      }else if(response.data.error==="Student Number Already Used"){
-        alert("Student Number Already Used");
-      }else{
-        if (response.data.status === "ok") {
-          alert("Registered successfully");
-          window.location.href = "./";
-        }
-      }
-    } catch (error) {
-      console.error(error.response.data);
-      alert("Invalid logging!");
-    }
+    console.log("First Name : " + firstNameInput);
+    console.log("Last Name : " + lastNameInput);
+    console.log("Email : " + emailInput);
+    console.log("Registration Number : " + regNumInput);
+    console.log("Password : " + passwordInput);
+    console.log("confirmPassword : " + confirmPasswordInput);
   };
-  
+
   //input errors
 
   const [firstNameError, setFirstNameError] = React.useState(false);
@@ -128,9 +143,9 @@ export default function StudentSignup() {
   const [regNumError, setRegNumError] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
   //const [confirmPasswordError, setConfirmPasswordError] = React.useState(false);
-  
+
   //validation for onBlur Email
-  
+
   const handleEmail = () => {
     if (!isEmail(emailInput)) {
       setEmailError(true);
@@ -191,9 +206,8 @@ export default function StudentSignup() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh",overflow: "hidden" }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
-
         <Grid
           item
           xs={false}
@@ -205,76 +219,8 @@ export default function StudentSignup() {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            backgroundColor:
-              "linear-gradient(to bottom, transparent 0%, rgba(152,56,121) 100%)",
           }}
-        >
-          {/* Transparent Color Above the Grid */}
-          <div
-            xs={false}
-            sm={4}
-            md={7}
-            style={{
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              background:
-                "linear-gradient(to bottom, transparent 0%, rgba(152,56,121) 100%)",
-              pointerEvents: "none", // Prevent the overlay from capturing mouse events
-            }}
-          />
-          {/* Content */}
-          <div
-            xs={false}
-            sm={4}
-            md={7}
-            style={{
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              background:
-                "linear-gradient(to bottom, transparent 0%, rgba(152,56,121) 100%)",
-              pointerEvents: "none", // Prevent the overlay from capturing mouse events
-            }}
-          />
-          {/* Content */}
-          <div
-            align="left"
-            style={{
-              position: "absolute",
-              top: "100px",
-              left: "50px",
-              right: "700px",
-              color: "white",
-            }}
-          >
-            <div>
-              <img
-                src={require("../../content/logo.png")}
-                alt="My Logo"
-                style={{ 
-                  width: "300px", 
-                  height: "55px",
-                  filter: "brightness(0) invert(1)", 
-                }}
-              />
-              {/* Additional content or components can be added here */}
-            </div>
-    
-            <Typography variant="h6"
-             align="justify"  style={{
-              position: "absolute",
-              top: "300px",
-              right: '100px', 
-              left: "100px", 
-            }}>
-              ❝ Unlock a world of support! Fill in your details to access personalized mentorship, stress relief, and academic guidance. Connect with mentors, shape study plans, and enhance your skills effortlessly. Your academic success starts with ScholarSage—register now!  ❞
-            </Typography>
-          </div>
-        </Grid>
-
+        />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -284,17 +230,12 @@ export default function StudentSignup() {
               flexDirection: "column",
             }}
           >
-            {/* Back button */}
-            <Link to="/Reg" style={{ textDecoration: "none", alignSelf: "flex-start" }}>
-              <Typography
-                component="span"
-                variant="body2"
-                color="#580990"
-                style={{ cursor: "pointer" }}
-              >
-                &lt; Back
+            <p align="left">
+              <Typography component="h5" variant="h6" color="#580990">
+                <ArrowBackIosIcon alignItem="left" />
+                Back{" "}
               </Typography>
-            </Link>
+            </p>
 
             <p>
               <h3 color="red">Register as a Student!</h3>

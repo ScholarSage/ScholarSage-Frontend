@@ -21,7 +21,6 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
-import axios from "axios";
 
 const Root = styled("div")(({ theme }) => ({
   width: "100%",
@@ -48,7 +47,7 @@ export default function Signup() {
   //inputs
   const [emailInput, setEmailInput] = React.useState();
   const [passwordInput, setPasswordInput] = React.useState();
-  //const [rememberMe, setRememberMe] = React.useState();
+  const [rememberMe, setRememberMe] = React.useState();
 
   //input errors
 
@@ -57,13 +56,13 @@ export default function Signup() {
 
   //form validity
   const [formValid, setFormValid] = React.useState();
-  //const [success, setSuccess] = React.useState();
+  const [success, setSuccess] = React.useState();
 
   //input validation
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //setSuccess(null);
+    setSuccess(null);
 
     if (emailError || !emailInput) {
       setFormValid("Please enter a valid Email");
@@ -74,48 +73,13 @@ export default function Signup() {
       return;
     }
     setFormValid(null);
-    //setSuccess("Form Submited Successfuly");
+    setSuccess("Form Submited Successfuly");
 
     //How the output be
     console.log("Email : " + emailInput);
     console.log("Password : " + passwordInput);
-    //console.log("Remember user : " + rememberMe);
-
-    try {
-      axios.post('http://localhost:5000/login-user', {
-        email: emailInput,
-        password: passwordInput,
-      })
-    .then((response) => {
-        console.log(response.data, "userRegister");
-        if (response.data.status === "ok") {
-            alert("Login successful");
-            window.localStorage.setItem("token", response.data.data);
-            window.localStorage.setItem("loggedIn", true);
-        if (response.data.UT === "Student") {
-            window.localStorage.setItem("User", "Student");
-            window.location.href = "./Student-Dashboard";
-        } else {
-            window.localStorage.setItem("User", "Mentor");
-            window.location.href = "./Mentor-Dashboard";
-        }
-        } else {
-            alert("Invalid Email or Password");
-        }
-    })  
-
-
-
-      // if (response.data.status === "ok") {
-        // alert("Registered successfully");
-        // window.location.href = "./";
-      // }
-    } catch (error) {
-      console.error(error.response.data);
-      alert("Invalid logging!");
-    }
-    };
-
+    console.log("Remember user : " + rememberMe);
+  };
 
   //validation for onBlur Email
   const handleEmail = () => {
@@ -304,16 +268,16 @@ export default function Signup() {
                     <p style={{ color: "#42026F" }}>
                       <Checkbox
                         style={{ color: "#42026F" }}
-                        // onChange={(event) =>
-                        //   setRememberMe(event.target.checked)
-                        // }
+                        onChange={(event) =>
+                          setRememberMe(event.target.checked)
+                        }
                         inputProps={{ "aria-label": "controlled" }}
                       />
                       Remember Me
                     </p>
                   </Grid>
 
-                  <Grid item><Link to="/forgot-password" color="primary" style={{ color: '#9837DC' }}>Forgot Password?</Link></Grid>
+                  <Grid item>Forgot password?</Grid>
                 </Grid>
               </div>
               <p>{formValid && <Alert severity="error">{formValid}</Alert>}</p>
