@@ -4,7 +4,7 @@ import Login from "./formcontrol/login";
 import Register from "./formcontrol/Register";
 import MentorSignup from "./formcontrol/mentor/mentorRegister";
 import StudentSignup from "./formcontrol/student/studentRegister";
-import StudentDashBoard from "./formcontrol/student/StudentDashBoard";
+import StudentDashBoard from "./formcontrol/student/StudentDashBoard1";
 import MentorDashBoard from "./formcontrol/mentor/MentorDashBoard";
 import ForgotPassword from "./formcontrol/forgotPassword";
 
@@ -28,8 +28,8 @@ function App() {
         <Paper elevation={3}>
           <Routes>
             <Route exact path="/" element={<Login />} />
-            <Route path="/stReg" element={<StudentRegister />} />
-            <Route path="/mtReg" element={<MentorRegister />} />
+            <Route path="/stReg" element={<StudentSignup />} />
+            <Route path="/mtReg" element={<MentorSignup />} />
             <Route path="/Reg" element={<Register />} />
             <Route exact path="/" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
