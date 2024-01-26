@@ -2,12 +2,11 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./formcontrol/login";
 import Register from "./formcontrol/Register";
-import MentorRegister from "./formcontrol/mentor/mentorRegister";
-import StudentRegister from "./formcontrol/student/studentRegister";
+import MentorSignup from "./formcontrol/mentor/mentorRegister";
+import StudentSignup from "./formcontrol/student/studentRegister";
 import StudentDashBoard from "./formcontrol/student/StudentDashBoard";
 import MentorDashBoard from "./formcontrol/mentor/MentorDashBoard";
 import ForgotPassword from "./formcontrol/forgotPassword";
-import ApplyMentor from "./pages/applyMentor";
 
 //mui imports
 import Paper from "@mui/material/Paper";
@@ -32,11 +31,10 @@ function App() {
             <Route path="/stReg" element={<StudentRegister />} />
             <Route path="/mtReg" element={<MentorRegister />} />
             <Route path="/Reg" element={<Register />} />
-
+            <Route exact path="/" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/Student-Dashboard" element={<StudentDashBoard />} />
             <Route path="/Mentor-Dashboard" element={<MentorDashBoard />} />
-            <Route path="/applyMentor" element={<ApplyMentor />} />
           </Routes>
         </Paper>
       </div>
