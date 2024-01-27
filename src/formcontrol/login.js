@@ -21,6 +21,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
+import axios from "axios";
 
 const Root = styled("div")(({ theme }) => ({
   width: "100%",
@@ -78,7 +79,40 @@ export default function Signup() {
     //How the output be
     console.log("Email : " + emailInput);
     console.log("Password : " + passwordInput);
-    console.log("Remember user : " + rememberMe);
+    //console.log("Remember user : " + rememberMe);
+
+    try {
+      axios
+        .post("http://localhost:8081/login-user", {
+          email: emailInput,
+          password: passwordInput,
+        })
+        .then((response) => {
+          console.log(response.data, "userRegister");
+          if (response.data.status === "ok") {
+            alert("Login successful");
+            window.localStorage.setItem("token", response.data.data);
+            window.localStorage.setItem("loggedIn", true);
+            if (response.data.UT === "Student") {
+              window.localStorage.setItem("User", "Student");
+              window.location.href = "./Student-Dashboard";
+            } else {
+              window.localStorage.setItem("User", "Mentor");
+              window.location.href = "./Mentor-Dashboard";
+            }
+          } else {
+            alert("Invalid Email or Password");
+          }
+        });
+
+      // if (response.data.status === "ok") {
+      // alert("Registered successfully");
+      // window.location.href = "./";
+      // }
+    } catch (error) {
+      console.error(error.response.data);
+      alert("Invalid logging!");
+    }
   };
 
   //validation for onBlur Email
@@ -92,13 +126,12 @@ export default function Signup() {
 
   //validation for onBlur password
   const handlePassword = () => {
-    const passwordRegex =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
-
+    const passwordRegx =
+      /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&()_+])[0-9a-zA-Z!@#$%^&()_+]{8,}$/;
     if (
       !passwordInput ||
       passwordInput.length < 8 ||
-      !passwordRegex.test(passwordInput) //conditions
+      !passwordRegx.test(passwordInput) //conditions
     ) {
       setPasswordError(true);
     } else {
@@ -277,7 +310,15 @@ export default function Signup() {
                     </p>
                   </Grid>
 
-                  <Grid item>Forgot password?</Grid>
+                  <Grid item>
+                    <Link
+                      to="/forgot-password"
+                      color="primary"
+                      style={{ color: "#9837DC" }}
+                    >
+                      Forgot Password?
+                    </Link>
+                  </Grid>
                 </Grid>
               </div>
               <p>{formValid && <Alert severity="error">{formValid}</Alert>}</p>
