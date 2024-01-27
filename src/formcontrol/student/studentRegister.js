@@ -94,7 +94,7 @@ export default function StudentSignup() {
 
     
     try {
-      const response = await axios.post('http://localhost:5000/StudentRegister', {
+      const response = await axios.post('http://localhost:8081/StudentRegister', {
         fname: firstNameInput,
         lname: lastNameInput,
         email: emailInput,

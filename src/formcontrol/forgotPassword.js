@@ -14,7 +14,7 @@ export default class ForgotPassword extends Component {
     e.preventDefault();
     const { email } = this.state;
     console.log(email);
-    axios.post('http://localhost:5000/forgot-password', {
+    axios.post("http://localhost:8081/forgot-password", {
       email: email,
     })
       .then(response => {

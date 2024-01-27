@@ -23,7 +23,7 @@ export default function StudentDashBoard1() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.post("http://localhost:5000/userData", {
+          const response = await axios.post("http://localhost:8081/userData", {
             token: window.localStorage.getItem("token"),
           });
   
@@ -82,7 +82,7 @@ export default function StudentDashBoard1() {
                                             objectFit: 'cover', // Make sure the image covers the entire space
                                             }}
                                         />
-                                        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', width: '100%' }}>
+                                        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'left', width: '100%' }}>
                                             <Typography
                                             gutterBottom
                                             variant="h5"
