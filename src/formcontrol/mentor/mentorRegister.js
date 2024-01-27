@@ -28,7 +28,7 @@ const isRegNum = (regNum) => /^[A-Z]{2}\/\d{4}\/\d+$/i.test(regNum);
 
 //asd
 
-export default function MentorRegister() {
+export default function MentorSignup() {
   //first time password
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -83,7 +83,7 @@ export default function MentorRegister() {
 
     //setFormValid(null);
     //setSuccess("Registered Successfuly");
-    /*
+/*
     console.log("First Name : " + firstNameInput);
     console.log("Last Name : " + lastNameInput);
     console.log("Email : " + emailInput);
@@ -92,35 +92,32 @@ export default function MentorRegister() {
     console.log("confirmPassword : " + confirmPasswordInput);
   };
 */
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/MentorRegister",
-        {
-          fname: firstNameInput,
-          lname: lastNameInput,
-          email: emailInput,
-          mentorid: regNumInput,
-          password: passwordInput,
-          confirmpassword: confirmPasswordInput,
-          usertype: "Mentor",
-        }
-      );
+try {
+  const response = await axios.post("http://localhost:8081/MentorRegister", {
+    fname: firstNameInput,
+    lname: lastNameInput,
+    email: emailInput,
+    mentorid: regNumInput,
+    password: passwordInput,
+    confirmpassword: confirmPasswordInput,
+    usertype: "Mentor",
+  });
 
-      if (response.data.error === "Email Already Exists") {
-        alert("Email Already Used");
-      } else if (response.data.error === "Mentor ID Already Used") {
-        alert("Mentor ID Already Used");
-      } else {
-        if (response.data.status === "ok") {
-          alert("Registered successfully");
-          window.location.href = "./";
-        }
-      }
-    } catch (error) {
-      console.error(error.response.data);
-      alert("Invalid logging!");
+  if(response.data.error === "Email Already Exists"){
+    alert("Email Already Used");
+  }else if(response.data.error==="Mentor ID Already Used"){
+    alert("Mentor ID Already Used");
+  }else{
+    if (response.data.status === "ok") {
+      alert("Registered successfully");
+      window.location.href = "./";
     }
-  };
+  }
+} catch (error) {
+  console.error(error.response.data);
+  alert("Invalid logging!");
+}
+};
   //input errors
 
   const [firstNameError, setFirstNameError] = React.useState(false);
@@ -173,7 +170,7 @@ export default function MentorRegister() {
   //validation for onBlur password
   const handlePassword = () => {
     const passwordRegex =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
 
     if (
       !passwordInput ||
@@ -192,11 +189,7 @@ export default function MentorRegister() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid
-        container
-        component="main"
-        sx={{ height: "100vh", overflow: "hidden" }}
-      >
+      <Grid container component="main" sx={{ height: "100vh",overflow: "hidden" }}>
         <CssBaseline />
 
         <Grid
@@ -259,29 +252,23 @@ export default function MentorRegister() {
               <img
                 src={require("../../content/logo.png")}
                 alt="My Logo"
-                style={{
-                  width: "300px",
+                style={{ 
+                  width: "300px", 
                   height: "55px",
-                  filter: "brightness(0) invert(1)",
+                  filter: "brightness(0) invert(1)", 
                 }}
               />
               {/* Additional content or components can be added here */}
             </div>
-
-            <Typography
-              variant="h6"
-              align="justify"
-              style={{
-                position: "absolute",
-                top: "300px",
-                right: "100px",
-                left: "100px",
-              }}
-            >
-              ❝ Ready to guide and inspire? Register as a Mentor and share your
-              expertise. Shape the academic journey of students, offer support,
-              and foster success. Join ScholarSage in making a positive impact.
-              Register today!❞
+    
+            <Typography variant="h6"
+             align="justify"  style={{
+              position: "absolute",
+              top: "300px",
+              right: '100px', 
+              left: "100px", 
+            }}>
+              ❝ Ready to guide and inspire? Register as a Mentor and share your expertise. Shape the academic journey of students, offer support, and foster success. Join ScholarSage in making a positive impact. Register today!❞
             </Typography>
           </div>
         </Grid>
@@ -296,10 +283,7 @@ export default function MentorRegister() {
             }}
           >
             {/* Back button */}
-            <Link
-              to="/Reg"
-              style={{ textDecoration: "none", alignSelf: "flex-start" }}
-            >
+            <Link to="/Reg" style={{ textDecoration: "none", alignSelf: "flex-start" }}>
               <Typography
                 component="span"
                 variant="body2"

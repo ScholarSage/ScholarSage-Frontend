@@ -92,9 +92,7 @@ export default function StudentSignup() {
     //console.log("confirmPassword : " + confirmPasswordInput);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8081/StudentRegister",
-        {
+      const response = await axios.post("http://localhost:8081/StudentRegister",{
           fname: firstNameInput,
           lname: lastNameInput,
           email: emailInput,
@@ -173,7 +171,7 @@ export default function StudentSignup() {
   //validation for onBlur password
   const handlePassword = () => {
     const passwordRegex =
-      /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&()_+])[0-9a-zA-Z!@#$%^&()_+]{8,}$/;
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
 
     if (
       !passwordInput ||
