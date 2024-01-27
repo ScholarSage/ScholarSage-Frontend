@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
-
 //mui imports
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -19,7 +18,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from 'axios';
+import axios from "axios";
 
 const defaultTheme = createTheme();
 
@@ -85,30 +84,32 @@ export default function StudentSignup() {
     setFormValid(null);
     setSuccess("Registered Successfuly");
 
-   // console.log("First Name : " + firstNameInput);
-   // console.log("Last Name : " + lastNameInput);
-   // console.log("Email : " + emailInput);
+    // console.log("First Name : " + firstNameInput);
+    // console.log("Last Name : " + lastNameInput);
+    // console.log("Email : " + emailInput);
     //console.log("Registration Number : " + regNumInput);
     //console.log("Password : " + passwordInput);
     //console.log("confirmPassword : " + confirmPasswordInput);
 
-    
     try {
-      const response = await axios.post('http://localhost:5000/StudentRegister', {
-        fname: firstNameInput,
-        lname: lastNameInput,
-        email: emailInput,
-        scnumber: regNumInput,
-        password: passwordInput,
-        confirmpassword: confirmPasswordInput,
-        usertype: "Student",
-      });
-  
-      if(response.data.error === "Email Already Used"){
+      const response = await axios.post(
+        "http://localhost:8081/StudentRegister",
+        {
+          fname: firstNameInput,
+          lname: lastNameInput,
+          email: emailInput,
+          scnumber: regNumInput,
+          password: passwordInput,
+          confirmpassword: confirmPasswordInput,
+          usertype: "Student",
+        }
+      );
+
+      if (response.data.error === "Email Already Used") {
         alert("Email Already Used");
-      }else if(response.data.error==="Student Number Already Used"){
+      } else if (response.data.error === "Student Number Already Used") {
         alert("Student Number Already Used");
-      }else{
+      } else {
         if (response.data.status === "ok") {
           alert("Registered successfully");
           window.location.href = "./";
@@ -119,7 +120,7 @@ export default function StudentSignup() {
       alert("Invalid logging!");
     }
   };
-  
+
   //input errors
 
   const [firstNameError, setFirstNameError] = React.useState(false);
@@ -128,9 +129,9 @@ export default function StudentSignup() {
   const [regNumError, setRegNumError] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
   //const [confirmPasswordError, setConfirmPasswordError] = React.useState(false);
-  
+
   //validation for onBlur Email
-  
+
   const handleEmail = () => {
     if (!isEmail(emailInput)) {
       setEmailError(true);
@@ -172,7 +173,7 @@ export default function StudentSignup() {
   //validation for onBlur password
   const handlePassword = () => {
     const passwordRegex =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
+      /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&()_+])[0-9a-zA-Z!@#$%^&()_+]{8,}$/;
 
     if (
       !passwordInput ||
@@ -191,7 +192,11 @@ export default function StudentSignup() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh",overflow: "hidden" }}>
+      <Grid
+        container
+        component="main"
+        sx={{ height: "100vh", overflow: "hidden" }}
+      >
         <CssBaseline />
 
         <Grid
@@ -254,23 +259,30 @@ export default function StudentSignup() {
               <img
                 src={require("../../content/logo.png")}
                 alt="My Logo"
-                style={{ 
-                  width: "300px", 
+                style={{
+                  width: "300px",
                   height: "55px",
-                  filter: "brightness(0) invert(1)", 
+                  filter: "brightness(0) invert(1)",
                 }}
               />
               {/* Additional content or components can be added here */}
             </div>
-    
-            <Typography variant="h6"
-             align="justify"  style={{
-              position: "absolute",
-              top: "300px",
-              right: '100px', 
-              left: "100px", 
-            }}>
-              ❝ Unlock a world of support! Fill in your details to access personalized mentorship, stress relief, and academic guidance. Connect with mentors, shape study plans, and enhance your skills effortlessly. Your academic success starts with ScholarSage—register now!  ❞
+
+            <Typography
+              variant="h6"
+              align="justify"
+              style={{
+                position: "absolute",
+                top: "300px",
+                right: "100px",
+                left: "100px",
+              }}
+            >
+              ❝ Unlock a world of support! Fill in your details to access
+              personalized mentorship, stress relief, and academic guidance.
+              Connect with mentors, shape study plans, and enhance your skills
+              effortlessly. Your academic success starts with
+              ScholarSage—register now! ❞
             </Typography>
           </div>
         </Grid>
@@ -285,7 +297,10 @@ export default function StudentSignup() {
             }}
           >
             {/* Back button */}
-            <Link to="/Reg" style={{ textDecoration: "none", alignSelf: "flex-start" }}>
+            <Link
+              to="/Reg"
+              style={{ textDecoration: "none", alignSelf: "flex-start" }}
+            >
               <Typography
                 component="span"
                 variant="body2"
