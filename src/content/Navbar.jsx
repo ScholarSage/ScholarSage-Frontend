@@ -151,7 +151,7 @@ export default function Navbar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={()=>{navigate("/Student-Resources")}}>
+      <MenuItem onClick={()=>{navigate("/Student-Profile-View")}}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -186,10 +186,6 @@ export default function Navbar() {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
           </Search>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -214,7 +210,7 @@ export default function Navbar() {
               // aria-controls={menuId}
               aria-haspopup="true"
               // onClick={handleProfileMenuOpen}
-              onClick={()=>{navigate("/Student-Resources")}}
+              onClick={()=>{navigate("/Student-Profile-View")}}
               color="inherit"
             >
               <AccountCircle />

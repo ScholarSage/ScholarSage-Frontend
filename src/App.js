@@ -13,6 +13,7 @@ import PersonalityTypes from "./formcontrol/student/PersonalityTypes";
 import StressFree from "./formcontrol/student/StressFree";
 import Resources from "./formcontrol/student/Resources";
 import GPA from "./formcontrol/student/GPA";
+import StudentProfileView from "./formcontrol/student/StudentProfileView";
 
 //mui imports
 import Paper from "@mui/material/Paper";
@@ -47,6 +48,9 @@ function App() {
             <Route path="/Student-Personality-Types" element={<PersonalityTypes />} />
             <Route path="/Student-Stress-Free" element={<StressFree />} />
             <Route path="/Student-Resources" element={<Resources />} />
+            <Route path="/Student-Profile-View" element={<StudentProfileView />} />
+            
+            
           </Routes>
         </Paper>
       </div>
