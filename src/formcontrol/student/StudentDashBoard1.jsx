@@ -108,6 +108,7 @@ export default function StudentDashBoard1() {
                                                 '&:hover': { bgcolor: '#3de385' },
                                                 borderRadius: '15px',
                                             }}
+                                            onClick={()=>{navigate("/Student-Profile-View")}}
                                             >
                                             View Profile
                                             </Button>
