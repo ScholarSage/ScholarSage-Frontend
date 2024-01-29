@@ -13,12 +13,15 @@ import Navbar from "../../content/Navbar";
 import Sidenav from "../../content/Sidenav";
 import axios from 'axios';
 import backgroundImage from '../../content/dash.PNG';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
+
 
 export default function StudentDashBoard1() {
 
     const [userData, setUserData] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
       const fetchData = async () => {
@@ -115,7 +118,7 @@ export default function StudentDashBoard1() {
                             <Box height={20}/>
                             <Grid container spacing={2}>
                             <Grid item xs={12} sm={4} >
-                            <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }}>
+                            <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }} onClick={()=>{navigate("/Student-GPA-Calculator")}} style={{ cursor: 'pointer' }}>
                             <CardMedia
                                 component="img"
                                 image="https://img.freepik.com/premium-photo/office-table-with-calculator-pen_127657-5701.jpg?w=1060"
@@ -129,7 +132,7 @@ export default function StudentDashBoard1() {
                             </Card>
                             </Grid>
                             <Grid item xs={12} sm={4} >
-                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }}>
+                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }} onClick={()=>{navigate("/Student-Mentor")}} style={{ cursor: 'pointer' }}>
                             <CardMedia
                                 component="img"
                                 image="https://images.pexels.com/photos/6325975/pexels-photo-6325975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -143,7 +146,7 @@ export default function StudentDashBoard1() {
                                 </Card>
                             </Grid>
                             <Grid item xs={12} sm={4} >
-                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }}>
+                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }} onClick={()=>{navigate("/Student-Personality-Test")}} style={{ cursor: 'pointer' }}>
                             <CardMedia
                                 component="img"
                                 image="https://www.personalityperfect.com/wp-content/uploads/2015/10/brain250.jpg"
@@ -160,7 +163,7 @@ export default function StudentDashBoard1() {
                             <Box height={20}/>
                             <Grid container spacing={2}>
                             <Grid item xs={12} sm={4} >
-                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }}>
+                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }} onClick={()=>{navigate("/Student-Personality-Types")}} style={{ cursor: 'pointer' }}>
                             <CardMedia
                                 component="img"
                                 image="https://www.cloverpop.com/hubfs/iStock-1218796215.jpg"
@@ -174,7 +177,7 @@ export default function StudentDashBoard1() {
                                 </Card>
                             </Grid>
                             <Grid item xs={12} sm={4} >
-                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }}>
+                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }} onClick={()=>{navigate("/Student-Stress-Free")}} style={{ cursor: 'pointer' }}>
                             <CardMedia
                                 component="img"
                                 image="https://cdn.tinybuddha.com/wp-content/uploads/2015/10/Calm-Man.jpg"
@@ -188,7 +191,7 @@ export default function StudentDashBoard1() {
                                 </Card>
                             </Grid>
                             <Grid item xs={12} sm={4} >
-                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }}>
+                                <Card sx={{ height: 155, boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', position: 'relative',transition: 'transform 0.2s',':hover': {transform: 'scale(1.04)'} }} onClick={()=>{navigate("/Student-Resources")}} style={{ cursor: 'pointer' }}>
                             <CardMedia
                                 component="img"
                                 image="https://img.freepik.com/free-photo/medium-shot-man-working-laptop_23-2150323514.jpg?w=1060&t=st=1706173108~exp=1706173708~hmac=4b97f4d26b59ad2d83ec06a7cb94b12d599e27d62a76525b1386d4975f67fab2"

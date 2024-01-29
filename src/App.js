@@ -7,6 +7,12 @@ import StudentSignup from "./formcontrol/student/studentRegister";
 import StudentDashBoard from "./formcontrol/student/StudentDashBoard1";
 import MentorDashBoard from "./formcontrol/mentor/MentorDashBoard";
 import ForgotPassword from "./formcontrol/forgotPassword";
+import PersonalityTest from "./formcontrol/student/PersonailtyTest";
+import Mentor from "./formcontrol/student/Mentor";
+import PersonalityTypes from "./formcontrol/student/PersonalityTypes";
+import StressFree from "./formcontrol/student/StressFree";
+import Resources from "./formcontrol/student/Resources";
+import GPA from "./formcontrol/student/GPA";
 
 //mui imports
 import Paper from "@mui/material/Paper";
@@ -35,6 +41,12 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/Student-Dashboard" element={<StudentDashBoard />} />
             <Route path="/Mentor-Dashboard" element={<MentorDashBoard />} />
+            <Route path="/Student-Personality-Test" element={<PersonalityTest />} />
+            <Route path="/Student-GPA-Calculator" element={<GPA />} />
+            <Route path="/Student-Mentor" element={<Mentor />} />
+            <Route path="/Student-Personality-Types" element={<PersonalityTypes />} />
+            <Route path="/Student-Stress-Free" element={<StressFree />} />
+            <Route path="/Student-Resources" element={<Resources />} />
           </Routes>
         </Paper>
       </div>
