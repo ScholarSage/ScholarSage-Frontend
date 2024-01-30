@@ -1,0 +1,313 @@
+import React,{useState,useRef} from "react";
+import { Box, TextField, Grid, Button, Typography,Avatar } from "@mui/material";
+
+export default function ShowDetails() {
+  const [file, setFile] = useState(null);
+        const [imagePreview, setImagePreview] = useState(null);
+        const inputRef = useRef();
+
+        const handleFileChange = (e) => {
+            const selectedFile = e.target.files[0];
+
+            if (selectedFile) {
+                setFile(selectedFile);
+
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setImagePreview(reader.result);
+                };
+                reader.readAsDataURL(selectedFile);
+            }
+        };
+
+
+        const handleButtonClick = () => {
+            // Trigger the input field when the button is clicked to change the photo
+            inputRef.current.click();
+        };
+
+        const handleSaveClick = () => {
+            // Display the uploaded image
+            if (file) {
+                console.log('File uploaded:', file);
+                setImagePreview(URL.createObjectURL(file));
+
+                // Reset file state after saving
+                setFile(null);
+            } else {
+                console.log('No new photo selected.');
+            }
+        };
+
+    
+  return (
+    <div>
+      <form>
+        
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 2 },
+          }}
+          noValidate
+          autoComplete="off"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="230vh"
+          flexDirection="column"
+        >
+          <Grid container spacing={2} sx={{ width: "70%", mt: '1rem'}}>
+            
+            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <h1>
+                    Update Profile
+                </h1>
+            </Grid>
+
+            
+            <Grid item xs={12} sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '1em 1em 0em 1em !important'}}>
+                                <div>
+                                    <Avatar alt="Profile Picture" src={imagePreview} sx={{ width: 200, height: 200 }} />
+                                        <input
+                                            accept="image/*"
+                                            ref={inputRef}
+                                            style={{ display: 'none' }}
+                                            type="file"
+                                            onChange={handleFileChange}
+                                            
+                                        />
+                                        <Button
+                                            variant="contained"
+                                            size='large'
+                                            sx={{ marginTop: 2, backgroundColor: '#1976D2', color: '#fff',padding: '0.5em 1em 0.5em 1em !important'}}
+                                            onClick={() => {
+                                                handleButtonClick();
+                                                handleSaveClick();
+                                            }}
+                                        >
+                                            {file ? 'Update Profile' : 'Change Photo'}
+                                        </Button>
+                                        
+                                </div>
+            </Grid>
+            
+            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <h1>Student Details</h1>
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="FirstName"
+                label="First Name"
+                placeholder="First Name"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="LastName"
+                label="Last Name"
+                placeholder="Last Name"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="About"
+                label="About"
+                placeholder="About"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="Email"
+                label="E-mail"
+                placeholder="E-mail"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="Address"
+                label="Address"
+                placeholder="Address"
+                multiline
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="ContactNo"
+                label="Contact No:"
+                placeholder="07XXXXXXXX"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                select
+                id="City"
+                label="City"
+                helperText="Please select the City"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              ></TextField>
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                select
+                id="State"
+                label="State"
+                helperText="Please select the State"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              ></TextField>
+            </Grid>
+
+            
+          </Grid>
+
+          <Grid container spacing={2} sx={{ width: "70%", mt: '1rem'}}>
+          <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+            <h1>Academic Details</h1>
+          </Grid>
+          <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="DegreeProgram"
+                label="DegreeProgram"
+                placeholder="Degree Progree"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="AcademicLevel"
+                label="AcademicLevel"
+                placeholder="Academic Level"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="Year"
+                label="Year"
+                placeholder="Year"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="Department"
+                label="Department"
+                placeholder="Department"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                select
+                id="Faculty"
+                label="Faculty"
+                placeholder="Faculty"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2} sx={{ width: "70%", mt: '1rem'}}>
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="CurrentPassword"
+                label="Current Password"
+                placeholder="Current Password"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="NewPassword"
+                label="New password"
+                placeholder="New password"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="ConfirmPassword"
+                label="Confirm Password"
+                placeholder="Confirm Password"
+                variant="outlined"
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+          </Grid>
+          
+
+          <Grid container
+              spacing={2}
+              sx={{ mt: 3, justifyContent: "flex-end",width:"70%" }}>
+            <Grid item>
+                <Button variant="contained" size="large" type="submit">
+                  Cancel
+                </Button>
+            </Grid>
+            <Grid item>
+                <Button variant="contained" size="large" type="submit">
+                  Save Changes
+                </Button>
+              </Grid>
+            
+
+          </Grid>
+
+              
+            
+                                        
+          
+        </Box>
+      </form>
+    </div>
+  );
+}
