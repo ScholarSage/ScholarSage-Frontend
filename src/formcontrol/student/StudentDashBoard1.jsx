@@ -120,15 +120,24 @@ export default function StudentDashBoard1() {
                             color: "#ffffff",
                             mt: "60px",
                             ml: "10px", // Adjust ml for Button
-                            bgcolor: "#0f8544",
-                            "&:hover": { bgcolor: "#3de385" },
+                            bgcolor: "#A3CF23 ",
+                            "&:hover": { bgcolor: "#0f8544" },
                             borderRadius: "15px",
                           }}
                           onClick={() => {
                             navigate("/Student-Profile-View");
                           }}
                         >
-                          View Profile
+                          <Typography
+                            sx={{
+                              fontWeight: "bold",
+                              fontSize: "1rem",
+                              color: "#FFFFFF",
+                            }}
+                          >
+                            {" "}
+                            View Profile
+                          </Typography>
                         </Button>
                       </div>
                     </Card>
