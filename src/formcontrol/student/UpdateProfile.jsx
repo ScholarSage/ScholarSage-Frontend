@@ -1,49 +1,53 @@
-import React,{useState,useRef} from "react";
-import { Box, TextField, Grid, Button, Typography,Avatar } from "@mui/material";
+import React, { useState, useRef } from "react";
+import {
+  Box,
+  TextField,
+  Grid,
+  Button,
+  Typography,
+  Avatar,
+} from "@mui/material";
 
-export default function ShowDetails() {
+export default function UpdateProfile() {
   const [file, setFile] = useState(null);
-        const [imagePreview, setImagePreview] = useState(null);
-        const inputRef = useRef();
+  const [imagePreview, setImagePreview] = useState(null);
+  const inputRef = useRef();
 
-        const handleFileChange = (e) => {
-            const selectedFile = e.target.files[0];
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
 
-            if (selectedFile) {
-                setFile(selectedFile);
+    if (selectedFile) {
+      setFile(selectedFile);
 
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    setImagePreview(reader.result);
-                };
-                reader.readAsDataURL(selectedFile);
-            }
-        };
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
 
+  const handleButtonClick = () => {
+    // Trigger the input field when the button is clicked to change the photo
+    inputRef.current.click();
+  };
 
-        const handleButtonClick = () => {
-            // Trigger the input field when the button is clicked to change the photo
-            inputRef.current.click();
-        };
+  const handleSaveClick = () => {
+    // Display the uploaded image
+    if (file) {
+      console.log("File uploaded:", file);
+      setImagePreview(URL.createObjectURL(file));
 
-        const handleSaveClick = () => {
-            // Display the uploaded image
-            if (file) {
-                console.log('File uploaded:', file);
-                setImagePreview(URL.createObjectURL(file));
+      // Reset file state after saving
+      setFile(null);
+    } else {
+      console.log("No new photo selected.");
+    }
+  };
 
-                // Reset file state after saving
-                setFile(null);
-            } else {
-                console.log('No new photo selected.');
-            }
-        };
-
-    
   return (
     <div>
       <form>
-        
         <Box
           component="form"
           sx={{
@@ -57,41 +61,54 @@ export default function ShowDetails() {
           height="230vh"
           flexDirection="column"
         >
-          <Grid container spacing={2} sx={{ width: "70%", mt: '1rem'}}>
-            
+          <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
             <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-                <h1>
-                    Update Profile
-                </h1>
+              <h1>Update Profile</h1>
             </Grid>
 
-            
-            <Grid item xs={12} sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '1em 1em 0em 1em !important'}}>
-                                <div>
-                                    <Avatar alt="Profile Picture" src={imagePreview} sx={{ width: 200, height: 200 }} />
-                                        <input
-                                            accept="image/*"
-                                            ref={inputRef}
-                                            style={{ display: 'none' }}
-                                            type="file"
-                                            onChange={handleFileChange}
-                                            
-                                        />
-                                        <Button
-                                            variant="contained"
-                                            size='large'
-                                            sx={{ marginTop: 2, backgroundColor: '#1976D2', color: '#fff',padding: '0.5em 1em 0.5em 1em !important'}}
-                                            onClick={() => {
-                                                handleButtonClick();
-                                                handleSaveClick();
-                                            }}
-                                        >
-                                            {file ? 'Update Profile' : 'Change Photo'}
-                                        </Button>
-                                        
-                                </div>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "1em 1em 0em 1em !important",
+              }}
+            >
+              <div>
+                <Avatar
+                  alt="Profile Picture"
+                  src={imagePreview}
+                  sx={{ width: 200, height: 200 }}
+                />
+                <input
+                  accept="image/*"
+                  ref={inputRef}
+                  style={{ display: "none" }}
+                  type="file"
+                  onChange={handleFileChange}
+                />
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    marginTop: 2,
+                    backgroundColor: "#1976D2",
+                    color: "#fff",
+                    padding: "0.5em 1em 0.5em 1em !important",
+                  }}
+                  onClick={() => {
+                    handleButtonClick();
+                    handleSaveClick();
+                  }}
+                >
+                  {file ? "Update Profile" : "Change Photo"}
+                </Button>
+              </div>
             </Grid>
-            
+
             <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <h1>Student Details</h1>
             </Grid>
@@ -186,15 +203,13 @@ export default function ShowDetails() {
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
-
-            
           </Grid>
 
-          <Grid container spacing={2} sx={{ width: "70%", mt: '1rem'}}>
-          <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-            <h1>Academic Details</h1>
-          </Grid>
-          <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+          <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
+            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <h1>Academic Details</h1>
+            </Grid>
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
                 id="DegreeProgram"
@@ -249,7 +264,7 @@ export default function ShowDetails() {
             </Grid>
           </Grid>
 
-          <Grid container spacing={2} sx={{ width: "70%", mt: '1rem'}}>
+          <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
@@ -283,29 +298,23 @@ export default function ShowDetails() {
               />
             </Grid>
           </Grid>
-          
 
-          <Grid container
-              spacing={2}
-              sx={{ mt: 3, justifyContent: "flex-end",width:"70%" }}>
+          <Grid
+            container
+            spacing={2}
+            sx={{ mt: 3, justifyContent: "flex-end", width: "70%" }}
+          >
             <Grid item>
-                <Button variant="contained" size="large" type="submit">
-                  Cancel
-                </Button>
+              <Button variant="contained" size="large" type="submit">
+                Cancel
+              </Button>
             </Grid>
             <Grid item>
-                <Button variant="contained" size="large" type="submit">
-                  Save Changes
-                </Button>
-              </Grid>
-            
-
+              <Button variant="contained" size="large" type="submit">
+                Save Changes
+              </Button>
+            </Grid>
           </Grid>
-
-              
-            
-                                        
-          
         </Box>
       </form>
     </div>
