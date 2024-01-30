@@ -147,7 +147,6 @@ export default function Register() {
                 sx={{ mt: 1, mb: 3 }}
                 style={{ color: "gray" }}
               >
-                To begin this journey, tell us what type of account you’d be
                 creating.
                 <br />
                 <br />

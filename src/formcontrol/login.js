@@ -82,13 +82,14 @@ export default function Signup() {
     //console.log("Remember user : " + rememberMe);
 
     try {
-      axios.post("http://localhost:8081/login-user", {
-        email: emailInput,
-        password: passwordInput,
-      })
-    .then((response) => {
-        console.log(response.data, "userRegister");
-        if (response.data.status === "ok") {
+      axios
+        .post("http://localhost:8081/login-user", {
+          email: emailInput,
+          password: passwordInput,
+        })
+        .then((response) => {
+          console.log(response.data, "userRegister");
+          if (response.data.status === "ok") {
             alert("Login successful");
             window.localStorage.setItem("token", response.data.data);
             window.localStorage.setItem("loggedIn", true);
@@ -126,7 +127,7 @@ export default function Signup() {
   //validation for onBlur password
   const handlePassword = () => {
     const passwordRegx =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
     if (
       !passwordInput ||
       passwordInput.length < 8 ||
@@ -180,6 +181,9 @@ export default function Signup() {
           />
           {/* Content */}
           <div
+            xs={false}
+            sm={4}
+            md={7}
             align="left"
             style={{
               position: "absolute",
@@ -199,10 +203,10 @@ export default function Signup() {
                   filter: "brightness(0) invert(1)",
                 }}
               />
-              {/* Additional content or components can be added here */}
             </div>
 
             <Typography
+              xs={false}
               variant="h6"
               align="justify"
               style={{

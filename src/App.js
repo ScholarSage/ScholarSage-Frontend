@@ -14,7 +14,7 @@ import StressFree from "./formcontrol/student/StressFree";
 import Resources from "./formcontrol/student/Resources";
 import GPA from "./formcontrol/student/GPA";
 import StudentProfileView from "./formcontrol/student/StudentProfileView";
-import ShowDetails from "./formcontrol/student/UpdateProfile";
+import UpdateProfile from "./formcontrol/student/UpdateProfile";
 
 //mui imports
 import Paper from "@mui/material/Paper";
@@ -43,14 +43,23 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/Student-Dashboard" element={<StudentDashBoard />} />
             <Route path="/Mentor-Dashboard" element={<MentorDashBoard />} />
-            <Route path="/Student-Personality-Test" element={<PersonalityTest />} />
+            <Route
+              path="/Student-Personality-Test"
+              element={<PersonalityTest />}
+            />
             <Route path="/Student-GPA-Calculator" element={<GPA />} />
             <Route path="/Student-Mentor" element={<Mentor />} />
-            <Route path="/Student-Personality-Types" element={<PersonalityTypes />} />
+            <Route
+              path="/Student-Personality-Types"
+              element={<PersonalityTypes />}
+            />
             <Route path="/Student-Stress-Free" element={<StressFree />} />
             <Route path="/Student-Resources" element={<Resources />} />
-            <Route path="/Student-Profile-View" element={<StudentProfileView />} />
-            <Route path="/update" element={<ShowDetails/>}/>
+            <Route
+              path="/Student-Profile-View"
+              element={<StudentProfileView />}
+            />
+            <Route path="/Student-update-profile" element={<UpdateProfile />} />
           </Routes>
         </Paper>
       </div>
