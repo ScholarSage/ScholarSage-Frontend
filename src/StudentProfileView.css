@@ -1,0 +1,17 @@
+.profile-container {
+    max-width: 500px;
+    margin: auto;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.update-btn {
+    border-radius: var(--8, 8px);
+    border: 1px solid #384D6C;
+    background: #580990;
+}
+
+.info p {
+   /* Add your styles for paragraphs */
+}
