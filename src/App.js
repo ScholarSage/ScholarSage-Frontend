@@ -14,6 +14,7 @@ import StressFree from "./formcontrol/student/StressFree";
 import Resources from "./formcontrol/student/Resources";
 import GPA from "./formcontrol/student/GPA";
 import StudentProfileView from "./formcontrol/student/StudentProfileView";
+import ShowDetails from "./formcontrol/student/UpdateProfile";
 
 //mui imports
 import Paper from "@mui/material/Paper";
@@ -49,8 +50,7 @@ function App() {
             <Route path="/Student-Stress-Free" element={<StressFree />} />
             <Route path="/Student-Resources" element={<Resources />} />
             <Route path="/Student-Profile-View" element={<StudentProfileView />} />
-            
-            
+            <Route path="/update" element={<ShowDetails/>}/>
           </Routes>
         </Paper>
       </div>

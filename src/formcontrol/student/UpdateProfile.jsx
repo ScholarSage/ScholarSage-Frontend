@@ -1,12 +1,13 @@
 import React,{useState,useRef} from "react";
 import { Box, TextField, Grid, Button, Typography,Avatar } from "@mui/material";
+import axios from "axios";
+import { useEffect,useNavigate } from "react";
 
 export default function ShowDetails() {
   const [file, setFile] = useState(null);
         const [imagePreview, setImagePreview] = useState(null);
         const inputRef = useRef();
         const [userData, setUserData] = useState("");
-        const navigate = useNavigate();
 
         useEffect(() => {
           const fetchData = async () => {
@@ -117,14 +118,16 @@ export default function ShowDetails() {
                                         
                                 </div>
             </Grid>
+
+            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <h3>{userData.fname}</h3>
+            </Grid>
             
             <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <h1>Student Details</h1>
             </Grid>
 
-            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <h1>{userData.fname}</h1>
-            </Grid>
+            
 
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
