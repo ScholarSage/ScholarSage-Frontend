@@ -7,11 +7,38 @@ import {
   Typography,
   Avatar,
 } from "@mui/material";
+import axios from "axios";
+import { useEffect, useNavigate } from "react";
 
 export default function UpdateProfile() {
   const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const inputRef = useRef();
+  const [userData, setUserData] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("http://localhost:8081/userData", {
+          token: window.localStorage.getItem("token"),
+        });
+
+        const data = response.data;
+        console.log(data, "userData");
+        setUserData(data.data);
+
+        if (data.data === "token expired") {
+          alert("Token expired login again");
+          window.localStorage.clear();
+          window.location.href = "./";
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // empty dependency array means useEffect runs once after the initial render
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -107,6 +134,10 @@ export default function UpdateProfile() {
                   {file ? "Update Profile" : "Change Photo"}
                 </Button>
               </div>
+            </Grid>
+
+            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <h3>{userData.fname}</h3>
             </Grid>
 
             <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
