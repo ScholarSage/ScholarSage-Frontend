@@ -10,15 +10,15 @@ import { Typography } from "@mui/material";
 // import StorefrontIcon from '@mui/icons-material/Storefront';
 import Button from "@mui/material/Button";
 import CardMedia from "@mui/material/CardMedia";
-import Navbar from "../../content/Navbar";
-import Sidenav from "../../content/Sidenav";
+import MentorNavbar from "../../content/MentorNavbar";
+import MentorSidenav from "../../content/MentorSidenav";
 import axios from "axios";
 import backgroundImage from "../../content/dash.PNG";
 import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
-export default function StudentDashBoard1() {
+export default function MentorDashBoard() {
   const [userData, setUserData] = useState("");
   const navigate = useNavigate();
 
@@ -56,10 +56,10 @@ export default function StudentDashBoard1() {
             "linear-gradient(158deg, rgba(224, 224, 224,) 0%, rgba(233, 237, 254) 100%)",
         }}
       >
-        <Navbar />
+        <MentorNavbar />
         <Box height={20} />
         <Box sx={{ display: "flex" }}>
-          <Sidenav />
+          <MentorSidenav />
           <Box
             component="main"
             sx={{
@@ -125,7 +125,7 @@ export default function StudentDashBoard1() {
                             borderRadius: "15px",
                           }}
                           onClick={() => {
-                            navigate("/Student-Profile-Update");
+                            navigate("");
                           }}
                         >
                           <Typography
@@ -144,11 +144,11 @@ export default function StudentDashBoard1() {
                   </Grid>
                 </Grid>
                 <Box height={20} />
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={4}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12} lg={6}>
                     <Card
                       sx={{
-                        maxWidth: 345,
+                        //maxWidth: 345,
                         boxShadow: "0 4px 4px rgba(0, 0, 0, 0.1)",
                         position: "relative",
                         transition: "transform 0.2s",
@@ -156,14 +156,14 @@ export default function StudentDashBoard1() {
                         backgroundColor: "#F3EDFB",
                       }}
                       onClick={() => {
-                        navigate("/Student-GPA-Calculator");
+                        navigate("/Mentor-My-Studnets");
                       }}
                     >
                       <CardActionArea>
                         <CardMedia
                           component="img"
-                          height="140"
-                          image="https://img.freepik.com/premium-photo/office-table-with-calculator-pen_127657-5701.jpg?w=1060"
+                          height="120"
+                          image="https://previews.123rf.com/images/dolgachov/dolgachov1812/dolgachov181200486/113368901-group-of-students-over-university-background.jpg"
                         />
                         <CardContent>
                           <Typography
@@ -178,16 +178,16 @@ export default function StudentDashBoard1() {
                               color: "#7d09b3",
                             }}
                           >
-                            Calculate GPA
+                            My Students
                           </Typography>
                         </CardContent>
                       </CardActionArea>
                     </Card>
                   </Grid>
-                  <Grid item xs={12} sm={4}>
+                  <Grid item xs={12} lg={6}>
                     <Card
                       sx={{
-                        maxWidth: 345,
+                        //maxWidth: 345,
                         boxShadow: "0 4px 4px rgba(0, 0, 0, 0.1)",
                         position: "relative",
                         transition: "transform 0.2s",
@@ -195,14 +195,14 @@ export default function StudentDashBoard1() {
                         backgroundColor: "#F3EDFB",
                       }}
                       onClick={() => {
-                        navigate("/Student-Mentor");
+                        navigate("/Mentor-Personality-Types");
                       }}
                     >
                       <CardActionArea>
                         <CardMedia
                           component="img"
-                          height="140"
-                          image="https://images.pexels.com/photos/6325975/pexels-photo-6325975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          height="120"
+                          image="https://www.aspenwealthmgmt.com/wp-content/uploads/2019/12/What-is-Your-Money-Personality.jpg"
                         />
                         <CardContent>
                           <Typography
@@ -217,166 +217,7 @@ export default function StudentDashBoard1() {
                               color: "#7d09b3",
                             }}
                           >
-                            Your Mentor
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <Card
-                      sx={{
-                        maxWidth: 345,
-                        boxShadow: "0 4px 4px rgba(0, 0, 0, 0.1)",
-                        position: "relative",
-                        transition: "transform 0.2s",
-                        ":hover": { transform: "scale(1.04)" },
-                        backgroundColor: "#F3EDFB",
-                      }}
-                      onClick={() => {
-                        navigate("/Student-Personality-Test");
-                      }}
-                    >
-                      <CardActionArea>
-                        <CardMedia
-                          component="img"
-                          height="140"
-                          image="https://www.personalityperfect.com/wp-content/uploads/2015/10/brain250.jpg"
-                        />
-                        <CardContent>
-                          <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="div"
-                            align="left"
-                            sx={{
-                              zIndex: 1,
-                              fontWeight: "bold",
-                              fontSize: "1.5rem",
-                              color: "#7d09b3",
-                            }}
-                          >
-                            Personality Test
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </Grid>
-                </Grid>
-                <Box height={20} />
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={4}>
-                    <Card
-                      sx={{
-                        maxWidth: 345,
-                        boxShadow: "0 4px 4px rgba(0, 0, 0, 0.1)",
-                        position: "relative",
-                        transition: "transform 0.2s",
-                        ":hover": { transform: "scale(1.04)" },
-                        backgroundColor: "#F3EDFB",
-                      }}
-                      onClick={() => {
-                        navigate("/Student-Personality-Types");
-                      }}
-                    >
-                      <CardActionArea>
-                        <CardMedia
-                          component="img"
-                          height="140"
-                          image="https://www.cloverpop.com/hubfs/iStock-1218796215.jpg"
-                        />
-                        <CardContent>
-                          <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="div"
-                            align="left"
-                            sx={{
-                              zIndex: 1,
-                              fontWeight: "bold",
-                              fontSize: "1.5rem",
-                              color: "#7d09b3",
-                            }}
-                          >
-                            Personality Types
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <Card
-                      sx={{
-                        maxWidth: 345,
-                        boxShadow: "0 4px 4px rgba(0, 0, 0, 0.1)",
-                        position: "relative",
-                        transition: "transform 0.2s",
-                        ":hover": { transform: "scale(1.04)" },
-                        backgroundColor: "#F3EDFB",
-                      }}
-                      onClick={() => {
-                        navigate("/Student-Stress-Free");
-                      }}
-                    >
-                      <CardActionArea>
-                        <CardMedia
-                          component="img"
-                          height="140"
-                          image="https://cdn.tinybuddha.com/wp-content/uploads/2015/10/Calm-Man.jpg"
-                        />
-                        <CardContent>
-                          <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="div"
-                            align="left"
-                            sx={{
-                              zIndex: 1,
-                              fontWeight: "bold",
-                              fontSize: "1.5rem",
-                              color: "#7d09b3",
-                            }}
-                          >
-                            Stress Management
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <Card
-                      sx={{
-                        maxWidth: 345,
-                        boxShadow: "0 4px 4px rgba(0, 0, 0, 0.1)",
-                        position: "relative",
-                        transition: "transform 0.2s",
-                        ":hover": { transform: "scale(1.04)" },
-                        backgroundColor: "#F3EDFB",
-                      }}
-                      onClick={() => {
-                        navigate("/Student-Resources");
-                      }}
-                    >
-                      <CardActionArea>
-                        <CardMedia
-                          component="img"
-                          height="140"
-                          image="https://img.freepik.com/free-photo/human-resources-concept-with-hand_23-2150389095.jpg?w=1060&t=st=1706625122~exp=1706625722~hmac=e836f4685159dc3fdfe2632ae43f897d9aa4dd52ce8defc88baceeafb7aacdf2"
-                        />
-                        <CardContent>
-                          <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="div"
-                            align="left"
-                            sx={{
-                              zIndex: 1,
-                              fontWeight: "bold",
-                              fontSize: "1.5rem",
-                              color: "#7d09b3",
-                            }}
-                          >
-                            Resources
+                            Personality Guide
                           </Typography>
                         </CardContent>
                       </CardActionArea>
@@ -384,6 +225,11 @@ export default function StudentDashBoard1() {
                   </Grid>
                 </Grid>
               </Grid>
+              {/* <Grid item lg={2} md={3} xs={12} sm={12}>
+                <Card>
+                    <CardContent></CardContent>
+                </Card>
+              </Grid> */}
             </Grid>
           </Box>
         </Box>

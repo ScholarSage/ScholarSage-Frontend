@@ -5,7 +5,7 @@ import Register from "./formcontrol/Register";
 import MentorSignup from "./formcontrol/mentor/mentorRegister";
 import StudentSignup from "./formcontrol/student/studentRegister";
 import StudentDashBoard from "./formcontrol/student/StudentDashBoard1";
-import MentorDashBoard from "./formcontrol/mentor/MentorDashBoard";
+import MentorDashBoard from "./formcontrol/mentor/MentorDashboard";
 import ForgotPassword from "./formcontrol/forgotPassword";
 import PersonalityTest from "./formcontrol/student/PersonailtyTest";
 import Mentor from "./formcontrol/student/Mentor";
@@ -15,6 +15,8 @@ import Resources from "./formcontrol/student/Resources";
 import GPA from "./formcontrol/student/GPA";
 import StudentProfileView from "./formcontrol/student/StudentProfileView";
 import UpdateProfile from "./formcontrol/student/UpdateProfile";
+import PersonalityGuidance from "./formcontrol/mentor/PersonalityGuid";
+import MyStudents from "./formcontrol/mentor/MyStudents";
 
 //mui imports
 import Paper from "@mui/material/Paper";
@@ -59,7 +61,11 @@ function App() {
               path="/Student-Profile-View"
               element={<StudentProfileView />}
             />
-            <Route path="/Student-update-profile" element={<UpdateProfile />} />
+            <Route path="/Student-Profile-Update" element={<UpdateProfile />} />
+
+
+            <Route path="/Mentor-Personality-Types" element={<PersonalityGuidance />} />
+            <Route path="/Mentor-My-Studnets" element={<MyStudents />} />
           </Routes>
         </Paper>
       </div>
