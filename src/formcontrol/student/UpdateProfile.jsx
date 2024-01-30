@@ -9,6 +9,17 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useNavigate } from "react";
+import Divider from "@mui/material/Divider";
+import { styled } from "@mui/material/styles";
+
+const Root = styled("div")(({ theme }) => ({
+  width: "100%",
+  ...theme.typography.body2,
+  color: theme.palette.text.secondary,
+  "& > :not(style) ~ :not(style)": {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 export default function UpdateProfile() {
   const [file, setFile] = useState(null);
@@ -89,8 +100,39 @@ export default function UpdateProfile() {
           flexDirection="column"
         >
           <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
-            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <h1>Update Profile</h1>
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <Avatar
+                alt="Profile Picture"
+                src={imagePreview}
+                sx={{ width: 200, height: 200 }}
+              />
+              <input
+                accept="image/*"
+                ref={inputRef}
+                style={{ display: "none" }}
+                type="file"
+                onChange={handleFileChange}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <h3>{userData.fname}</h3>
+              <Button
+                variant="contained"
+                size="large"
+                sx={{
+                  marginTop: 2,
+                  backgroundColor: "#42026F",
+                  color: "#fff",
+                  padding: "0.5em 1em 0.5em 1em !important",
+                }}
+                onClick={() => {
+                  handleButtonClick();
+                  handleSaveClick();
+                }}
+              >
+                {file ? "Update Profile" : "Change Photo"}
+              </Button>
             </Grid>
 
             <Grid
@@ -103,45 +145,16 @@ export default function UpdateProfile() {
                 alignItems: "center",
                 padding: "1em 1em 0em 1em !important",
               }}
-            >
-              <div>
-                <Avatar
-                  alt="Profile Picture"
-                  src={imagePreview}
-                  sx={{ width: 200, height: 200 }}
-                />
-                <input
-                  accept="image/*"
-                  ref={inputRef}
-                  style={{ display: "none" }}
-                  type="file"
-                  onChange={handleFileChange}
-                />
-                <Button
-                  variant="contained"
-                  size="large"
-                  sx={{
-                    marginTop: 2,
-                    backgroundColor: "#1976D2",
-                    color: "#fff",
-                    padding: "0.5em 1em 0.5em 1em !important",
-                  }}
-                  onClick={() => {
-                    handleButtonClick();
-                    handleSaveClick();
-                  }}
-                >
-                  {file ? "Update Profile" : "Change Photo"}
-                </Button>
-              </div>
-            </Grid>
-
+            ></Grid>
             <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <h3>{userData.fname}</h3>
-            </Grid>
-
-            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <h1>Student Details</h1>
+              <p>
+                <Root>
+                  <Divider>
+                    {" "}
+                    <h3>Personal Details</h3>
+                  </Divider>
+                </Root>
+              </p>
             </Grid>
 
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
@@ -238,7 +251,14 @@ export default function UpdateProfile() {
 
           <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
             <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <h1>Academic Details</h1>
+              <p>
+                <Root>
+                  <Divider>
+                    {" "}
+                    <h3>Academic Details</h3>
+                  </Divider>
+                </Root>
+              </p>
             </Grid>
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
@@ -294,8 +314,14 @@ export default function UpdateProfile() {
               />
             </Grid>
           </Grid>
-
           <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
+            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <p>
+                <Root>
+                  <Divider></Divider>
+                </Root>
+              </p>
+            </Grid>
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
@@ -329,7 +355,6 @@ export default function UpdateProfile() {
               />
             </Grid>
           </Grid>
-
           <Grid
             container
             spacing={2}
