@@ -361,12 +361,28 @@ export default function UpdateProfile() {
             sx={{ mt: 3, justifyContent: "flex-end", width: "70%" }}
           >
             <Grid item>
-              <Button variant="contained" size="large" type="submit">
+              <Button
+                variant="contained"
+                size="large"
+                type="submit"
+                sx={{
+                  marginTop: 2,
+                  backgroundColor: "#42026F",
+                }}
+              >
                 Cancel
               </Button>
             </Grid>
             <Grid item>
-              <Button variant="contained" size="large" type="submit">
+              <Button
+                variant="contained"
+                size="large"
+                type="submit"
+                sx={{
+                  marginTop: 2,
+                  backgroundColor: "#42026F",
+                }}
+              >
                 Save Changes
               </Button>
             </Grid>
