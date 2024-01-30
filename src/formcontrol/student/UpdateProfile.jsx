@@ -5,6 +5,32 @@ export default function ShowDetails() {
   const [file, setFile] = useState(null);
         const [imagePreview, setImagePreview] = useState(null);
         const inputRef = useRef();
+        const [userData, setUserData] = useState("");
+        const navigate = useNavigate();
+
+        useEffect(() => {
+          const fetchData = async () => {
+            try {
+              const response = await axios.post("http://localhost:8081/userData", {
+                token: window.localStorage.getItem("token"),
+              });
+      
+              const data = response.data;
+              console.log(data, "userData");
+              setUserData(data.data);
+      
+              if (data.data === "token expired") {
+                alert("Token expired login again");
+                window.localStorage.clear();
+                window.location.href = "./";
+              }
+            } catch (error) {
+              console.error("Error fetching user data:", error);
+            }
+          };
+      
+          fetchData();
+        }, []); // empty dependency array means useEffect runs once after the initial render
 
         const handleFileChange = (e) => {
             const selectedFile = e.target.files[0];
@@ -94,6 +120,10 @@ export default function ShowDetails() {
             
             <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <h1>Student Details</h1>
+            </Grid>
+
+            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <h1>{userData.fname}</h1>
             </Grid>
 
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
