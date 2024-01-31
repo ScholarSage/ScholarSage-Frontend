@@ -91,7 +91,8 @@ function StudentProfileView (){
                             borderRadius: "15px",
                           }}
                           onClick={() => {
-                            navigate("/update");
+            
+                          navigate("/Student-Profile-Update");
                           }}
                         >
                           <Typography
