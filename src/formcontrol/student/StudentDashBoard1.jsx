@@ -125,7 +125,7 @@ export default function StudentDashBoard1() {
                             borderRadius: "15px",
                           }}
                           onClick={() => {
-                            navigate("/Student-Profile-Update");
+                            navigate("/Student-Profile-View");
                           }}
                         >
                           <Typography

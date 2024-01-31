@@ -4,13 +4,16 @@ import {
   TextField,
   Grid,
   Button,
-  Typography,
   Avatar,
 } from "@mui/material";
 import axios from "axios";
-import { useEffect, useNavigate } from "react";
+import { useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
+import Navbar from "../../content/Navbar";
+import Sidenav from "../../content/Sidenav";
+
+const drawerWidth = 240;
 
 const Root = styled("div")(({ theme }) => ({
   width: "100%",
@@ -84,7 +87,17 @@ export default function UpdateProfile() {
   };
 
   return (
-    <div>
+    <>
+        <div style={{minHeight: '100vh',background: '#ECEFF1',background: 'linear-gradient(158deg, rgba(224, 224, 224,) 0%, rgba(233, 237, 254) 100%)'}}>
+        <Navbar/>
+        <Box height={20}/>
+            <Box sx={{ display: 'flex' }}>
+                <Sidenav/>
+                <Box
+                    component="main"
+                    sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+                >
+			<div>
       <form>
         <Box
           component="form"
@@ -390,5 +403,9 @@ export default function UpdateProfile() {
         </Box>
       </form>
     </div>
+                </Box>
+            </Box>
+        </div>
+        </>
   );
 }
