@@ -7,6 +7,8 @@ import { Divider } from '@mui/material';
 import { Card, CardContent, CardMedia, Typography, Button, Stack, IconButton } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { Box, Grid, Item } from '@mui/material';
+import backgroundImage from "../../content/dash.PNG";
+import { useNavigate } from "react-router-dom";
 
 
 const drawerWidth = 240;
@@ -14,6 +16,7 @@ const drawerWidth = 240;
 function StudentProfileView (){
   
   const [userData, setUserData] = useState("");
+  const navigate = useNavigate();
 
     useEffect(() => {
       const fetchData = async () => {
@@ -38,24 +41,72 @@ function StudentProfileView (){
         <Navbar />
         
         <Box sx={{ display: 'flex' }}>
+      
           <Sidenav />
           <Box
             component="main"
             sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
           >
-            <Card variant="outlined" sx={{ p: 2, width: { xs: '100%', sm: 'auto' }, height: 250, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', gap: 2, backgroundColor: '#D8BFD8'}}>
-                <CardMedia component="img" width="100" height="100" alt="Profile" src="profile.jpg" sx={{ width: { xs: '100%', sm: 100 }, borderRadius: 0.6, }} />
-                <Stack direction="column" spacing={2} alignItems="center">
-    
-                  <Typography color="text.primary" fontWeight="medium" fontSize={15}>{userData.name} </Typography>
-                  <Typography variant="subtitle1" color="text.secondary">Level 2 undergraduate</Typography>
-                </Stack>
-
-                <Stack>
-                <Button variant="contained" className="update-btn" sx={{ marginLeft: '500px' }}>Update Profile</Button>
-                </Stack>
-
-            </Card>
+            <Card sx={{ position: "relative", height: 180 }}>
+                      <CardMedia
+                        component="img"
+                        alt="Background Image"
+                        height="100%"
+                        width="100%" // Use 100% height to cover the entire Card
+                        image={backgroundImage}
+                        sx={{
+                          objectFit: "cover", // Make sure the image covers the entire space
+                        }}
+                      />
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          textAlign: "left",
+                          width: "100%",
+                        }}
+                      >
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                          sx={{
+                            color: "#ffffff",
+                            mt: "10px",
+                            ml: "20px", // Adjust ml for Typography
+                          }}
+                        >
+                          Welcome {userData.fname}
+                        </Typography>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            color: "#ffffff",
+                            mt: "60px",
+                            ml: "10px", // Adjust ml for Button
+                            bgcolor: "#A3CF23 ",
+                            "&:hover": { bgcolor: "#0f8544" },
+                            borderRadius: "15px",
+                          }}
+                          onClick={() => {
+                            navigate("/update");
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontWeight: "bold",
+                              fontSize: "1rem",
+                              color: "#FFFFFF",
+                            }}
+                          >
+                            {" "}
+                            Update Profile
+                          </Typography>
+                        </Button>
+                      </div>
+                    </Card>
 
             
             <Box
@@ -115,7 +166,7 @@ function StudentProfileView (){
 
                   <Grid  item xs={12} md={3} sx={{padding: "1em 1em 0em 1em !important"}}>
                     <Typography variant="body1" gutterBottom ><strong>Index Number :</strong></Typography>
-                    <Typography variant="body2" color="secondary">{userData.regNumInput}</Typography>
+                    <Typography variant="body2" color="secondary">{userData.scnumber}</Typography>
 
                   </Grid>
 
@@ -126,7 +177,7 @@ function StudentProfileView (){
 
                   <Grid  item xs={12} md={3}sx={{padding: "1em 1em 0em 1em !important"}}>
                     <Typography variant="body1" gutterBottom ><strong>Personality Type :</strong></Typography>
-                    <Typography variant="body2" color="secondary">personality type</Typography>
+                    <Typography variant="body2" color="secondary">{userData.usertype}</Typography>
                   </Grid>
 
                 </Grid>
