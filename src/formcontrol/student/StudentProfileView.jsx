@@ -102,7 +102,7 @@ function StudentProfileView (){
                             }}
                           >
                             {" "}
-                            View Profile
+                            Update Profile
                           </Typography>
                         </Button>
                       </div>
