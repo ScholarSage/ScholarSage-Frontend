@@ -7,7 +7,7 @@ import StudentSignup from "./formcontrol/student/studentRegister";
 import StudentDashBoard from "./formcontrol/student/StudentDashBoard1";
 import MentorDashBoard from "./formcontrol/mentor/MentorDashboard";
 import ForgotPassword from "./formcontrol/forgotPassword";
-import PersonalityTest from "./formcontrol/student/PersonailtyTesting";
+import PersonalityTesting from "./formcontrol/student/PersonailtyTesting";
 import Mentor from "./formcontrol/student/Mentor";
 import PersonalityTypes from "./formcontrol/student/PersonalityTypes";
 import StressFree from "./formcontrol/student/StressFree";
@@ -45,10 +45,6 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/Student-Dashboard" element={<StudentDashBoard />} />
             <Route path="/Mentor-Dashboard" element={<MentorDashBoard />} />
-            <Route
-              path="/Student-Personality-Test"
-              element={<PersonalityTest />}
-            />
             <Route path="/Student-GPA-Calculator" element={<GPA />} />
             <Route path="/Student-Mentor" element={<Mentor />} />
             <Route
