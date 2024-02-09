@@ -234,7 +234,7 @@ export default function StudentDashBoard1() {
                         backgroundColor: "#F3EDFB",
                       }}
                       onClick={() => {
-                        navigate("/Student-Personality-Test");
+                        navigate("/Student-Personality-Testing");
                       }}
                     >
                       <CardActionArea>

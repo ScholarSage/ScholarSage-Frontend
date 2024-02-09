@@ -70,7 +70,7 @@ export default function Signup() {
       return;
     }
     if (passwordError || !passwordInput) {
-      setFormValid("Please enter a strong password");
+      setFormValid("Please enter a strong password. Password must be at least 8 characters long and contain a mix of uppercase and lowercase letters, numbers, and special characters.");
       return;
     }
     setFormValid(null);
