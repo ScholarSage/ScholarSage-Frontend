@@ -109,7 +109,7 @@ export default function UpdateProfile() {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          height="230vh"
+          height="210vh"
           flexDirection="column"
         >
           <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
