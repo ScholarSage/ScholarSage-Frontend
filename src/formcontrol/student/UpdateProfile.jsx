@@ -227,7 +227,7 @@ export default function UpdateProfile() {
               />
             </Grid>
 
-            {/* <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
                 id="About"
@@ -236,7 +236,7 @@ export default function UpdateProfile() {
                 variant="outlined"
                 sx={{ width: "100%" }}
               />
-            </Grid> */}
+            </Grid> 
 
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
