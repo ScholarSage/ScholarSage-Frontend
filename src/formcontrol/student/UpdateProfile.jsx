@@ -227,7 +227,7 @@ export default function UpdateProfile() {
               />
             </Grid>
 
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+            {/* <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
                 id="About"
@@ -236,7 +236,7 @@ export default function UpdateProfile() {
                 variant="outlined"
                 sx={{ width: "100%" }}
               />
-            </Grid> 
+            </Grid> */}
 
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
@@ -272,29 +272,17 @@ export default function UpdateProfile() {
               />
             </Grid>
 
-            {/* <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                select
-                id="City"
-                label="City"
-                helperText="Please select the City"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              ></TextField>
-            </Grid>
-
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
                 select
-                id="State"
-                label="State"
-                helperText="Please select the State"
+                id="scnumber"
+                label="Registration Number"
+                helperText="Enter Registration Number"
                 variant="outlined"
                 sx={{ width: "100%" }}
               ></TextField>
-            </Grid> */}
+            </Grid>
           </Grid>
 
           <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
