@@ -51,7 +51,7 @@ export default class ForgotPassword extends Component {
           </div>
 
           <p className="forgot-password text-right" style={styles.signUpLink}>
-            <a href="/sign-up">Sign Up</a>
+            <a href="/Reg">Sign Up</a>
           </p>
         </form>
       </div>
