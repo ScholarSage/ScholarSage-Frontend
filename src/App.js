@@ -9,7 +9,7 @@ import MentorDashBoard from "./formcontrol/mentor/MentorDashboard";
 import ForgotPassword from "./formcontrol/forgotPassword";
 import PersonalityTesting from "./formcontrol/student/PersonailtyTesting";
 import Mentor from "./formcontrol/student/Mentor";
-import PersonalityTypes from "./formcontrol/student/PersonalityTypes";
+//import PersonalityTypes from "./formcontrol/student/PersonalityTypes";
 import StressFree from "./formcontrol/student/StressFree";
 import Resources from "./formcontrol/student/Resources";
 import GPA from "./formcontrol/student/GPA";
