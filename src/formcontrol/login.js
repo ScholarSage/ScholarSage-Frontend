@@ -89,18 +89,29 @@ export default function Signup() {
         })
         .then((response) => {
           console.log(response.data, "userRegister");
-          if (response.data.status === "ok") {
+          if (response.data.status === "ok"&&response.data.UT!="Mentor") {
             alert("Login successful");
             window.localStorage.setItem("token", response.data.data);
             window.localStorage.setItem("loggedIn", true);
             if (response.data.UT === "Student") {
               window.localStorage.setItem("User", "Student");
               window.location.href = "./Student-Dashboard";
-            } else {
+            }else {
+              window.localStorage.setItem("User","Admin");
+              window.location.href="./Admin-Dashboard";
+            }
+          }else if(response.data.status === "ok"&&response.data.UT==="Mentor"){
+            if(response.data.isApproved === true){
+              alert("Login successful");
+              window.localStorage.setItem("token", response.data.data);
+              window.localStorage.setItem("loggedIn", true);
               window.localStorage.setItem("User", "Mentor");
               window.location.href = "./Mentor-Dashboard";
+            }else{
+              alert("Wait for admin approval");
             }
-          } else {
+          } 
+          else {
             alert("Invalid Email or Password");
           }
         });
