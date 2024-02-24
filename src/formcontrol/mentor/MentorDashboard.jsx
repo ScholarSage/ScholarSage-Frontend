@@ -10,64 +10,85 @@ import { Typography } from "@mui/material";
 // import StorefrontIcon from '@mui/icons-material/Storefront';
 import Button from "@mui/material/Button";
 import CardMedia from "@mui/material/CardMedia";
-import MentorNavbar from "../../content/MentorNavbar";
-import MentorSidenav from "../../content/MentorSidenav";
 import axios from "axios";
 import backgroundImage from "../../content/dash.PNG";
 import { useNavigate } from "react-router-dom";
+import Layout from "../../content/NavbarSidenavLayout";
 
 const drawerWidth = 240;
 
 export default function MentorDashBoard() {
   const [userData, setUserData] = useState("");
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.post("http://localhost:8081/userData", {
+  //         token: window.localStorage.getItem("token"),
+  //       });
+
+  //       const data = response.data;
+  //       console.log(data, "userData");
+  //       setUserData(data.data);
+
+  //       if (data.data === "token expired") {
+  //         alert("Token expired login again");
+  //         window.localStorage.clear();
+  //         window.location.href = "./";
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  const getData=async()=>{
+    try {
+      const response = await axios.post("http://localhost:8081/userData",{},
+      {
+        headers : {
+          Authorization : "Bearer " + localStorage.getItem("token")
+        }
+      })
+      console.log(response.data);
+      setUserData(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  // const [userData, setUserData] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post("http://localhost:8081/userData", {
-          token: window.localStorage.getItem("token"),
-        });
+    // const fetchData = async () => {
+    //   try {
+    //     const response = await axios.post("http://localhost:8081/userData", {
+    //       token: window.localStorage.getItem("token"),
+    //     });
 
-        const data = response.data;
-        console.log(data, "userData");
-        setUserData(data.data);
+    //     const data = response.data;
+    //     console.log(data, "userData");
+    //     setUserData(data.data);
 
-        if (data.data === "token expired") {
-          alert("Token expired login again");
-          window.localStorage.clear();
-          window.location.href = "./";
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+    //     if (data.data === "token expired") {
+    //       alert("Token expired login again");
+    //       window.localStorage.clear();
+    //       window.location.href = "./";
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching user data:", error);
+    //   }
+    // };
 
-    fetchData();
+    // fetchData();
+    getData();
   }, []); // empty dependency array means useEffect runs once after the initial render
 
   return (
-    <>
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "#ECEFF1",
-          background:
-            "linear-gradient(158deg, rgba(224, 224, 224,) 0%, rgba(233, 237, 254) 100%)",
-        }}
-      >
-        <MentorNavbar />
-        <Box height={20} />
-        <Box sx={{ display: "flex" }}>
-          <MentorSidenav />
-          <Box
-            component="main"
-            sx={{
-              flexGrow: 1,
-              p: 3,
-              width: { sm: `calc(100% - ${drawerWidth}px)` },
-            }}
-          >
+    <Layout>
             <Grid container spacing={2}>
               <Grid item lg={10} md={9} xs={12} sm={12}>
                 <Grid container spacing={1}>
@@ -231,9 +252,6 @@ export default function MentorDashBoard() {
                 </Card>
               </Grid> */}
             </Grid>
-          </Box>
-        </Box>
-      </div>
-    </>
+    </Layout>
   );
 }
