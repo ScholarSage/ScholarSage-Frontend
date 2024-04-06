@@ -8,6 +8,7 @@ import StudentDashBoard from "./formcontrol/student/StudentDashBoard1";
 import MentorDashBoard from "./formcontrol/mentor/MentorDashboard";
 import ForgotPassword from "./formcontrol/forgotPassword";
 import PersonalityTypes from "./formcontrol/student/PersonalityTypes";
+import PersonalityTypeDesc from "./formcontrol/student/PersonalityTypeDesc";
 import Mentor from "./formcontrol/student/Mentor";
 import PersonalityTest from "./formcontrol/student/PersonalityTest";
 import StressFree from "./formcontrol/student/StressFree";
@@ -49,8 +50,8 @@ function App() {
             <Route path="/Mentor-Dashboard" element={<MentorDashBoard />} />
             <Route path="/Student-GPA-Calculator" element={<GPA />} />
             <Route path="/Student-Mentor" element={<Mentor />} />
-            <Route path="/Student-Personality-Test" element={<PersonalityTest />} />
             <Route path="/Student-Personality-Types" element={<PersonalityTypes />} />
+            <Route path="/Personality-Type/:value" element={<PersonalityTypeDesc />} />
             <Route path="/Student-Stress-Free" element={<StressFree />} />
             <Route path="/Student-Resources" element={<Resources />} />
             <Route
