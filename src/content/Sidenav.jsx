@@ -21,6 +21,9 @@ import SourceIcon from '@mui/icons-material/Source';
 import PersonIcon from '@mui/icons-material/Person';
 import MoodIcon from '@mui/icons-material/Mood';
 import LogoutIcon from '@mui/icons-material/Logout';
+import GroupIcon from '@mui/icons-material/Group';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import ListIcon from '@mui/icons-material/List';
 import { Typography } from '@mui/material';
 
 const drawerWidth = 240;
@@ -92,11 +95,33 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const roles = {
+  Student: [
+    { label: 'Dashboard', icon: DashboardIcon, route: '/Student-Dashboard' },
+    { label: 'Personality Test', icon: PsychologyAltIcon, route: '/Student-Personality-Test' },
+    { label: 'GPA Calculator', icon: FunctionsIcon, route: '/Student-GPA-Calculator' },
+    { label: 'Mentor', icon: PersonIcon, route: '/Student-Mentor' },
+    { label: 'Personality Types', icon: MoodIcon, route: '/Student-Personality-Types' },
+    { label: 'Stress Free', icon: SelfImprovementIcon, route: '/Student-Stress-Free' },
+    { label: 'Resources', icon: SourceIcon, route: '/Student-Resources' },
+  ],
+  Mentor: [
+    { label: 'Dashboard', icon: DashboardIcon, route: '/Mentor-Dashboard' },
+    { label: 'My Students', icon: GroupIcon, route: '/Mentor-My-Studnets' },
+    { label: 'Personality Types', icon: PersonOutlineIcon, route: '/Mentor-Personality-Types' },
+  ],
+  Admin: [
+    { label: 'Dashboard', icon: DashboardIcon, route: '/Admin-Dashboard' },
+    { label: 'Mentor Requests', icon: ListIcon, route: '/Admin-Mentor-Requests' }
+  ],
+};
+
 export default function Sidenav() {
   const theme = useTheme();
   //const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
   const open = useAppStore((state)=>state.dopen);
+  const role = window.localStorage.getItem('User');
 
   return (
     <ThemeProvider theme={theme1}>
@@ -110,8 +135,34 @@ export default function Sidenav() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List sx={{color:"#24003D"}}>
-          <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/Student-Dashboard")}}>
+        <List sx={{ color: "#24003D" }}>
+            {roles[role].map((item, index) => (
+              <ListItem key={index} disablePadding sx={{ display: 'block' }} onClick={() => { navigate(item.route) }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                      color: "#24003D"
+                    }}
+                  >
+                    <item.icon />
+                  </ListItemIcon>
+                  <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Box sx={{ flexGrow: 1 }} />
+          <List sx={{ color: "red" }}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={logout}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -124,157 +175,7 @@ export default function Sidenav() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
-                    color:"#24003D"
-                  }}
-                >
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/Student-Personality-Test")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color:"#24003D"
-                  }}
-                >
-                  <PsychologyAltIcon />
-                </ListItemIcon>
-                <ListItemText primary="Personality Test" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/Student-GPA-Calculator")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color:"#24003D"
-                  }}
-                >
-                  <FunctionsIcon />
-                </ListItemIcon>
-                <ListItemText primary="GPA Calculator" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/Student-Mentor")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color:"#24003D"
-                  }}
-                >
-                  <PersonIcon />
-                </ListItemIcon>
-                <ListItemText primary="Mentor" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/Student-Personality-Types")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color:"#24003D"
-                  }}
-                >
-                  <MoodIcon />
-                </ListItemIcon>
-                <ListItemText primary="Personality Types" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/Student-Stress-Free")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color:"#24003D"
-                  }}
-                >
-                  <SelfImprovementIcon />
-                </ListItemIcon>
-                <ListItemText primary="Stress Free" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/Student-Resources")}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color:"#24003D"
-                  }}
-                >
-                  <SourceIcon />
-                </ListItemIcon>
-                <ListItemText primary="Resources" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-        </List>
-        <Box sx={{ flexGrow: 1 }} /> 
-        <List sx={{color:"red"}}>
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={logout}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color:"red"
+                    color: "red"
                   }}
                 >
                   <LogoutIcon />
@@ -282,7 +183,7 @@ export default function Sidenav() {
                 <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-        </List>
+          </List>
         <Box sx={{height:30}}/>
       </Drawer>
     </Box>

@@ -1,12 +1,12 @@
 import React from 'react'
 import Layout from '../../content/NavbarSidenavLayout';
 
-// const drawerWidth = 240;
+const drawerWidth = 240;
 
-export default function GPA() {
+export default function AdminDashboard() {
   return (
     <Layout>
-        <h1>GPA Calculator</h1>
+        <h1>Admin</h1>
     </Layout>
   )
 }

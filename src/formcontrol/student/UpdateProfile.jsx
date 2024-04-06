@@ -15,12 +15,11 @@ import axios from "axios";
 import { useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
-import Navbar from "../../content/Navbar";
-import Sidenav from "../../content/Sidenav";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Layout from "../../content/NavbarSidenavLayout";
 
 
 const drawerWidth = 240;
@@ -58,28 +57,47 @@ export default function UpdateProfile() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post("http://localhost:8081/userData", {
-          token: window.localStorage.getItem("token"),
-        });
+  const [userData1, setUserData1] = useState("");
 
-        const data = response.data;
-        console.log(data, "userData");
-        setUserData(data.data);
-
-        if (data.data === "token expired") {
-          alert("Token expired login again");
-          window.localStorage.clear();
-          window.location.href = "./";
+  const getData=async()=>{
+    try {
+      const response = await axios.post("http://localhost:8081/userData",{},
+      {
+        headers : {
+          Authorization : "Bearer " + localStorage.getItem("token")
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+      })
+      console.log(response.data);
+      setUserData1(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-    fetchData();
+  useEffect(() => {
+
+    // const fetchData = async () => {
+    //   try {
+    //     const response = await axios.post("http://localhost:8081/userData", {
+    //       token: window.localStorage.getItem("token"),
+    //     });
+
+    //     const data = response.data;
+    //     console.log(data, "userData");
+    //     setUserData(data.data);
+
+    //     if (data.data === "token expired") {
+    //       alert("Token expired login again");
+    //       window.localStorage.clear();
+    //       window.location.href = "./";
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching user data:", error);
+    //   }
+    // };
+
+    // fetchData();
+    getData();
   }, []); // empty dependency array means useEffect runs once after the initial render
 
   const handleFileChange = (e) => {
@@ -122,16 +140,7 @@ export default function UpdateProfile() {
   };
 
   return (
-    <>
-        <div style={{minHeight: '100vh',background: '#ECEFF1',background: 'linear-gradient(158deg, rgba(224, 224, 224,) 0%, rgba(233, 237, 254) 100%)'}}>
-        <Navbar/>
-        <Box height={20}/>
-            <Box sx={{ display: 'flex' }}>
-                <Sidenav/>
-                <Box
-                    component="main"
-                    sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-                >
+    <Layout>
 			<div>
       <form>
         <Box
@@ -164,7 +173,7 @@ export default function UpdateProfile() {
             </Grid>
 
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <h3>{userData.fname}</h3>
+              <h3>{userData1.fname}</h3>
               <Button
                 variant="contained"
                 size="large"
@@ -492,9 +501,6 @@ export default function UpdateProfile() {
         </Box>
       </form>
     </div>
-                </Box>
-            </Box>
-        </div>
-        </>
+    </Layout>
   );
 }

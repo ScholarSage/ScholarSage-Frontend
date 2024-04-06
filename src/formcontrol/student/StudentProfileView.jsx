@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useEffect } from "react";
-import axios from 'axios'; 
-import Navbar from '../../content/Navbar';
-import Sidenav from '../../content/Sidenav';
+import axios from 'axios';
 import { Divider } from '@mui/material';
 import { Card, CardContent, CardMedia, Typography, Button, Stack, IconButton } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { Box, Grid, Item } from '@mui/material';
 import backgroundImage from "../../content/dash.PNG";
 import { useNavigate } from "react-router-dom";
+import Layout from '../../content/NavbarSidenavLayout';
 
 
 const drawerWidth = 240;
@@ -36,17 +35,7 @@ function StudentProfileView (){
   
 
   return (
-    <>
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(158deg, rgba(224, 224, 224,) 0%, rgba(233, 237, 254) 100%)' }}>
-        <Navbar />
-        
-        <Box sx={{ display: 'flex' }}>
-      
-          <Sidenav />
-          <Box
-            component="main"
-            sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-          >
+    <Layout>
             <Card sx={{ position: "relative", height: 180 }}>
                       <CardMedia
                         component="img"
@@ -193,11 +182,7 @@ function StudentProfileView (){
               <Button variant="contained">Cancel</Button>
               <Button variant="outlined">Sign Out</Button>
             </Stack>
-            
-          </Box>
-        </Box>
-      </div>
-    </>
+    </Layout>
 
   );
 }

@@ -70,6 +70,8 @@ export default function Navbar() {
   const updateOpen = useAppStore((state) => state.updateOpen);
   const dopen = useAppStore((state) => state.dopen);
   const navigate = useNavigate();
+  const role = window.localStorage.getItem('User');
+  
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -156,7 +158,7 @@ export default function Navbar() {
       </MenuItem>
       <MenuItem
         onClick={() => {
-          navigate("/Student-Profile-View");
+          navigate(`/${role}-Profile-View`);
         }}
       >
         <IconButton
@@ -221,7 +223,7 @@ export default function Navbar() {
               aria-label="show 0 new notifications"
               color="inherit"
               onClick={() => {
-                navigate("/Student-Resources");
+                navigate(`/${role}-Resources`);
               }}
             >
               <Badge badgeContent={0} color="error">
@@ -236,7 +238,7 @@ export default function Navbar() {
               aria-haspopup="true"
               // onClick={handleProfileMenuOpen}
               onClick={() => {
-                navigate("/Student-Profile-View");
+                navigate(`/${role}-Profile-View`);
               }}
               color="inherit"
             >

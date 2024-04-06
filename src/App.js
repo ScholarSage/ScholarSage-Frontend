@@ -17,6 +17,8 @@ import StudentProfileView from "./formcontrol/student/StudentProfileView";
 import UpdateProfile from "./formcontrol/student/UpdateProfile";
 import PersonalityGuidance from "./formcontrol/mentor/PersonalityGuid";
 import MyStudents from "./formcontrol/mentor/MyStudents";
+import AdminDashboard from "./formcontrol/Admin/AdminDashboard";
+import MentorProfileView from "./formcontrol/mentor/MentorProfileView";
 
 //mui imports
 import Paper from "@mui/material/Paper";
@@ -55,9 +57,11 @@ function App() {
               path="/Student-Profile-View"
               element={<StudentProfileView />}
             />
+            <Route path="/Mentor-Profile-View" element={<MentorProfileView/>}/>
             <Route path="/Student-Profile-Update" element={<UpdateProfile />} />
             <Route path="/Mentor-Personality-Types" element={<PersonalityGuidance />} />
             <Route path="/Mentor-My-Studnets" element={<MyStudents />} />
+            <Route path="/Admin-Dashboard" element={<AdminDashboard/>}/>
           </Routes>
         </Paper>
       </div>
