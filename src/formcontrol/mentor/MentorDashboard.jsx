@@ -19,6 +19,7 @@ const drawerWidth = 240;
 
 export default function MentorDashBoard() {
   const [userData, setUserData] = useState("");
+  window.localStorage.setItem("User", "Mentor");
   // const navigate = useNavigate();
 
   // useEffect(() => {
