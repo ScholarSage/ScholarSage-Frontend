@@ -70,8 +70,7 @@ export default function Navbar() {
   const updateOpen = useAppStore((state) => state.updateOpen);
   const dopen = useAppStore((state) => state.dopen);
   const navigate = useNavigate();
-  const role = window.localStorage.getItem('User');
-  
+  const role = window.localStorage.getItem("User");
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -223,7 +222,7 @@ export default function Navbar() {
               aria-label="show 0 new notifications"
               color="inherit"
               onClick={() => {
-                navigate(`/${role}-Resources`);
+                navigate(`/notifications`);
               }}
             >
               <Badge badgeContent={0} color="error">
