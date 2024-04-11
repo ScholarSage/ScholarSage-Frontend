@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
 function Mentor({ mentor }) {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -17,7 +17,7 @@ function Mentor({ mentor }) {
           "&:hover": { bgcolor: "#0f8544" },
           borderRadius: "15px",
         }}
-        onClick={() => navigate("/book-appointment/student._id")}
+        onClick={() => navigate("/book-appointment")}
       ></Button>
     </div>
   );
