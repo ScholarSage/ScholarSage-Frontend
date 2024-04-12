@@ -54,6 +54,9 @@ const isEmail = (email) =>
 // . \    /
 // .  \  /
 //     \/
+//
+//
+//
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -101,7 +104,6 @@ export default function Signup() {
     //How the output be
     console.log("Email : " + emailInput);
     console.log("Password : " + passwordInput);
-    //console.log("Remember user : " + rememberMe);
 
     try {
       dispatch(showLoading());
