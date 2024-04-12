@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 import Login from "./formcontrol/login";
 import Register from "./formcontrol/Register";
@@ -29,6 +29,9 @@ import MentorAppointments from "./formcontrol/mentor/mentorAppointment";
 import Notifications from "./formcontrol/notifications";
 //mui imports
 import Paper from "@mui/material/Paper";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
+
 //import Box from "@mui/material/Box";
 //import TextField from "@mui/material/TextField";
 
@@ -38,13 +41,39 @@ import Paper from "@mui/material/Paper";
 //import mtsignup from "./formcontrol/mentor/mentorRegister";
 
 import Modal from "react-modal";
+import { useSelector } from "react-redux";
 
 Modal.setAppElement("#root");
 
 function App() {
-  // <Toaster position="top-center" reverseOrder={false} />;
+  const { loading } = useSelector((state) => state.alerts);
   return (
     <Router>
+      {loading && (
+        <div>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}
+          >
+            <CircularProgress
+              sx={{
+                color: "purple",
+                //border: "5px solid purple",
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "50px",
+                height: "50px",
+              }}
+            />
+          </Backdrop>
+        </div>
+      )}
+
+      <div>
+        <Toaster />
+      </div>
       <div className="App">
         <Paper elevation={3}>
           <Routes>

@@ -24,8 +24,9 @@ function BookAppointment() {
   const bookNow = async () => {
     setIsAvailable(false);
     try {
-      const response = await axios.post("api/student/book-appointment", {
-        scnumber: params.scnumber,
+      const response = await axios.post("/book-appointment", {
+        scnumber: "SC/2020/11111",
+        mentorid: "SC/2020/11276",
         date: date,
         time: time,
       });
@@ -37,9 +38,9 @@ function BookAppointment() {
   const checkAvailability = async () => {
     try {
       const response = await axios.post(
-        "api/student/check-booking-availability",
+        "/check-booking-availability",
         {
-          scnumber: params.mentorid,
+          mentorid: params.mentorid,
           date: date,
           time: time,
         }
@@ -47,6 +48,7 @@ function BookAppointment() {
       if (response.data.success) {
         // toast.success(response.data.message);
         setIsAvailable(true);
+        console.log("OKOK");
       } else {
         //toast.error(response.data.message);
       }
