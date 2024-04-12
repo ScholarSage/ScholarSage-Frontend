@@ -2,26 +2,33 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 //mui imports
-import IconButton from "@mui/material/IconButton";
-import FilledInput from "@mui/material/FilledInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Checkbox from "@mui/material/Checkbox";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Divider from "@mui/material/Divider";
-import { styled } from "@mui/material/styles";
+import {
+  IconButton,
+  FilledInput,
+  InputLabel,
+  InputAdornment,
+  FormControl,
+  TextField,
+  Alert,
+  Button,
+  CssBaseline,
+  Checkbox,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  createTheme,
+  ThemeProvider,
+  Divider,
+  styled,
+
+  // other components...
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/alertsSlice";
 
 const Root = styled("div")(({ theme }) => ({
   width: "100%",
@@ -37,7 +44,20 @@ const defaultTheme = createTheme();
 const isEmail = (email) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
+// .
+// .
+// .
+// .
+// Function
+//     ||
+// .   ||
+// . \    /
+// .  \  /
+//     \/
+
 export default function Signup() {
+  const dispatch = useDispatch();
+
   // Initializing a state variable named 'showPassword' using the useState hook.
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -70,7 +90,9 @@ export default function Signup() {
       return;
     }
     if (passwordError || !passwordInput) {
-      setFormValid("Please enter a strong password. Password must be at least 8 characters long and contain a mix of uppercase and lowercase letters, numbers, and special characters.");
+      setFormValid(
+        "Please enter a strong password. Password must be at least 8 characters long and contain a mix of uppercase and lowercase letters, numbers, and special characters."
+      );
       return;
     }
     setFormValid(null);
@@ -82,47 +104,59 @@ export default function Signup() {
     //console.log("Remember user : " + rememberMe);
 
     try {
-      axios
-        .post("http://localhost:8081/login-user", {
-          email: emailInput,
-          password: passwordInput,
-        })
-        .then((response) => {
-          console.log(response.data, "userRegister");
-          if (response.data.status === "ok"&&response.data.UT!="Mentor") {
-            alert("Login successful");
-            window.localStorage.setItem("token", response.data.data);
-            window.localStorage.setItem("loggedIn", true);
-            if (response.data.UT === "Student") {
-              window.localStorage.setItem("User", "Student");
-              window.location.href = "./Student-Dashboard";
-            }else {
-              window.localStorage.setItem("User","Admin");
-              window.location.href="./Admin-Dashboard";
-            }
-          }else if(response.data.status === "ok"&&response.data.UT==="Mentor"){
-            if(response.data.isApproved === true){
-              alert("Login successful");
+      dispatch(showLoading());
+      setTimeout(() => {
+        axios
+          .post("http://localhost:8081/login-user", {
+            email: emailInput,
+            password: passwordInput,
+          })
+          .then((response) => {
+            console.log(response.data, "userRegister");
+            if (
+              response.data.status === "ok" &&
+              response.data.UT !== "Mentor"
+            ) {
+              toast.success("Login successful! , Welcome");
               window.localStorage.setItem("token", response.data.data);
               window.localStorage.setItem("loggedIn", true);
-              window.localStorage.setItem("User", "Mentor");
-              window.location.href = "./Mentor-Dashboard";
-            }else{
-              alert("Wait for admin approval");
-            }
-          } 
-          else {
-            alert("Invalid Email or Password");
-          }
-        });
 
+              if (response.data.UT === "Student") {
+                window.localStorage.setItem("User", "Student");
+                window.location.href = "./Student-Dashboard";
+              } else {
+                window.localStorage.setItem("User", "Admin");
+                window.location.href = "./Admin-Dashboard";
+              }
+            } else if (
+              response.data.status === "ok" &&
+              response.data.UT === "Mentor"
+            ) {
+              if (response.data.isApproved === true) {
+                toast.success("Login successful! , Welcome");
+                window.localStorage.setItem("token", response.data.data);
+                window.localStorage.setItem("loggedIn", true);
+                window.localStorage.setItem("User", "Mentor");
+                window.location.href = "./Mentor-Dashboard";
+              } else {
+                toast.error("Please wait for your approval");
+              }
+              dispatch(hideLoading());
+            } else {
+              toast.error("Invalid Login");
+            }
+            dispatch(hideLoading());
+          });
+      }, 2000);
       // if (response.data.status === "ok") {
       // alert("Registered successfully");
       // window.location.href = "./";
       // }
     } catch (error) {
+      dispatch(hideLoading());
+
       console.error(error.response.data);
-      alert("Invalid logging!");
+      toast.error("Something went wrong");
     }
   };
 
@@ -363,6 +397,12 @@ export default function Signup() {
                       borderWidth: 2,
                     }}
                     fullWidth
+                    onClick={() => {
+                      dispatch(showLoading());
+                      setTimeout(() => {
+                        dispatch(hideLoading());
+                      }, 2000);
+                    }}
                   >
                     Register Now
                   </Button>

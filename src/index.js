@@ -7,9 +7,7 @@ import rootReducer from "./reducer";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "react-datetime/css/react-datetime.css";
-
-// Create the Redux store
-const store = createStore(rootReducer);
+import store from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

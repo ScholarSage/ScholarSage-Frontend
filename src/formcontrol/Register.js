@@ -1,20 +1,27 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+
+import {
+  Button,
+  CssBaseline,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+} from "@mui/material";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/alertsSlice";
+
 const defaultTheme = createTheme();
 
 export default function Register() {
+  const dispatch = useDispatch();
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid
@@ -173,6 +180,12 @@ export default function Register() {
                     width: 440,
                     boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.05)",
                   }}
+                  onClick={() => {
+                    dispatch(showLoading());
+                    setTimeout(() => {
+                      dispatch(hideLoading());
+                    }, 500);
+                  }}
                 >
                   {
                     <PermIdentityOutlinedIcon
@@ -218,6 +231,12 @@ export default function Register() {
                     height: 86,
                     width: 440,
                     boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.05)",
+                  }}
+                  onClick={() => {
+                    dispatch(showLoading());
+                    setTimeout(() => {
+                      dispatch(hideLoading());
+                    }, 500);
                   }}
                 >
                   {

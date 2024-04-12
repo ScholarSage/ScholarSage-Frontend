@@ -2,23 +2,28 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 //mui imports
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import {
+  IconButton,
+  OutlinedInput,
+  InputLabel,
+  InputAdornment,
+  FormControl,
+  TextField,
+  Alert,
+  Button,
+  CssBaseline,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { toast } from "react-hot-toast";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { showLoading, hideLoading } from "../../redux/alertsSlice";
+//
 
 const defaultTheme = createTheme();
 
@@ -26,9 +31,22 @@ const isEmail = (email) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 const isRegNum = (regNum) => /^[A-Z]{2}\/\d{4}\/\d+$/i.test(regNum);
 
-//asd
+// .
+// .
+// .
+// .
+// Function
+//     ||
+// .   ||
+// . \    /
+// .  \  /
+//     \/
 
 export default function StudentSignup() {
+  //
+
+  const dispatch = useDispatch();
+
   //first time password
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -82,7 +100,7 @@ export default function StudentSignup() {
     }
 
     setFormValid(null);
-    setSuccess("Registered Successfuly");
+    toast.success("Registration successful!");
 
     // console.log("First Name : " + firstNameInput);
     // console.log("Last Name : " + lastNameInput);
@@ -92,7 +110,11 @@ export default function StudentSignup() {
     //console.log("confirmPassword : " + confirmPasswordInput);
 
     try {
-      const response = await axios.post("http://localhost:8081/StudentRegister",{
+      dispatch(showLoading());
+
+      const response = await axios.post(
+        "http://localhost:8081/StudentRegister",
+        {
           fname: firstNameInput,
           lname: lastNameInput,
           email: emailInput,
@@ -102,20 +124,22 @@ export default function StudentSignup() {
           usertype: "Student",
         }
       );
+      dispatch(hideLoading());
 
       if (response.data.error === "Email Already Used") {
-        alert("Email Already Used");
+        toast.error("Email Already Used, Please try another one");
       } else if (response.data.error === "Student Number Already Used") {
-        alert("Student Number Already Used");
+        toast.error("Student Number Already Used, You already have an account");
       } else {
         if (response.data.status === "ok") {
-          alert("Registered successfully");
+          toast.success("Registration successful!");
           window.location.href = "./";
         }
       }
     } catch (error) {
       console.error(error.response.data);
-      alert("Invalid logging!");
+      toast.error("Something went wrong!");
+      dispatch(hideLoading());
     }
   };
 
@@ -171,7 +195,7 @@ export default function StudentSignup() {
   //validation for onBlur password
   const handlePassword = () => {
     const passwordRegex =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
 
     if (
       !passwordInput ||

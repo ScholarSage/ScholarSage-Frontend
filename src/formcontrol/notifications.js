@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../content/NavbarSidenavLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+import Button from "@mui/material/Button";
 
 //mui
 import Typography from "@mui/material/Typography";
@@ -15,15 +16,39 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Notifications() {
-  const { user } = useSelector((state) => state.user);
+  const { user, reloadUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const markAllAsSeen = async () => {
     try {
       const response = await axios.post(
-        "api/user/mark-all-notifications-as-seen",
+        "http://localhost:8081/api/mark-all-notifications-as-seen",
+
         {
-          userId: user.scnumber,
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (response.data.success) {
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
+
+  const deleteAll = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/delete-all-notifications",
+
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
         }
       );
       if (response.data.success) {
@@ -60,22 +85,36 @@ function Notifications() {
             </Tabs>
           </Box>
           <TabPanel value="1">
-            <div onClick={() => markAllAsSeen()}>
+            {/* <div onClick={() => markAllAsSeen()} sx={{ textAlign: "right" }}>
               <Typography variant="h6" sx={{ textAlign: "right" }}>
-                Mark all as read
+                Mark all as seen
               </Typography>
-            </div>
+            </div> */}
 
-            {user.unseenNotificatins.map((notification) => (
+            <Button
+              onClick={markAllAsSeen}
+              variant="contained"
+              style={{ backgroundColor: "#42026F", borderRadius: 10 }}
+              fullWidth
+            >
+              Mark all as read
+            </Button>
+
+            {user?.unseenNotificatins.map((notification) => (
               <div onClick={() => navigate(notification.onClickPath)}>
                 {notification.message}
               </div>
             ))}
           </TabPanel>
           <TabPanel value="2">
-            <Typography variant="h6" sx={{ textAlign: "right" }}>
+            <Button
+              onClick={deleteAll}
+              variant="contained"
+              style={{ backgroundColor: "#42026F", borderRadius: 10 }}
+              fullWidth
+            >
               Delete all
-            </Typography>
+            </Button>
           </TabPanel>
         </TabContext>
       </Box>
