@@ -376,94 +376,94 @@ export default function UpdateProfile() {
               </p>
             </Grid>
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-  <FormControl variant="outlined" sx={{ width: "100%" }}>
-    <InputLabel id="passwordChangeOption-label">Change Password?</InputLabel>
-    <Select
-      labelId="passwordChangeOption-label"
-      id="passwordChangeOption"
-      label="Change Password?"
-      value={passwordChangeOption}
-      onChange={(e) => setPasswordChangeOption(e.target.value)}
-    >
-      <MenuItem value="yes">Yes</MenuItem>
-      <MenuItem value="no">No</MenuItem>
-    </Select>
-  </FormControl>
-</Grid>
+            <FormControl variant="outlined" sx={{ width: "100%" }}>
+              <InputLabel id="passwordChangeOption-label">Change Password?</InputLabel>
+              <Select
+                labelId="passwordChangeOption-label"
+                id="passwordChangeOption"
+                label="Change Password?"
+                value={passwordChangeOption}
+                onChange={(e) => setPasswordChangeOption(e.target.value)}
+              >
+                <MenuItem value="yes">Yes</MenuItem>
+                <MenuItem value="no">No</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
 
-{passwordChangeOption === "yes" && (
-  <>
-    {/* Current Password field */}
-    <TextField
-      required
-      type={showCurrentPassword ? "text" : "password"}
-      id="CurrentPassword"
-      label="Current Password"
-      placeholder="Current Password"
-      variant="outlined"
-      sx={{ width: "100%" }}
-      onChange={(e) => handleChange("currentPassword", e.target.value)}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-            >
-              {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
+          {passwordChangeOption === "yes" && (
+            <>
+              {/* Current Password field */}
+              <TextField
+                required
+                type={showCurrentPassword ? "text" : "password"}
+                id="CurrentPassword"
+                label="Current Password"
+                placeholder="Current Password"
+                variant="outlined"
+                sx={{ width: "100%" }}
+                onChange={(e) => handleChange("currentPassword", e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        edge="end"
+                        onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                      >
+                        {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
 
-    {/* New Password field */}
-    <TextField
-      required
-      type={showNewPassword ? "text" : "password"}
-      id="NewPassword"
-      label="New password"
-      placeholder="New password"
-      variant="outlined"
-      sx={{ width: "100%" }}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={() => setShowNewPassword(!showNewPassword)}
-            >
-              {showNewPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
+              {/* New Password field */}
+              <TextField
+                required
+                type={showNewPassword ? "text" : "password"}
+                id="NewPassword"
+                label="New password"
+                placeholder="New password"
+                variant="outlined"
+                sx={{ width: "100%" }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        edge="end"
+                        onClick={() => setShowNewPassword(!showNewPassword)}
+                      >
+                        {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
 
-    {/* Confirm Password field */}
-    <TextField
-      required
-      type={showConfirmPassword ? "text" : "password"}
-      id="ConfirmPassword"
-      label="Confirm Password"
-      placeholder="Confirm Password"
-      variant="outlined"
-      sx={{ width: "100%" }}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            >
-              {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
-  </>
-)}
+              {/* Confirm Password field */}
+              <TextField
+                required
+                type={showConfirmPassword ? "text" : "password"}
+                id="ConfirmPassword"
+                label="Confirm Password"
+                placeholder="Confirm Password"
+                variant="outlined"
+                sx={{ width: "100%" }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        edge="end"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      >
+                        {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </>
+          )}
 
           </Grid>
           <Grid
