@@ -7,20 +7,28 @@ import moment from "moment";
 
 function MentorAppointments() {
   const [appointments, setAppointments] = useState([]);
+  const [userData, setUserData] = useState("");
+
   //const [time, setTime] = useState();
   const dispatch = useDispatch();
 
   const getAppointmentsData = async () => {
     try {
-      const response = await axios.get("get-appointments-by-mentor-id");
-      if (response.data.success) {
-        setAppointments(response.data.data);
-      }
+      const response = await axios.get(
+        "http://localhost:8081/get-appointments-mentor",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(response.data);
+      setUserData(response.data.data);
     } catch (error) {
       console.log(error);
     }
   };
-
   useEffect(() => {
     getAppointmentsData();
   }, []);
@@ -30,7 +38,7 @@ function MentorAppointments() {
       const response = await axios.post(
         "/api/mentor/change-appointment-status",
         {
-          appointmentId: record.mentorid,
+          appointmentId: record._id,
           status: status,
         }
       );
@@ -40,7 +48,7 @@ function MentorAppointments() {
         getAppointmentsData();
       }
     } catch (error) {
-      toast.error("error changing mentor account status");
+      toast.error("error changing appointment status");
     }
   };
 
@@ -82,20 +90,14 @@ function MentorAppointments() {
       title: "Actions",
       dataIndex: "actions",
       render: (text, record) => (
-        <div className="d-flex">
+        <div>
           {record.status === "pending" && (
-            <div className="d-flex">
-              <h1
-                className="anchor"
-                onClick={() => changeAppointmentStatus(record, "approved")}
-              >
+            <div>
+              <h1 onClick={() => changeAppointmentStatus(record, "approved")}>
                 Approve
               </h1>
 
-              <h1
-                className="anchor"
-                onClick={() => changeAppointmentStatus(record, "rejected")}
-              >
+              <h1 onClick={() => changeAppointmentStatus(record, "rejected")}>
                 Reject
               </h1>
             </div>
