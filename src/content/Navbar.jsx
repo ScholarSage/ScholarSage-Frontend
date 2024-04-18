@@ -69,7 +69,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Navbar() {
   const [userData, setUserData] = useState("");
-  window.localStorage.setItem("User", "Student");
+
   const getData = async () => {
     try {
       const response = await axios.post(

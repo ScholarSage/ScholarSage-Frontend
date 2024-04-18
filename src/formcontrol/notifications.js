@@ -19,7 +19,6 @@ import { useState, useEffect } from "react";
 function Notifications() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState("");
-  window.localStorage.setItem("User", "Student");
 
   const getData = async () => {
     try {

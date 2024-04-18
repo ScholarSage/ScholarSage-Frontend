@@ -135,11 +135,11 @@ export default function Signup() {
               response.data.UT === "Mentor"
             ) {
               if (response.data.isApproved === true) {
-                toast.success("Login successful! , Welcome");
                 window.localStorage.setItem("token", response.data.data);
                 window.localStorage.setItem("loggedIn", true);
                 window.localStorage.setItem("User", "Mentor");
                 window.location.href = "./Mentor-Dashboard";
+                toast.success("Login successful! , Welcome");
               } else {
                 toast.error("Please wait for your approval");
               }
