@@ -9,20 +9,26 @@ function Appointments() {
   const [appointments, setAppointments] = useState([]);
   //const [time, setTime] = useState();
   //const dispatch = useDispatch();
+  const [userData, setUserData] = useState("");
+  window.localStorage.setItem("User", "Student");
 
   const getAppointmentsData = async () => {
     try {
       const response = await axios.get(
-        "api/mentor/get-appointments-by-student-id"
+        "http://localhost:8081/get-appointments-student",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
       );
-      if (response.data.success) {
-        setAppointments(response.data.data);
-      }
+      console.log(response.data);
+      setUserData(response.data.data);
     } catch (error) {
       console.log(error);
     }
   };
-
   useEffect(() => {
     getAppointmentsData();
   }, []);
@@ -47,8 +53,8 @@ function Appointments() {
       dataIndex: "email",
     },
     {
-      title: "Status",
-      dataIndex: "status",
+      title: "Phone Number",
+      dataIndex: "contactNumber",
     },
     {
       title: "Date & Time",
@@ -59,6 +65,10 @@ function Appointments() {
           {moment(record.time).format("HH:mm")}
         </span>
       ),
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
     },
   ];
 

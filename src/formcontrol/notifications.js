@@ -14,15 +14,39 @@ import Tabs from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState, useEffect } from "react";
 
 function Notifications() {
-  const { user, reloadUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const [userData, setUserData] = useState("");
+  window.localStorage.setItem("User", "Student");
+
+  const getData = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/userData",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(response.data);
+      setUserData(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
 
   const markAllAsSeen = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/mark-all-notifications-as-seen",
+        "http://localhost:8081/mark-as-seen",
+        {},
 
         {
           headers: {
@@ -31,7 +55,9 @@ function Notifications() {
         }
       );
       if (response.data.success) {
+        console.log(response.data);
         toast.success(response.data.message);
+        setUserData(response.data.data);
       } else {
         toast.error(response.data.message);
       }
@@ -44,6 +70,7 @@ function Notifications() {
     try {
       const response = await axios.post(
         "http://localhost:8081/delete-all-notifications",
+        {},
 
         {
           headers: {
@@ -52,7 +79,9 @@ function Notifications() {
         }
       );
       if (response.data.success) {
+        console.log(response.data);
         toast.success(response.data.message);
+        setUserData(response.data.data);
       } else {
         toast.error(response.data.message);
       }
@@ -60,7 +89,6 @@ function Notifications() {
       toast.error("Something went wrong");
     }
   };
-
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -80,16 +108,16 @@ function Notifications() {
               indicatorColor="secondary"
               aria-label="secondary tabs example"
             >
-              <Tab label="seen" value="1" />
-              <Tab label="unseen" value="2" />
+              <Tab label="unseen" value="1" />
+              <Tab label="seen" value="2" />
             </Tabs>
           </Box>
           <TabPanel value="1">
-            {/* <div onClick={() => markAllAsSeen()} sx={{ textAlign: "right" }}>
-              <Typography variant="h6" sx={{ textAlign: "right" }}>
-                Mark all as seen
-              </Typography>
-            </div> */}
+            {userData?.unseenNotifications?.map((notification) => (
+              <div onClick={() => navigate(notification.onClickPath)}>
+                {notification.message}
+              </div>
+            ))}
 
             <Button
               onClick={markAllAsSeen}
@@ -99,14 +127,13 @@ function Notifications() {
             >
               Mark all as read
             </Button>
-
-            {user?.unseenNotificatins.map((notification) => (
+          </TabPanel>
+          <TabPanel value="2">
+            {userData?.seenNotifications?.map((notification) => (
               <div onClick={() => navigate(notification.onClickPath)}>
                 {notification.message}
               </div>
             ))}
-          </TabPanel>
-          <TabPanel value="2">
             <Button
               onClick={deleteAll}
               variant="contained"
