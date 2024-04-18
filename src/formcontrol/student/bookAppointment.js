@@ -20,6 +20,9 @@ function BookAppointment() {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [isAvailable, setIsAvailable] = useState();
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState("");
+  window.localStorage.setItem("User", "Student");
 
   const params = useParams();
 
@@ -34,14 +37,29 @@ function BookAppointment() {
   const bookNow = async () => {
     setIsAvailable(false);
     try {
-      const response = await axios.post("/book-appointment", {
-        scnumber: "SC/2020/11111",
-        mentorid: "SC/2020/11276",
-        date: date,
-        time: time,
-      });
+      const response = await axios.post(
+        "/book-appointment",
+        {
+          scnumber: "SC/2020/11111",
+          mentorid: "SC/2020/11276",
+          date: date,
+          time: time,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (response.data.success) {
+        console.log(response.data);
+        toast.success(response.data.message);
+        setUserData(response.data.data);
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong");
     }
   };
 
@@ -86,8 +104,8 @@ function BookAppointment() {
             >
               <div sx={{ margin: "50" }}>
                 <Typography
-                  component="h4"
-                  variant="h4"
+                  component="h2"
+                  variant="h2"
                   style={{ color: "#42026F" }}
                 >
                   Book Appointment
@@ -99,24 +117,25 @@ function BookAppointment() {
                 >
                   Choose your appointment date and time!
                 </Typography>
-                <DemoItem>
-                  <DesktopDatePicker
-                    defaultValue={dayjs("2022-04-17")}
-                    onChange={(value) => {
-                      setIsAvailable(false);
-                      setDate(moment(value).format("DD-MM-YYYY"));
-                    }}
-                  />
-                </DemoItem>
+                <Box mt={7} mb={4}>
+                  <DemoItem>
+                    <DesktopDatePicker
+                      defaultValue={dayjs()}
+                      onChange={(value) => {
+                        setIsAvailable(false);
+                        setDate(moment(value).format("DD-MM-YYYY"));
+                      }}
+                    />
+                  </DemoItem>
+                </Box>
 
-                <br></br>
                 <DemoItem>
                   <DesktopTimePicker
                     onChange={(value) => {
                       setIsAvailable(false);
                       setTime(moment(value).format("HH:mm"));
                     }}
-                    defaultValue={dayjs("2022-04-17T15:30")}
+                    defaultValue={dayjs()}
                   />
                 </DemoItem>
 
@@ -127,6 +146,8 @@ function BookAppointment() {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+                  mt={4}
+                  mb={7}
                 >
                   <Button
                     onClick={checkAvailability}
