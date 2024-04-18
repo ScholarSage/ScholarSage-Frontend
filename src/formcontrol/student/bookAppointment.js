@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 function BookAppointment() {
   const [date, setDate] = useState();
@@ -46,11 +47,11 @@ function BookAppointment() {
         }
       );
       if (response.data.success) {
-        // toast.success(response.data.message);
+        toast.success(response.data.message);
         setIsAvailable(true);
         console.log("OKOK");
       } else {
-        //toast.error(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
