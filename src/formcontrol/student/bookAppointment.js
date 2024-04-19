@@ -149,18 +149,20 @@ function BookAppointment() {
                   mt={4}
                   mb={7}
                 >
-                  <Button
-                    onClick={checkAvailability}
-                    variant="contained"
-                    style={{
-                      backgroundColor: "#42026F",
-                      borderRadius: 10,
-                      marginTop: "10px",
-                    }}
-                    fullWidth
-                  >
-                    Check availability
-                  </Button>
+                  {!isAvailable && (
+                    <Button
+                      onClick={checkAvailability}
+                      variant="contained"
+                      style={{
+                        backgroundColor: "#42026F",
+                        borderRadius: 10,
+                        marginTop: "10px",
+                      }}
+                      fullWidth
+                    >
+                      Check availability
+                    </Button>
+                  )}
 
                   {isAvailable && (
                     <Button
