@@ -135,11 +135,11 @@ export default function Signup() {
               response.data.UT === "Mentor"
             ) {
               if (response.data.isApproved === true) {
-                toast.success("Login successful! , Welcome");
                 window.localStorage.setItem("token", response.data.data);
                 window.localStorage.setItem("loggedIn", true);
                 window.localStorage.setItem("User", "Mentor");
                 window.location.href = "./Mentor-Dashboard";
+                toast.success("Login successful! , Welcome");
               } else {
                 toast.error("Please wait for your approval");
               }
@@ -224,6 +224,7 @@ export default function Signup() {
               background:
                 "linear-gradient(to bottom, transparent 0%, rgba(152,56,121) 100%)",
               pointerEvents: "none", // Prevent the overlay from capturing mouse events
+              overflow: "hidden",
             }}
           />
           {/* Content */}
@@ -238,6 +239,7 @@ export default function Signup() {
               left: "50px",
               right: "700px",
               color: "white",
+              overflow: "hidden",
             }}
           >
             <div>
@@ -248,6 +250,7 @@ export default function Signup() {
                   width: "300px",
                   height: "55px",
                   filter: "brightness(0) invert(1)",
+                  overflow: "hidden",
                 }}
               />
             </div>
@@ -257,10 +260,10 @@ export default function Signup() {
               variant="h6"
               align="justify"
               style={{
-                position: "absolute",
                 top: "300px",
                 right: "100px",
                 left: "100px",
+                overflow: "hidden",
               }}
             >
               ❝ Welcome to ScholarSage! Your stress-free study buddy. Connect
@@ -373,7 +376,7 @@ export default function Signup() {
               </div>
               <p>{formValid && <Alert severity="error">{formValid}</Alert>}</p>
               <p>
-                <Button //add button
+                <Button
                   onClick={handleSubmit}
                   variant="contained"
                   style={{ backgroundColor: "#42026F", borderRadius: 10 }}
@@ -403,7 +406,7 @@ export default function Signup() {
                       dispatch(showLoading());
                       setTimeout(() => {
                         dispatch(hideLoading());
-                      }, 2000);
+                      }, 500);
                     }}
                   >
                     Register Now

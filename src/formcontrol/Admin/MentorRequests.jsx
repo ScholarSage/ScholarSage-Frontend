@@ -1,65 +1,31 @@
-import  { React,
-          useState,
-          useEffect 
-        } from 'react'
-import {Box,
-        Typography
-      } from '@mui/material';
-import {DataGrid} from '@mui/x-data-grid';
-import { useNavigate } from 'react-router-dom';
+import  { React,useState,useEffect } from 'react'
 import Layout from '../../content/NavbarSidenavLayout';
-
+import {Box,Typography} from '@mui/material';
+import {DataGrid} from '@mui/x-data-grid';
+import '../../../src/Table.css'
+import { useNavigate } from 'react-router-dom';
 
 import axios from "axios";
 
-export default function MyStudents() {
-  const [userData, setUserData] = useState("");
-  const [students, setStudents] = useState([]);
+export default function MentorRequests() {
+  const [mentors, setMentors] = useState([]);
   const navigate = useNavigate();
 
-  const getData = async () => {
+  const MentorRequestsList = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8081/userData",
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-      console.log(response.data);
-      setUserData(response.data.data);
-      return response.data.data; // Return the data for use in studentListGet
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  };
-
-  const studentListGet = async (mentorID) => {
-    try {
-      const response = await axios.post("http://localhost:8081/studentList", {
-        mentorID: mentorID,
-      });
-      console.log(response.data);
-      setStudents(response.data.students);
-      console.log(students);
-
+      const response = await axios.get("http://localhost:8081/mentor-request-list");
+      const mentorsWithId = response.data.data.map((mentor) => ({
+        id: mentor._id,
+        ...mentor,
+      }));
+      setMentors(mentorsWithId);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const userData = await getData(); // Wait for userData to be set
-      if (userData) {
-        studentListGet(userData._id);
-      }
-    };
-
-    fetchData();
+    MentorRequestsList();
   }, []);
 
   return (
@@ -107,27 +73,25 @@ export default function MyStudents() {
             justifyContent: 'center',
           }}
         >
-          <Typography variant="h6">My Students</Typography>
+          <Typography variant="h6">Mentor Requests</Typography>
         </Box>
           <DataGrid
-            rows={students.map(student => ({ ...student, id: student._id }))}
+            rows={mentors}
             columns={[
               { field: 'fname', headerName: 'First Name', flex: 1 },
               { field: 'lname', headerName: 'Last Name', flex: 1 },
               { field: 'email', headerName: 'Email', flex: 1 },
-              { field: 'scnumber', headerName: 'Student ID', flex: 1 },
+              { field: 'mentorid', headerName: 'TP No', flex: 1 },
               // Add more columns as needed
             ]}
-            onRowClick={(params) => {
-              navigate(`/StudentDetails/${params.row.scnumber}`);
-            }}
             sx={{
-              height:500
+                height:600
+              }}
+            onRowClick={(params) => {
+              navigate(`/MentorDertails/${params.row.mentorid}`);
             }}
           />
         </Box>
     </Layout>
   );
 }
-
-
