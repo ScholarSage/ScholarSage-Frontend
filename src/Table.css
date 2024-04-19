@@ -1,0 +1,14 @@
+/* Custom styles for the DataGrid */
+.custom-data-grid .MuiDataGrid-root {
+    background-color: rgb(121, 8, 202); /* Change background color */
+  }
+  
+  /* Custom styles for the header row */
+  .custom-data-grid .MuiDataGrid-row.Mui-odd .MuiDataGrid-cell {
+    background-color: rgb(139, 32, 221); /* Change background color for odd rows */
+  }
+  
+  /* Custom styles for the cells */
+  .custom-data-grid .MuiDataGrid-cell {
+    color: rgb(89, 5, 178); /* Change text color */
+  }

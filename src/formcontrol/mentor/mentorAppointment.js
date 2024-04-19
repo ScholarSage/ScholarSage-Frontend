@@ -8,6 +8,10 @@ import Layout from "../../content/NavbarSidenavLayout";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
+import Layout from "../../content/NavbarSidenavLayout";
+import { DataGrid } from "@mui/x-data-grid";
+import { useNavigate } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 
 function MentorAppointments() {
   const [appointments, setAppointments] = useState([]);
@@ -37,8 +41,6 @@ function MentorAppointments() {
   };
 
   const getAppointmentsData = async (mentorID) => {
-    console.log(mentorID);
-    console.log("Call API");
     try {
       const response = await axios.post(
         "http://localhost:8081/get-appointments-mentor",
@@ -47,12 +49,19 @@ function MentorAppointments() {
         }
       );
       console.log(response.data);
-      setAppointments(response.data.appointments);
-      console.log(appointments);
+      const appointmentsWithId = response.data.appointments.map(
+        (appointment) => ({
+          ...appointment,
+          id: appointment._id,
+        })
+      );
+      setAppointments(appointmentsWithId);
+      console.log(appointmentsWithId);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     const fetchData = async () => {
       const userData = await getData();
@@ -63,15 +72,6 @@ function MentorAppointments() {
 
     fetchData();
   }, []);
-
-  const columns = [
-    { field: "_id", headerName: "ID", width: 200 },
-    { field: "scnumber", headerName: "SC Number", width: 200 },
-    { field: "mentorid", headerName: "Mentor ID", width: 200 },
-    { field: "date", headerName: "Date", width: 200 },
-    { field: "time", headerName: "Time", width: 200 },
-    { field: "status", headerName: "Status", width: 200 },
-  ];
 
   return (
     <Layout>
@@ -119,16 +119,18 @@ function MentorAppointments() {
             justifyContent: "center",
           }}
         >
-          <Typography variant="h6">Mentor Requests</Typography>
+          <Typography variant="h6">My Students</Typography>
         </Box>
         <DataGrid
           rows={appointments}
-          columns={columns}
+          columns={[
+            { field: "scnumber", headerName: "Student ID", flex: 1 },
+            { field: "date", headerName: "Date", flex: 1 },
+            { field: "time", headerName: "Time", flex: 1 },
+            { field: "status", headerName: "Status", flex: 1 },
+          ]}
           sx={{
-            height: 600,
-          }}
-          onRowClick={(params) => {
-            navigate(`/MentorDertails/${params.row.mentorid}`);
+            height: 500,
           }}
         />
       </Box>

@@ -144,7 +144,7 @@ const roles = {
     {
       label: "Mentor Requests",
       icon: ListIcon,
-      route: "/Admin-Mentor-Requests",
+      route: "/Mentor-Requests",
     },
   ],
 };
