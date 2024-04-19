@@ -31,6 +31,7 @@ import Notifications from "./formcontrol/notifications";
 import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
+import MentorRequests from "./formcontrol/Admin/MentorRequests";
 
 //import Box from "@mui/material/Box";
 //import TextField from "@mui/material/TextField";
@@ -121,6 +122,10 @@ function App() {
 
             <Route path="/mentor" element={<Mentor />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route
+              path="/Mentor-Requests"
+              element={<MentorRequests />}
+            />
           </Routes>
         </Paper>
       </div>

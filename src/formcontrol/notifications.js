@@ -45,18 +45,13 @@ function Notifications() {
     try {
       const response = await axios.post(
         "http://localhost:8081/mark-as-seen",
-        {},
-
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
+        {id:userData._id},
       );
       if (response.data.success) {
         console.log(response.data);
         toast.success(response.data.message);
-        setUserData(response.data.data);
+        navigate(0);
+        // setUserData(response.data.data);
       } else {
         toast.error(response.data.message);
       }
@@ -68,19 +63,14 @@ function Notifications() {
   const deleteAll = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8081/delete-all-notifications",
-        {},
-
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
+        "http://localhost:8081/delete-all-notifications",{
+          id:userData._id
+        },
       );
       if (response.data.success) {
         console.log(response.data);
         toast.success(response.data.message);
-        setUserData(response.data.data);
+        navigate(0);
       } else {
         toast.error(response.data.message);
       }
