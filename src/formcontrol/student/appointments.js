@@ -4,13 +4,13 @@ import { useDispatch, Provider } from "react-redux";
 import axios from "axios";
 import { Table } from "antd";
 import moment from "moment";
+//import { DataGrid } from "@mui/x-data-grid;";
 
 function Appointments() {
   const [appointments, setAppointments] = useState([]);
   //const [time, setTime] = useState();
   //const dispatch = useDispatch();
-  const [userData, setUserData] = useState("");
-  window.localStorage.setItem("User", "Student");
+  //const [userData, setUserData] = useState("");
 
   const getAppointmentsData = async () => {
     try {
@@ -23,42 +23,39 @@ function Appointments() {
           },
         }
       );
-      console.log(response.data);
-      setUserData(response.data.data);
+      console.log(response.data.data);
+      setAppointments(response.data.data);
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    getAppointmentsData();
-  }, []);
 
   const columns = [
     {
       title: "Id",
-      dataIndex: "_id",
+      dataIndex: "mentorID",
     },
-    {
-      title: "Mentor",
-      dataIndex: "name",
-      render: (text, record) => (
-        <span>
-          {record.mentorInfo.fname}
-          {record.mentorInfo.lname}
-        </span>
-      ),
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-    },
+    // {
+    //   title: "Mentor",
+    //   dataIndex: "name",
+    //   render: (text, record) => (
+    //     <span>
+    //       {record.mentorInfo.fname}
+    //       {record.mentorInfo.lname}
+    //     </span>
+    //   ),
+    // },
+    // {
+    //   title: "Email",
+    //   dataIndex: "email",
+    // },
     {
       title: "Phone Number",
       dataIndex: "contactNumber",
     },
     {
       title: "Date & Time",
-      dataIndex: "email",
+      dataIndex: "createdAt",
       render: (text, record) => (
         <span>
           {moment(record.date).format("DD-MM-YYYY")}
@@ -72,10 +69,14 @@ function Appointments() {
     },
   ];
 
+  useEffect(() => {
+    getAppointmentsData();
+  }, []);
+
   return (
     <div>
       <h1>Appointments</h1>
-      <Table columns={columns} dataSource={appointments} />
+      <Table columns={columns} dataSource={[appointments]} />
     </div>
   );
 }
