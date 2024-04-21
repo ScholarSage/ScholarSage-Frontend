@@ -146,6 +146,9 @@ function MentorAppointments() {
       console.log(error);
     }
   };
+  useEffect(() => {
+    getAppointmentsData();
+  }, []);
 
   const getAppointmentsData = async (scnumber) => {
     try {
