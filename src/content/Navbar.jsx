@@ -205,7 +205,7 @@ export default function Navbar() {
       <AppBar
         position="fixed"
         elevation={0}
-        sx={{ backgroundColor: "#24003D", color: "#ffffff" }}
+        sx={{ backgroundColor: "#42026F", color: "#ffffff" }}
       >
         <Toolbar>
           <IconButton

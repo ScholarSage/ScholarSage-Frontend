@@ -1,0 +1,143 @@
+{
+    "questions":[
+        {
+            "text":"Do you enjoy working with your hands and physical tasks?",
+            "trait":"R"
+        },
+        {
+            "text":"Are you interested in activities such as building, fixing, or assembling things?",
+            "trait":"R"
+        },
+        {
+            "text":"Do you prefer practical, concrete problems over abstract or theoretical ones?",
+            "trait":"R"
+        },
+        {
+            "text":"Do you enjoy outdoor activities and being in a dynamic environment?",
+            "trait":"R"
+        },
+        {
+            "text":"Are you drawn to careers that involve machinery, tools, or equipment?"            ,
+            "trait":"R"
+        },
+        {
+            "text":"Are you curious about how things work and enjoy solving complex problems?",
+            "trait":"I"
+        },
+        {
+            "text":"Do you enjoy analyzing data, conducting experiments, or doing research?",
+            "trait":"I"
+        },
+        {
+            "text":"Are you comfortable with abstract ideas and theoretical concepts?",
+            "trait":"I"
+        },
+        {
+            "text":"Do you enjoy learning new things and exploring topics in depth?",
+            "trait":"I"
+        },
+        {
+            "text":"Are you naturally inclined towards careers in science, technology, engineering, or mathematics?",
+            "trait":"I"
+        },
+        {
+            "text":"Do you enjoy expressing yourself through creative activities such as drawing, writing, or performing arts?",
+            "trait":"A"
+        },
+        {
+            "text":"Are you attracted to unique and unconventional ideas or approaches?",
+            "trait":"A"
+        },
+        {
+            "text":"Do you enjoy exploring your imagination and finding new ways to express your thoughts?",
+            "trait":"A"
+        },
+        {
+            "text":"Are you interested in careers that involve creativity and artistic expression?",
+            "trait":"A"
+        },
+        {
+            "text":"Do you enjoy working in an environment that allows for personal expression and originality?",
+            "trait":"A"
+        },
+        {
+            "text":"Are you naturally inclined towards leadership roles and enjoy taking charge?",
+            "trait":"E"
+        },
+        {
+            "text":"Do you enjoy persuading, influencing, or managing others?",
+            "trait":"E"
+        },
+        {
+            "text":"Are you motivated by the idea of achieving goals and financial success?",
+            "trait":"E"
+        },
+        {
+            "text":"Do you enjoy sales, marketing, or entrepreneurial activities?",
+            "trait":"E"
+        },
+        {
+            "text":"Are you drawn to careers that involve risk-taking and decision-making?",
+            "trait":"E"
+        },
+        {
+            "text":"Do you prefer well-organized and structured environments?",
+            "trait":"C"
+        },
+        {
+            "text":"Are you detail-oriented and enjoy working with numbers and data?",
+            "trait":"C"
+        },
+        {
+            "text":"Do you find satisfaction in following established procedures and guidelines?",
+            "trait":"C"
+        },
+        {
+            "text":"Are you drawn to careers that involve organizational and administrative tasks?",
+            "trait":"C"
+        },
+        {
+            "text":"Do you enjoy working with information, records, or financial data?",
+            "trait":"C"
+        },
+        {
+            "text":"Are you a good communicator and enjoy building relationships?",
+            "trait":"S"
+        },
+        {
+            "text":"Do you enjoy helping and interacting with people?",
+            "trait":"S"
+        },
+        {
+            "text":"Do you often find yourself in situations where you are helping others or providing support?",
+            "trait":"S"
+        },
+        {
+            "text":"Are you interested in careers that involve working with people, such as teaching or counseling?",
+            "trait":"S"
+        },
+        {
+            "text":"Do you value teamwork and collaboration in your work?",
+            "trait":"S"
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
