@@ -7,11 +7,119 @@ import moment from "moment";
 import Layout from "../../content/NavbarSidenavLayout";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
-import Layout from "../../content/NavbarSidenavLayout";
-import { DataGrid } from "@mui/x-data-grid";
-import { useNavigate } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, MenuItem, Select, Button } from "@mui/material";
+import { darken, lighten, styled } from "@mui/material/styles";
+
+const getBackgroundColor = (color, mode) =>
+  mode === "dark" ? darken(color, 0.7) : lighten(color, 0.7);
+
+const getHoverBackgroundColor = (color, mode) =>
+  mode === "dark" ? darken(color, 0.6) : lighten(color, 0.6);
+
+const getSelectedBackgroundColor = (color, mode) =>
+  mode === "dark" ? darken(color, 0.5) : lighten(color, 0.5);
+
+const getSelectedHoverBackgroundColor = (color, mode) =>
+  mode === "dark" ? darken(color, 0.4) : lighten(color, 0.4);
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  "& .super-app-theme--Pending": {
+    backgroundColor: getBackgroundColor(
+      theme.palette.info.main,
+      theme.palette.mode
+    ),
+    "&:hover": {
+      backgroundColor: getHoverBackgroundColor(
+        theme.palette.info.main,
+        theme.palette.mode
+      ),
+    },
+    "&.Mui-selected": {
+      backgroundColor: getSelectedBackgroundColor(
+        theme.palette.info.main,
+        theme.palette.mode
+      ),
+      "&:hover": {
+        backgroundColor: getSelectedHoverBackgroundColor(
+          theme.palette.info.main,
+          theme.palette.mode
+        ),
+      },
+    },
+  },
+  "& .super-app-theme--Accepted": {
+    backgroundColor: getBackgroundColor(
+      theme.palette.success.main,
+      theme.palette.mode
+    ),
+    "&:hover": {
+      backgroundColor: getHoverBackgroundColor(
+        theme.palette.success.main,
+        theme.palette.mode
+      ),
+    },
+    "&.Mui-selected": {
+      backgroundColor: getSelectedBackgroundColor(
+        theme.palette.success.main,
+        theme.palette.mode
+      ),
+      "&:hover": {
+        backgroundColor: getSelectedHoverBackgroundColor(
+          theme.palette.success.main,
+          theme.palette.mode
+        ),
+      },
+    },
+  },
+  "& .super-app-theme--PartiallyFilled": {
+    backgroundColor: getBackgroundColor(
+      theme.palette.warning.main,
+      theme.palette.mode
+    ),
+    "&:hover": {
+      backgroundColor: getHoverBackgroundColor(
+        theme.palette.warning.main,
+        theme.palette.mode
+      ),
+    },
+    "&.Mui-selected": {
+      backgroundColor: getSelectedBackgroundColor(
+        theme.palette.warning.main,
+        theme.palette.mode
+      ),
+      "&:hover": {
+        backgroundColor: getSelectedHoverBackgroundColor(
+          theme.palette.warning.main,
+          theme.palette.mode
+        ),
+      },
+    },
+  },
+  "& .super-app-theme--Rejected": {
+    backgroundColor: getBackgroundColor(
+      theme.palette.error.main,
+      theme.palette.mode
+    ),
+    "&:hover": {
+      backgroundColor: getHoverBackgroundColor(
+        theme.palette.error.main,
+        theme.palette.mode
+      ),
+    },
+    "&.Mui-selected": {
+      backgroundColor: getSelectedBackgroundColor(
+        theme.palette.error.main,
+        theme.palette.mode
+      ),
+      "&:hover": {
+        backgroundColor: getSelectedHoverBackgroundColor(
+          theme.palette.error.main,
+          theme.palette.mode
+        ),
+      },
+    },
+  },
+}));
 
 function MentorAppointments() {
   const [appointments, setAppointments] = useState([]);
@@ -62,6 +170,26 @@ function MentorAppointments() {
     }
   };
 
+  const changeAppointmentStatus = async (record, status) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/change-appointment-status",
+
+        {
+          appointmentId: record._id,
+          status: status,
+        }
+      );
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        getAppointmentsData(userData.mentorid); // <--- Call getAppointmentsData again
+      }
+    } catch (error) {
+      toast.error("error changing appointment status1");
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const userData = await getData();
@@ -75,63 +203,80 @@ function MentorAppointments() {
 
   return (
     <Layout>
+      <h1 style={{ color: "#42026F" }}>Meeting Appointments</h1>
+
       <Box
         sx={{
-          height: "100%",
           width: "100%",
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: "", // Change header background color
-            borderBottom: "",
-            color: "",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: "", // Change row background color
-            color: "",
-          },
-          "& .MuiDataGrid-row:hover": {
-            backgroundColor: "", // Change hover color of rows
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: "", // Change footer background color
-            color: "", // Change footer font color
-          },
-          "& .MuiDataGrid-footerContainer .MuiTypography-root": {
-            // Change font color of footer text
-            color: "",
+          "& .super-app-theme--header": {
+            backgroundColor: "#42026F",
+            color: "#F3EDFB",
           },
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            height: 60, // Set the height of the title bar
-            backgroundColor: "#720dba", // Change title bar background color
-            color: "white", // Change title bar font color
-            paddingLeft: 2,
-            justifyContent: "center",
-          }}
-        >
-          <Typography variant="h6">My Students</Typography>
-        </Box>
-        <DataGrid
+        <StyledDataGrid
+          autoHeight
           rows={appointments}
+          getRowClassName={(params) => `super-app-theme--${params.row.status}`}
           columns={[
-            { field: "scnumber", headerName: "Student ID", flex: 1 },
-            { field: "date", headerName: "Date", flex: 1 },
-            { field: "time", headerName: "Time", flex: 1 },
-            { field: "status", headerName: "Status", flex: 1 },
+            {
+              field: "scnumber",
+              headerName: "Student ID",
+              flex: 1,
+              headerClassName: "super-app-theme--header",
+            },
+            {
+              field: "date",
+              headerName: "Date",
+              flex: 1,
+              headerClassName: "super-app-theme--header",
+            },
+            {
+              field: "time",
+              headerName: "Time",
+              flex: 1,
+              headerClassName: "super-app-theme--header",
+            },
+            {
+              field: "status",
+              headerName: "Status",
+              flex: 1,
+              headerClassName: "super-app-theme--header",
+
+              renderCell: (params) => {
+                return (
+                  <Select
+                    value={params.row.status}
+                    onChange={(event) => {
+                      changeAppointmentStatus(params.row, event.target.value);
+                    }}
+                    sx={{
+                      width: "100%", // Ensure same width for all select boxes
+                      border: "none", // Remove border
+                    }}
+                  >
+                    <MenuItem value="Pending">Pending</MenuItem>
+                    <MenuItem value="Accepted">Accept</MenuItem>
+                    <MenuItem value="Rejected">Reject</MenuItem>
+                  </Select>
+                );
+              },
+            },
+            // {
+            //   field: "status",
+            //   headerName: "Status",
+            //   width: 100,
+            //   type: "singleSelect",
+            //   valueOptions: ["Pending", "Accepted", "Rejected"],
+            //   editable: true,
+            // },
           ]}
-          sx={{
-            height: 500,
+          initialState={{
+            pagination: { paginationModel: { pageSize: 10 } },
           }}
+          pagination
+          pageSizeOptions={[10, 20, 30]}
+          rowsPerPageOptions={[10]}
         />
       </Box>
     </Layout>

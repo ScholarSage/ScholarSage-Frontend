@@ -1,0 +1,84 @@
+{
+  "questions": [
+    {
+      "text": "Do you prefer socializing with a group of friends or spending time alone?",
+      "trait": "EI"
+    },
+    {
+      "text": "Do you feel energized by being around people or drained by social interactions?",
+      "trait": "EI"
+    },
+    {
+      "text": "Do you enjoy being the center of attention or prefer to stay in the background?",
+      "trait": "EI"
+    },
+    {
+      "text": "Do you prefer to express your thoughts and feelings out loud or keep them to yourself?",
+      "trait": "EI"
+    },
+    {
+      "text": "Do you prefer to plan activities with others or do things on your own?",
+      "trait": "EI"
+    },
+    {
+      "text": "Do you prefer to focus on facts and details or see the big picture?",
+      "trait": "SN"
+    },
+    {
+      "text": "Do you prefer to follow established procedures or come up with new ideas?",
+      "trait": "SN"
+    },
+    {
+      "text": "Do you prefer to deal with concrete information or abstract concepts?",
+      "trait": "SN"
+    },
+    {
+      "text": "Do you prefer to focus on the present or think about the future?",
+      "trait": "SN"
+    },
+    {
+      "text": "Do you prefer to work with established methods or experiment with new approaches?",
+      "trait": "SN"
+    },
+    {
+      "text": "Do you prefer to make decisions based on logic and objective analysis or on personal values and emotions?",
+      "trait": "TF"
+    },
+    {
+      "text": "Do you prefer to be objective and impartial or empathetic and understanding?",
+      "trait": "TF"
+    },
+    {
+      "text": "Do you prefer to make decisions based on facts and data or on people's feelings and needs?",
+      "trait": "TF"
+    },
+    {
+      "text": "Do you prefer to be analytical and critical or supportive and harmonious?",
+      "trait": "TF"
+    },
+    {
+      "text": "Do you prefer to be logical and systematic or flexible and adaptable?",
+      "trait": "TF"
+    },
+    {
+      "text": "Do you prefer to plan and organize your life or be spontaneous and flexible?",
+      "trait": "JP"
+    },
+    {
+      "text": "Do you prefer to have a clear structure and schedule or be open to new possibilities?",
+      "trait": "JP"
+    },
+    {
+      "text": "Do you prefer to make decisions quickly and stick to them or take your time and consider all options?",
+      "trait": "JP"
+    },
+    {
+      "text": "Do you prefer to have a clear set of rules and expectations or be open to change and adaptation?",
+      "trait": "JP"
+    },
+    {
+      "text": "Do you prefer to be decisive and take charge or be more laid-back and go with the flow?",
+      "trait": "JP"
+    }
+  ]
+}

@@ -27,11 +27,13 @@ import BookAppointment from "./formcontrol/student/bookAppointment";
 import Appointments from "./formcontrol/student/appointments";
 import MentorAppointments from "./formcontrol/mentor/mentorAppointment";
 import Notifications from "./formcontrol/notifications";
+import Questionnaire from "./formcontrol/Questionnaire";
 //mui imports
 import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 import MentorRequests from "./formcontrol/Admin/MentorRequests";
+import Questions from "./formcontrol/questions";
 
 //import Box from "@mui/material/Box";
 //import TextField from "@mui/material/TextField";
@@ -122,10 +124,9 @@ function App() {
 
             <Route path="/mentor" element={<Mentor />} />
             <Route path="/notifications" element={<Notifications />} />
-            <Route
-              path="/Mentor-Requests"
-              element={<MentorRequests />}
-            />
+            <Route path="/Mentor-Requests" element={<MentorRequests />} />
+            <Route path="/quiz" element={<Questionnaire />} />
+            <Route path="/questions" element={<Questions />} />
           </Routes>
         </Paper>
       </div>
