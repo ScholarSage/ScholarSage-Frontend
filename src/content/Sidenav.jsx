@@ -7,17 +7,19 @@ import {
   styled,
   useTheme,
 } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
+import {
+  Box,
+  Drawer as MuiDrawer,
+  List,
+  CssBaseline,
+  Divider,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  IconButton,
+} from "@mui/material";
 
-import IconButton from "@mui/material/IconButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -37,7 +39,7 @@ const drawerWidth = 240;
 
 const logout = () => {
   window.localStorage.clear();
-  window.location.href = "./";
+  window.location.href = "/";
 };
 
 const theme1 = createTheme({
@@ -144,7 +146,7 @@ const roles = {
     {
       label: "Mentor Requests",
       icon: ListIcon,
-      route: "/Admin-Mentor-Requests",
+      route: "/Mentor-Requests",
     },
   ],
 };

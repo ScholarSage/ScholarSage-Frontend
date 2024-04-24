@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 //import { DatePicker, TimePicker } from "@mui/x-date-pickers";
-import { Row, Col, DatePicker, TimePicker, Typography } from "antd";
+import { Typography } from "antd";
+import Layout from "../../content/NavbarSidenavLayout";
 
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -15,6 +16,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Paper, Grid, Button, Box } from "@mui/material";
+import { TextField } from "@mui/material";
 
 function BookAppointment() {
   const [date, setDate] = useState();
@@ -22,17 +24,58 @@ function BookAppointment() {
   const [isAvailable, setIsAvailable] = useState();
   const navigate = useNavigate();
   const [userData, setUserData] = useState("");
-  window.localStorage.setItem("User", "Student");
+  const [MentorData, setMentorData] = useState("");
 
   const params = useParams();
 
-  const getMentorData = async () => {
+  const getData = async () => {
     try {
-      // const response=await axios.get()
+      const response = await axios.post(
+        "http://localhost:8081/userData",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(response.data);
+      setUserData(response.data.data);
+      return response.data.data; // Return the data for use in studentListGet
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
+
+  const MentorGet = async (scnumber) => {
+    try {
+      const response = await axios.post("http://localhost:8081/MentorGet", {
+        scnumber: scnumber,
+      });
+      console.log(response.data);
+      if (response.data.status == "ok") {
+        setMentorData(response.data.data);
+      } else if (response.data.status == "Mentor Not Found") {
+        toast.error("Mentor Not Found");
+      } else {
+        toast.error("Somthing Went Wrong");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userData = await getData(); // Wait for userData to be set
+      if (userData) {
+        MentorGet(userData._id);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const bookNow = async () => {
     setIsAvailable(false);
@@ -40,8 +83,11 @@ function BookAppointment() {
       const response = await axios.post(
         "/book-appointment",
         {
-          scnumber: "SC/2020/11111",
-          mentorid: "SC/2020/11276",
+          scnumber: userData.scnumber,
+          mentorid: MentorData.mentorid,
+          mentorInfo: MentorData,
+          studentInfo: userData,
+
           date: date,
           time: time,
         },
@@ -66,7 +112,7 @@ function BookAppointment() {
   const checkAvailability = async () => {
     try {
       const response = await axios.post("/check-booking-availability", {
-        mentorid: params.mentorid,
+        mentorid: MentorData.mentorid,
         date: date,
         time: time,
       });
@@ -82,132 +128,136 @@ function BookAppointment() {
     }
   };
 
-  useEffect(() => {
-    getMentorData();
-  }, []);
-
   return (
-    <div sx={{ height: "100vh" }}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={["DesktopTimePicker", "DesktopDatePicker"]}>
-          <Grid container component="main" sx={{ height: "100vh" }}>
-            <Grid
-              item
-              xs={12}
-              sm={5}
-              md={5}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <div sx={{ margin: "50" }}>
-                <Typography
-                  component="h2"
-                  variant="h2"
-                  style={{ color: "#42026F" }}
-                >
-                  Book Appointment
-                </Typography>
+    <Layout>
+      <div sx={{ height: "100vh" }}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer
+            components={["DesktopTimePicker", "DesktopDatePicker"]}
+          >
+            <Grid container component="main" sx={{ height: "100vh" }}>
+              <Grid
+                item
+                xs={12}
+                sm={5}
+                md={5}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <div sx={{ margin: "50" }}>
+                  <Typography
+                    component="h2"
+                    variant="h2"
+                    style={{ color: "#42026F" }}
+                  >
+                    Book Appointment
+                  </Typography>
+                  <Typography
+                    component="h5"
+                    variant="h6"
+                    style={{ color: "#42026F" }}
+                  >
+                    Choose your appointment date and time!
+                  </Typography>
+                  <Box mt={7} mb={4}>
+                    <DemoItem>
+                      <DesktopDatePicker
+                        value={date}
+                        onChange={(newValue) => {
+                          setDate(newValue.format("DD-MM-YYYY"));
+                          //  setDate(moment(value).format("DD-MM-YYYY"));
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                        inputFormat="DD-MM-YYYY"
+                      />
+                    </DemoItem>
+                  </Box>
+
+                  <DemoItem>
+                    <DesktopTimePicker
+                      value={time}
+                      onChange={(newValues) => {
+                        setTime(newValues.format("HH:mm"));
+                      }}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </DemoItem>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    mt={4}
+                    mb={7}
+                  >
+                    {!isAvailable && (
+                      <Button
+                        onClick={checkAvailability}
+                        variant="contained"
+                        style={{
+                          backgroundColor: "#42026F",
+                          borderRadius: 10,
+                          marginTop: "10px",
+                        }}
+                        fullWidth
+                      >
+                        Check availability
+                      </Button>
+                    )}
+
+                    {isAvailable && (
+                      <Button
+                        onClick={bookNow}
+                        variant="contained"
+                        style={{
+                          backgroundColor: "#42026F",
+                          borderRadius: 10,
+                          marginTop: "10px",
+                        }}
+                        fullWidth
+                      >
+                        Book now
+                      </Button>
+                    )}
+                  </Box>
+                </div>
                 <Typography
                   component="h5"
                   variant="h6"
+                  sx={{ width: "80%" }}
                   style={{ color: "#42026F" }}
                 >
-                  Choose your appointment date and time!
+                  Pick a date and time for your appointment. Check availability
+                  and confirm by clicking "Book Now".
                 </Typography>
-                <Box mt={7} mb={4}>
-                  <DemoItem>
-                    <DesktopDatePicker
-                      defaultValue={dayjs()}
-                      onChange={(value) => {
-                        setIsAvailable(false);
-                        setDate(moment(value).format("DD-MM-YYYY"));
-                      }}
-                    />
-                  </DemoItem>
-                </Box>
-
-                <DemoItem>
-                  <DesktopTimePicker
-                    onChange={(value) => {
-                      setIsAvailable(false);
-                      setTime(moment(value).format("HH:mm"));
-                    }}
-                    defaultValue={dayjs()}
-                  />
-                </DemoItem>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  mt={4}
-                  mb={7}
-                >
-                  <Button
-                    onClick={checkAvailability}
-                    variant="contained"
+              </Grid>
+              <Grid item xs={12} sm={7} md={7}>
+                <div xs={false} sm={4} md={7}>
+                  <img
+                    src={require("../../content/booking.jpg")}
                     style={{
-                      backgroundColor: "#42026F",
-                      borderRadius: 10,
-                      marginTop: "10px",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100vh",
+
+                      pointerEvents: "none",
+                      overflow: "hidden",
                     }}
-                    fullWidth
-                  >
-                    Check availability
-                  </Button>
-
-                  {isAvailable && (
-                    <Button
-                      onClick={bookNow}
-                      variant="contained"
-                      style={{
-                        backgroundColor: "#42026F",
-                        borderRadius: 10,
-                        marginTop: "10px",
-                      }}
-                      fullWidth
-                    >
-                      Book now
-                    </Button>
-                  )}
-                </Box>
-              </div>
-              <Typography
-                component="h5"
-                variant="h6"
-                sx={{ width: "80%" }}
-                style={{ color: "#42026F" }}
-              >
-                Pick a date and time for your appointment. Check availability
-                and confirm by clicking "Book Now".
-              </Typography>
+                  />
+                </div>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={7} md={7}>
-              <div xs={false} sm={4} md={7}>
-                <img
-                  src={require("../../content/booking.jpg")}
-                  style={{
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100vh",
-
-                    pointerEvents: "none",
-                    overflow: "hidden",
-                  }}
-                />
-              </div>
-            </Grid>
-          </Grid>
-        </DemoContainer>
-      </LocalizationProvider>
-    </div>
+          </DemoContainer>
+        </LocalizationProvider>
+      </div>
+    </Layout>
   );
 }
 

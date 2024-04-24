@@ -1,6 +1,5 @@
 import React from "react";
 import Layout from "../content/NavbarSidenavLayout";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import Button from "@mui/material/Button";
 
@@ -15,11 +14,14 @@ import TabPanel from "@mui/lab/TabPanel";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { showLoading, hideLoading } from "../redux/alertsSlice";
 
 function Notifications() {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [userData, setUserData] = useState("");
-  window.localStorage.setItem("User", "Student");
 
   const getData = async () => {
     try {
@@ -44,48 +46,55 @@ function Notifications() {
 
   const markAllAsSeen = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8081/mark-as-seen",
-        {},
+      dispatch(showLoading());
+      setTimeout(async () => {
+        const response = await axios.post(
+          "http://localhost:8081/mark-as-seen",
+          {
+            id: userData._id,
+          }
+        );
+        if (response.data.success) {
+          console.log(response.data);
+          toast.success(response.data.message);
+          setUserData({ ...userData, unseenNotifications: [] }); // Update userData state
 
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
+          getData();
+        } else {
+          toast.error(response.data.message);
         }
-      );
-      if (response.data.success) {
-        console.log(response.data);
-        toast.success(response.data.message);
-        setUserData(response.data.data);
-      } else {
-        toast.error(response.data.message);
-      }
+        dispatch(hideLoading());
+      }, 500);
     } catch (error) {
+      dispatch(hideLoading());
+
       toast.error("Something went wrong");
     }
   };
 
   const deleteAll = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8081/delete-all-notifications",
-        {},
+      dispatch(showLoading());
+      setTimeout(async () => {
+        const response = await axios.post(
+          "http://localhost:8081/delete-all-notifications",
+          {
+            id: userData._id,
+          }
+        );
+        if (response.data.success) {
+          console.log(response.data);
 
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
+          toast.success(response.data.message);
+          getData();
+        } else {
+          toast.error(response.data.message);
         }
-      );
-      if (response.data.success) {
-        console.log(response.data);
-        toast.success(response.data.message);
-        setUserData(response.data.data);
-      } else {
-        toast.error(response.data.message);
-      }
+        dispatch(hideLoading());
+      }, 500);
     } catch (error) {
+      dispatch(hideLoading());
+
       toast.error("Something went wrong");
     }
   };
@@ -97,51 +106,87 @@ function Notifications() {
 
   return (
     <Layout>
-      <h1 className="page-title">Notifications</h1>
+      <h1 style={{ color: "#42026F" }}>Notifications</h1>
+
       <Box sx={{ width: "100%", typography: "body1" }}>
         <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              textColor="secondary"
-              indicatorColor="secondary"
-              aria-label="secondary tabs example"
-            >
-              <Tab label="unseen" value="1" />
-              <Tab label="seen" value="2" />
-            </Tabs>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                textColor="secondary"
+                indicatorColor="secondary"
+                aria-label="secondary tabs example"
+              >
+                <Tab label="unseen" value="1" />
+                <Tab label="seen" value="2" />
+              </Tabs>
+            </Box>
+            {value === "1" && (
+              <Button
+                onClick={markAllAsSeen}
+                variant="contained"
+                style={{
+                  backgroundColor: "#42026F",
+                  borderRadius: 10,
+                  width: "20%",
+                }}
+              >
+                Mark all as read
+              </Button>
+            )}
+            {value === "2" && (
+              <Button
+                onClick={deleteAll}
+                variant="contained"
+                style={{
+                  backgroundColor: "#42026F",
+                  borderRadius: 10,
+                  width: "20%",
+                }}
+              >
+                Delete all
+              </Button>
+            )}
           </Box>
           <TabPanel value="1">
-            {userData?.unseenNotifications?.map((notification) => (
-              <div onClick={() => navigate(notification.onClickPath)}>
+            {userData?.unseenNotifications?.map((notification, index) => (
+              <div
+                key={index}
+                style={{
+                  marginBottom: 5,
+                  display: "block",
+                  textAlign: "left",
+
+                  backgroundColor: "#F3EDFB",
+                  padding: 10,
+                  borderRadius: 5,
+                }}
+                onClick={() => navigate(notification.onClickPath)}
+              >
                 {notification.message}
               </div>
             ))}
-
-            <Button
-              onClick={markAllAsSeen}
-              variant="contained"
-              style={{ backgroundColor: "#42026F", borderRadius: 10 }}
-              fullWidth
-            >
-              Mark all as read
-            </Button>
           </TabPanel>
           <TabPanel value="2">
-            {userData?.seenNotifications?.map((notification) => (
-              <div onClick={() => navigate(notification.onClickPath)}>
+            {userData?.seenNotifications?.map((notification, index) => (
+              <div
+                key={index}
+                style={{
+                  marginBottom: 5,
+                  display: "block",
+                  textAlign: "left",
+
+                  backgroundColor: "#F3EDFB",
+                  padding: 10,
+                  borderRadius: 5,
+                }}
+                onClick={() => navigate(notification.onClickPath)}
+              >
                 {notification.message}
               </div>
             ))}
-            <Button
-              onClick={deleteAll}
-              variant="contained"
-              style={{ backgroundColor: "#42026F", borderRadius: 10 }}
-              fullWidth
-            >
-              Delete all
-            </Button>
           </TabPanel>
         </TabContext>
       </Box>
