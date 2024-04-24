@@ -113,7 +113,7 @@ const Resource = () => {
       // Handle resource update error here
     }
   };
-const handleDelete = async () => {
+  const handleDelete = async () => {
     try {
       if (selectedResource) {
         await axios.delete(
