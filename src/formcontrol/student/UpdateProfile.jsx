@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef , useEffect} from "react";
 import {
   Box,
   TextField,
@@ -6,13 +6,11 @@ import {
   Button,
   Avatar,
   MenuItem,
-  Select, 
-  InputLabel, 
+  Select,
+  InputLabel,
   FormControl,
-
 } from "@mui/material";
 import axios from "axios";
-import { useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -20,7 +18,6 @@ import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Layout from "../../content/NavbarSidenavLayout";
-
 
 const drawerWidth = 240;
 
@@ -38,14 +35,14 @@ export default function UpdateProfile() {
   const [imagePreview, setImagePreview] = useState(null);
   const inputRef = useRef();
   const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
+    fname: "",
+    lname: "",
     email: "",
+    scnumber: "",
     address: "",
     contactNo: "",
     degreeProgram: "",
     academicLevel: "",
-    year: "",
     department: "",
     faculty: "",
     currentPassword: "",
@@ -57,46 +54,25 @@ export default function UpdateProfile() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [userData1, setUserData1] = useState("");
-
-  const getData=async()=>{
+  const getData = async () => {
     try {
-      const response = await axios.post("http://localhost:8081/userData",{},
-      {
-        headers : {
-          Authorization : "Bearer " + localStorage.getItem("token")
+      const response = await axios.post(
+        "http://localhost:8081/userData",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
         }
-      })
+      );
       console.log(response.data);
-      setUserData1(response.data.data);
+      setUserData(response.data.data);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.post("http://localhost:8081/userData", {
-    //       token: window.localStorage.getItem("token"),
-    //     });
-
-    //     const data = response.data;
-    //     console.log(data, "userData");
-    //     setUserData(data.data);
-
-    //     if (data.data === "token expired") {
-    //       alert("Token expired login again");
-    //       window.localStorage.clear();
-    //       window.location.href = "./";
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching user data:", error);
-    //   }
-    // };
-
-    // fetchData();
     getData();
   }, []); // empty dependency array means useEffect runs once after the initial render
 
@@ -132,6 +108,26 @@ export default function UpdateProfile() {
     }
   };
 
+  const saveChanges = async () => {
+    try {
+      const response = await axios.put(
+        "http://localhost:8081/userData",
+        userData,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(userData);
+      console.log(response.data);
+      // Optionally, handle success response or display a message
+    } catch (error) {
+      console.log(error);
+      // Handle errors, such as displaying an error message
+    }
+  };
+
   const handleChange = (field, value) => {
     setUserData((prevValues) => ({
       ...prevValues,
@@ -141,366 +137,399 @@ export default function UpdateProfile() {
 
   return (
     <Layout>
-			<div>
-      <form>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 2 },
-          }}
-          noValidate
-          autoComplete="off"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="210vh"
-          flexDirection="column"
-        >
-          <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <Avatar
-                alt="Profile Picture"
-                src={imagePreview}
-                sx={{ width: 200, height: 200 }}
-              />
-              <input
-                accept="image/*"
-                ref={inputRef}
-                style={{ display: "none" }}
-                type="file"
-                onChange={handleFileChange}
-              />
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <h3>{userData1.fname}</h3>
-              <Button
-                variant="contained"
-                size="large"
-                sx={{
-                  marginTop: 2,
-                  backgroundColor: "#42026F",
-                  color: "#fff",
-                  padding: "0.5em 1em 0.5em 1em !important",
-                }}
-                onClick={() => {
-                  handleButtonClick();
-                  handleSaveClick();
-                }}
-              >
-                {file ? "Update Profile" : "Change Photo"}
-              </Button>
-            </Grid>
-
-            <Grid
-              item
-              xs={12}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: "1em 1em 0em 1em !important",
-              }}
-            ></Grid>
-            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <p>
-                <Root>
-                  <Divider>
-                    {" "}
-                    <h3>Personal Details</h3>
-                  </Divider>
-                </Root>
-              </p>
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="FirstName"
-                label="First Name"
-                placeholder="First Name"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="LastName"
-                label="Last Name"
-                placeholder="Last Name"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid>
-
-            {/* <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="About"
-                label="About"
-                placeholder="About"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid> */}
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="Email"
-                label="E-mail"
-                placeholder="E-mail"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="Address"
-                label="Address"
-                placeholder="Address"
-                multiline
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="ContactNo"
-                label="Contact No:"
-                placeholder="07XXXXXXXX"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                select
-                id="scnumber"
-                label="Registration Number"
-                helperText="Enter Registration Number"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              ></TextField>
-            </Grid>
-          </Grid>
-
-          <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
-            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <p>
-                <Root>
-                  <Divider>
-                    {" "}
-                    <h3>Academic Details</h3>
-                  </Divider>
-                </Root>
-              </p>
-            </Grid>
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="DegreeProgram"
-                label="DegreeProgram"
-                placeholder="Degree Progree"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="AcademicLevel"
-                label="AcademicLevel"
-                placeholder="Academic Level"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="Year"
-                label="Year"
-                placeholder="Year"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid>
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="Department"
-                label="Department"
-                placeholder="Department"
-                variant="outlined"
-                sx={{ width: "100%" }}
-              />
-            </Grid>
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                select
-                id="Faculty"
-                label="Faculty"
-                placeholder="Faculty"
-                variant="outlined"
-                value={userData.faculty}
-                onChange={(e) => handleChange("faculty", e.target.value)}
-                sx={{ width: "100%" }}
-                >
-                  {['Agriculture', 'Allied Health Science', 'Engineering', 'Fisheries and Marine Sciences & Technology', 'Graduate Studies', 'Humanities and Social Sciences', 'Management & Finance', 'Medicine', 'Science', 'Technology'].map((option, index) => (
-                      <MenuItem key={index} value={option}>
-                        {option}
-                      </MenuItem>
-                    ))}
-              </TextField>
-            </Grid>
-          </Grid>
-          <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
-            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <p>
-                <Root>
-                  <Divider></Divider>
-                </Root>
-              </p>
-            </Grid>
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-  <FormControl variant="outlined" sx={{ width: "100%" }}>
-    <InputLabel id="passwordChangeOption-label">Change Password?</InputLabel>
-    <Select
-      labelId="passwordChangeOption-label"
-      id="passwordChangeOption"
-      label="Change Password?"
-      value={passwordChangeOption}
-      onChange={(e) => setPasswordChangeOption(e.target.value)}
-    >
-      <MenuItem value="yes">Yes</MenuItem>
-      <MenuItem value="no">No</MenuItem>
-    </Select>
-  </FormControl>
-</Grid>
-
-{passwordChangeOption === "yes" && (
-  <>
-    {/* Current Password field */}
-    <TextField
-      required
-      type={showCurrentPassword ? "text" : "password"}
-      id="CurrentPassword"
-      label="Current Password"
-      placeholder="Current Password"
-      variant="outlined"
-      sx={{ width: "100%" }}
-      onChange={(e) => handleChange("currentPassword", e.target.value)}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-            >
-              {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
-
-    {/* New Password field */}
-    <TextField
-      required
-      type={showNewPassword ? "text" : "password"}
-      id="NewPassword"
-      label="New password"
-      placeholder="New password"
-      variant="outlined"
-      sx={{ width: "100%" }}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={() => setShowNewPassword(!showNewPassword)}
-            >
-              {showNewPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
-
-    {/* Confirm Password field */}
-    <TextField
-      required
-      type={showConfirmPassword ? "text" : "password"}
-      id="ConfirmPassword"
-      label="Confirm Password"
-      placeholder="Confirm Password"
-      variant="outlined"
-      sx={{ width: "100%" }}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            >
-              {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
-  </>
-)}
-
-          </Grid>
-          <Grid
-            container
-            spacing={2}
-            sx={{ mt: 3, justifyContent: "flex-end", width: "70%" }}
+      <div>
+        <form>
+          <Box
+            component="form"
+            sx={{
+              "& .MuiTextField-root": { m: 2 },
+            }}
+            noValidate
+            autoComplete="off"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="210vh"
+            flexDirection="column"
           >
-            <Grid item>
-              <Button
-                variant="contained"
-                size="large"
-                type="submit"
+           <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <Avatar
+                  alt="Profile Picture"
+                  src={imagePreview}
+                  sx={{ width: 200, height: 200 }}
+                />
+                <input
+                  accept="image/*"
+                  ref={inputRef}
+                  style={{ display: "none" }}
+                  type="file"
+                  onChange={handleFileChange}
+                />
+              </Grid>
+
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <h3>{userData.fname}</h3>
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    marginTop: 2,
+                    backgroundColor: "#42026F",
+                    color: "#fff",
+                    padding: "0.5em 1em 0.5em 1em !important",
+                  }}
+                  onClick={() => {
+                    handleButtonClick();
+                    handleSaveClick();
+                  }}
+                >
+                  {file ? "Change Photo" : "Upload Photo"}
+                </Button>
+              </Grid>
+
+              <Grid
+                item
+                xs={12}
                 sx={{
-                  marginTop: 2,
-                  backgroundColor: "#42026F",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "1em 1em 0em 1em !important",
                 }}
-              >
-                Cancel
-              </Button>
+              ></Grid>
+              <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <p>
+                  <Root>
+                    <Divider>
+                      {" "}
+                      <h3>Personal Details</h3>
+                    </Divider>
+                  </Root>
+                </p>
+              </Grid>
+
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  id="FirstName"
+                  label="First Name"
+                  placeholder="First Name"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.fname}
+                  onChange={(e) => handleChange("fname", e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  id="LastName"
+                  label="Last Name"
+                  placeholder="Last Name"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.lname}
+                  onChange={(e) => handleChange("lname", e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  id="Email"
+                  label="E-mail"
+                  placeholder="E-mail"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                />
+              </Grid>
+              
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  id="scnumber"
+                  label="Registration Number"
+                  placeholder="Registration Number"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.scnumber || ''}
+                  onChange={(e) => handleChange("scnumber", e.target.value)}
+                ></TextField>
+              </Grid>
+
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  id="Address"
+                  label="Address"
+                  placeholder="Address"
+                  multiline
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.address || ''} 
+                  onChange={(e) => handleChange("address", e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  id="ContactNo"
+                  label="Contact No:"
+                  placeholder="07XXXXXXXX"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.contactNo || ''}
+                  onChange={(e) => handleChange("contactNo", e.target.value)}
+                />
+              </Grid>
             </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                size="large"
-                type="submit"
-                sx={{
-                  marginTop: 2,
-                  backgroundColor: "#42026F",
-                }}
-              >
-                Save Changes
-              </Button>
+
+            <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
+              <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <p>
+                  <Root>
+                    <Divider>
+                      {" "}
+                      <h3>Academic Details</h3>
+                    </Divider>
+                  </Root>
+                </p>
+              </Grid>
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  id="DegreeProgram"
+                  label="DegreeProgram"
+                  placeholder="Degree Progree"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.degreeProgram || ''}
+                  onChange={(e) =>
+                    handleChange("degreeProgram", e.target.value)
+                  }
+                />
+              </Grid>
+
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  id="AcademicLevel"
+                  label="AcademicLevel"
+                  placeholder="Academic Level"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.academicLevel || ''}
+                  onChange={(e) =>
+                    handleChange("academicLevel", e.target.value)
+                  }
+                />
+              </Grid>
+
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  id="Department"
+                  label="Department"
+                  placeholder="Department"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.department || ''}
+                  onChange={(e) => handleChange("department", e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <TextField
+                  required
+                  select
+                  id="Faculty"
+                  label="Faculty"
+                  placeholder="Faculty"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                  value={userData.faculty || ''}
+                  onChange={(e) => handleChange("faculty", e.target.value)}
+                >
+                  {[
+                    "Agriculture",
+                    "Allied Health Science",
+                    "Engineering",
+                    "Fisheries and Marine Sciences & Technology",
+                    "Graduate Studies",
+                    "Humanities and Social Sciences",
+                    "Management & Finance",
+                    "Medicine",
+                    "Science",
+                    "Technology",
+                  ].map((option, index) => (
+                    <MenuItem key={index} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-      </form>
-    </div>
+            <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
+              <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <p>
+                  <Root>
+                    <Divider></Divider>
+                  </Root>
+                </p>
+              </Grid>
+              <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+                <FormControl variant="outlined" sx={{ width: "100%" }}>
+                  <InputLabel id="passwordChangeOption-label">
+                    Change Password?
+                  </InputLabel>
+                  <Select
+                    labelId="passwordChangeOption-label"
+                    id="passwordChangeOption"
+                    label="Change Password?"
+                    value={passwordChangeOption}
+                    onChange={(e) => setPasswordChangeOption(e.target.value)}
+                  >
+                    <MenuItem value="yes">Yes</MenuItem>
+                    <MenuItem value="no">No</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              {passwordChangeOption === "yes" && (
+                <>
+                  {/* Current Password field */}
+                  <TextField
+                    required
+                    type={showCurrentPassword ? "text" : "password"}
+                    id="CurrentPassword"
+                    label="Current Password"
+                    placeholder="Current Password"
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                    onChange={(e) =>
+                      handleChange("currentPassword", e.target.value)
+                    }
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            edge="end"
+                            onClick={() =>
+                              setShowCurrentPassword(!showCurrentPassword)
+                            }
+                          >
+                            {showCurrentPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  {/* New Password field */}
+                  <TextField
+                    required
+                    type={showNewPassword ? "text" : "password"}
+                    id="NewPassword"
+                    label="New password"
+                    placeholder="New password"
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            edge="end"
+                            onClick={() => setShowNewPassword(!showNewPassword)}
+                          >
+                            {showNewPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  {/* Confirm Password field */}
+                  <TextField
+                    required
+                    type={showConfirmPassword ? "text" : "password"}
+                    id="ConfirmPassword"
+                    label="Confirm Password"
+                    placeholder="Confirm Password"
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            edge="end"
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
+                          >
+                            {showConfirmPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </>
+              )}
+            </Grid>
+            <Grid
+              container
+              spacing={2}
+              sx={{ mt: 3, justifyContent: "flex-end", width: "70%" }}
+            >
+              <Grid item>
+                <Button
+                  variant="contained"
+                  size="large"
+                  type="submit"
+                  sx={{
+                    marginTop: 2,
+                    backgroundColor: "#42026F",
+                  }}
+                >
+                  Cancel
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  size="large"
+                  type="submit"
+                  sx={{
+                    marginTop: 2,
+                    backgroundColor: "#42026F",
+                  }}
+                  onClick={() => {
+                    saveChanges();
+                  }}
+                >
+                  Save Changes
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </form>
+      </div>
     </Layout>
   );
 }

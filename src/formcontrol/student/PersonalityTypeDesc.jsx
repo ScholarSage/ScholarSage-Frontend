@@ -70,7 +70,7 @@ const PersonalityTypeDesc = () => {
                 '&:hover': {
                   backgroundColor: '#82004b',
                 },
-                width: '120px',
+                width: '150px',
               }}
             >
              ←  Previous
