@@ -1,0 +1,822 @@
+[
+  [
+    {
+      "personality": "INTJ",
+      "title": "The Mastermind",
+      "careerPaths": [
+        "Engineering",
+        "Consulting",
+        "Finance",
+        "Research",
+        "Law"
+      ],
+      "skillsToImprove": [
+        "Interpersonal Skills",
+        "Empathy",
+        "Adaptability",
+        "Teamwork"
+      ],
+      "skillsToMaster": [
+        "Strategic Thinking",
+        "Analytical Skills",
+        "Leadership",
+        "Self-confidence"
+      ],
+
+      "YouTubeChannels": [
+        {
+          "name": "TED Talks",
+          "link": "https://www.youtube.com/user/TEDtalksDirector"
+        },
+        {
+          "name": "Kurzgesagt",
+          "link": "https://www.youtube.com/user/Kurzgesagt"
+        },
+        {
+          "name": "Crash Course",
+          "link": "https://www.youtube.com/user/crashcourse"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "edX",
+          "link": "https://www.edx.org/"
+        },
+        {
+          "name": "MIT OpenCourseWare",
+          "link": "https://ocw.mit.edu/"
+        }
+      ]
+    },
+    {
+      "personality": "INTP",
+      "title": "The Thinker",
+      "careerPaths": [
+        "Philosophy",
+        "Software Engineering",
+        "Psychology",
+        "Academic Research",
+        "Systems Analysis"
+      ],
+      "skillsToImprove": [
+        "Emotional Intelligence",
+        "Practical Skills",
+        "Focus",
+        "Organization"
+      ],
+      "skillsToMaster": [
+        "Abstract Thinking",
+        "Problem Solving",
+        "Creativity",
+        "Theoretical Knowledge"
+      ],
+
+      "YouTubeChannels": [
+        {
+          "name": "Vsauce",
+          "link": "https://www.youtube.com/user/Vsauce"
+        },
+        {
+          "name": "Numberphile",
+          "link": "https://www.youtube.com/user/numberphile"
+        },
+        {
+          "name": "Veritasium",
+          "link": "https://www.youtube.com/user/1veritasium"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Stanford Online",
+          "link": "https://online.stanford.edu/"
+        },
+        {
+          "name": "Codecademy",
+          "link": "https://www.codecademy.com/"
+        },
+        {
+          "name": "TED-Ed",
+          "link": "https://ed.ted.com/"
+        }
+      ]
+    },
+    {
+      "personality": "ENTJ",
+      "title": "The Commander",
+      "careerPaths": [
+        "Business Leadership",
+        "Entrepreneurship",
+        "Strategic Planning",
+        "Project Management",
+        "Consulting"
+      ],
+      "skillsToImprove": ["Patience", "Empathy", "Flexibility", "Listening"],
+      "skillsToMaster": [
+        "Leadership",
+        "Strategic Thinking",
+        "Efficiency",
+        "Rational Decision Making"
+      ],
+      "YouTubeChannels": [
+        {
+          "name": "Harvard Business Review",
+          "link": "https://www.youtube.com/user/harvardbusiness"
+        },
+        {
+          "name": "TED Talks",
+          "link": "https://www.youtube.com/user/TEDtalksDirector"
+        },
+        {
+          "name": "Big Think",
+          "link": "https://www.youtube.com/user/bigthink"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "MIT OpenCourseWare",
+          "link": "https://ocw.mit.edu/"
+        },
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "HBR",
+          "link": "https://hbr.org/"
+        }
+      ]
+    },
+    {
+      "personality": "ENTP",
+      "title": "The Debater",
+      "careerPaths": [
+        "Entrepreneurship",
+        "Consulting",
+        "Engineering",
+        "Journalism",
+        "Marketing"
+      ],
+      "skillsToImprove": ["Patience", "Listening", "Follow-through", "Empathy"],
+      "skillsToMaster": [
+        "Innovation",
+        "Strategic Thinking",
+        "Debate",
+        "Quick Learning"
+      ],
+      "YouTubeChannels": [
+        {
+          "name": "TED Talks",
+          "link": "https://www.youtube.com/user/TEDtalksDirector"
+        },
+        {
+          "name": "Big Think",
+          "link": "https://www.youtube.com/user/bigthink"
+        },
+        {
+          "name": "Khan Academy",
+          "link": "https://www.youtube.com/user/khanacademy"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "MIT OpenCourseWare",
+          "link": "https://ocw.mit.edu/"
+        },
+        {
+          "name": "HBR",
+          "link": "https://hbr.org/"
+        }
+      ]
+    },
+    {
+      "personality": "INFJ",
+      "title": "Advocate",
+      "careerPaths": [
+        "Writing",
+        "Counseling",
+        "Teaching",
+        "Research",
+        "Non-profit Work"
+      ],
+      "skillsToImprove": [
+        "Time Management",
+        "Assertiveness",
+        "Practicality",
+        "Networking"
+      ],
+      "skillsToMaster": [
+        "Visionary Thinking",
+        "Empathy",
+        "Creativity",
+        "Communication"
+      ],
+
+      "YouTubeChannels": [
+        {
+          "name": "Philosophy Tube",
+          "link": "https://www.youtube.com/user/ThePhilosophyTube"
+        },
+        {
+          "name": "The School of Life",
+          "link": "https://www.youtube.com/user/TheSchoolOfLife"
+        },
+        {
+          "name": "The Great Courses",
+          "link": "https://www.youtube.com/user/TheGreatCoursesPlus"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Open Culture",
+          "link": "https://www.openculture.com/"
+        },
+        {
+          "name": "Academic Earth",
+          "link": "https://academicearth.org/"
+        },
+        {
+          "name": "Saylor Academy",
+          "link": "https://www.saylor.org/"
+        }
+      ]
+    },
+    {
+      "personality": "INFP",
+      "title": "The Meadiator",
+      "careerPaths": [
+        "Writing",
+        "Counseling",
+        "Teaching",
+        "Research",
+        "Non-profit Work"
+      ],
+      "skillsToImprove": [
+        "Practicality",
+        "Time Management",
+        "Assertiveness",
+        "Critical Thinking"
+      ],
+      "skillsToMaster": [
+        "Empathy",
+        "Visionary Thinking",
+        "Communication",
+        "Creativity"
+      ],
+
+      "YouTubeChannels": [
+        {
+          "name": "The School of Life",
+          "link": "https://www.youtube.com/user/TheSchoolOfLife"
+        },
+        {
+          "name": "Philosophy Tube",
+          "link": "https://www.youtube.com/user/ThePhilosophyTube"
+        },
+        {
+          "name": "The Great Courses",
+          "link": "https://www.youtube.com/user/TheGreatCoursesPlus"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Open Culture",
+          "link": "https://www.openculture.com/"
+        },
+        {
+          "name": "Academic Earth",
+          "link": "https://academicearth.org/"
+        },
+        {
+          "name": "Saylor Academy",
+          "link": "https://www.saylor.org/"
+        }
+      ]
+    },
+    {
+      "personality": "ENFJ",
+      "title": "The Protagonist",
+      "careerPaths": [
+        "Teaching",
+        "Counseling",
+        "Social Work",
+        "Public Relations",
+        "Human Resources"
+      ],
+      "skillsToImprove": [
+        "Self-Care",
+        "Setting Boundaries",
+        "Delegation",
+        "Accepting Criticism"
+      ],
+      "skillsToMaster": [
+        "Empathy",
+        "Leadership",
+        "Motivation",
+        "Interpersonal Skills"
+      ],
+      "YouTubeChannels": [
+        {
+          "name": "TED Talks",
+          "link": "https://www.youtube.com/user/TEDtalksDirector"
+        },
+        {
+          "name": "School of Life",
+          "link": "https://www.youtube.com/user/schooloflifechannel"
+        },
+        {
+          "name": "Crash Course",
+          "link": "https://www.youtube.com/user/crashcourse"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "Khan Academy",
+          "link": "https://www.khanacademy.org/"
+        },
+        {
+          "name": "Psychology Today",
+          "link": "https://www.psychologytoday.com/"
+        }
+      ]
+    },
+    {
+      "personality": "ENFP",
+      "title": "The Campaigner",
+      "careerPaths": [
+        "Journalism",
+        "Counseling",
+        "Public Relations",
+        "Social Work",
+        "Event Planning"
+      ],
+      "skillsToImprove": [
+        "Time Management",
+        "Practical Skills",
+        "Focus",
+        "Consistency"
+      ],
+      "skillsToMaster": [
+        "Creativity",
+        "Interpersonal Communication",
+        "Empathy",
+        "Adaptability"
+      ],
+      "YouTubeChannels": [
+        {
+          "name": "TED Talks",
+          "link": "https://www.youtube.com/user/TEDtalksDirector"
+        },
+        {
+          "name": "School of Life",
+          "link": "https://www.youtube.com/user/schooloflifechannel"
+        },
+        {
+          "name": "Big Think",
+          "link": "https://www.youtube.com/user/bigthink"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "Khan Academy",
+          "link": "https://www.khanacademy.org/"
+        },
+        {
+          "name": "Psychology Today",
+          "link": "https://www.psychologytoday.com/"
+        }
+      ]
+    },
+    {
+      "personality": "ISTJ",
+      "title": "The Logistician",
+      "careerPaths": [
+        "Accounting",
+        "Finance",
+        "Engineering",
+        "Law Enforcement",
+        "Medicine"
+      ],
+      "skillsToImprove": [
+        "Interpersonal Communication",
+        "Creativity",
+        "Adaptability",
+        "Emotional Intelligence"
+      ],
+      "skillsToMaster": [
+        "Leadership",
+        "Analytical Thinking",
+        "Organization",
+        "Attention to Detail"
+      ],
+      "YouTubeChannels": [
+        {
+          "name": "TED Talks",
+          "link": "https://www.ted.com/talks"
+        },
+        {
+          "name": "Khan Academy",
+          "link": "https://www.khanacademy.org/test-prep/mcat"
+        },
+        {
+          "name": "Crash Course",
+          "link": "https://www.youtube.com/channel/UCsH5PKM1J5AoWVCxGe5ldCw"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "edX",
+          "link": "https://www.edx.org/"
+        },
+        {
+          "name": "MIT OpenCourseWare",
+          "link": "https://ocw.mit.edu/"
+        }
+      ]
+    },
+    {
+      "personality": "ISFJ",
+      "title": "The Protector",
+      "careerPaths": [
+        "Healthcare",
+        "Social Work",
+        "Teaching",
+        "Counseling",
+        "Librarianship"
+      ],
+      "skillsToImprove": [
+        "Assertiveness",
+        "Self-Promotion",
+        "Public Speaking",
+        "Critical Thinking"
+      ],
+      "skillsToMaster": [
+        "Active Listening",
+        "Empathy",
+        "Attention to Detail",
+        "Organization"
+      ],
+
+      "YouTubeChannels": [
+        {
+          "name": "The School of Life",
+          "link": "https://www.youtube.com/user/TheSchoolOfLife"
+        },
+        {
+          "name": "Big Think",
+          "link": "https://www.youtube.com/user/bigthink"
+        },
+        {
+          "name": "The Great Courses",
+          "link": "https://www.youtube.com/user/TheGreatCoursesPlus"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Open Culture",
+          "link": "https://www.openculture.com/"
+        },
+        {
+          "name": "Academic Earth",
+          "link": "https://academicearth.org/"
+        },
+        {
+          "name": "Saylor Academy",
+          "link": "https://www.saylor.org/"
+        }
+      ]
+    },
+
+    {
+      "personality": "ESTJ",
+      "title": "The Executive",
+      "careerPaths": [
+        "Business Administration",
+        "Management",
+        "Military Leadership",
+        "Law Enforcement",
+        "Judiciary"
+      ],
+      "skillsToImprove": [
+        "Flexibility",
+        "Empathy",
+        "Patience",
+        "Open-mindedness"
+      ],
+      "skillsToMaster": [
+        "Leadership",
+        "Organizational Skills",
+        "Decision Making",
+        "Practical Thinking"
+      ],
+      "YouTubeChannels": [
+        {
+          "name": "Harvard Business Review",
+          "link": "https://www.youtube.com/user/harvardbusiness"
+        },
+        {
+          "name": "TED Talks",
+          "link": "https://www.youtube.com/user/TEDtalksDirector"
+        },
+        {
+          "name": "Big Think",
+          "link": "https://www.youtube.com/user/bigthink"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "MIT OpenCourseWare",
+          "link": "https://ocw.mit.edu/"
+        },
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "HBR",
+          "link": "https://hbr.org/"
+        }
+      ]
+    },
+    {
+      "personality": "ESFJ",
+      "title": "The Consul",
+      "careerPaths": [
+        "Teaching",
+        "Healthcare",
+        "Social Work",
+        "Counseling",
+        "Administration"
+      ],
+      "skillsToImprove": [
+        "Open-mindedness",
+        "Self-Care",
+        "Strategic Thinking",
+        "Independence"
+      ],
+      "skillsToMaster": [
+        "Interpersonal Skills",
+        "Organizational Skills",
+        "Empathy",
+        "Practical Thinking"
+      ],
+      "YouTubeChannels": [
+        {
+          "name": "TED Talks",
+          "link": "https://www.youtube.com/user/TEDtalksDirector"
+        },
+        {
+          "name": "School of Life",
+          "link": "https://www.youtube.com/user/schooloflifechannel"
+        },
+        {
+          "name": "Crash Course",
+          "link": "https://www.youtube.com/user/crashcourse"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "Khan Academy",
+          "link": "https://www.khanacademy.org/"
+        },
+        {
+          "name": "Psychology Today",
+          "link": "https://www.psychologytoday.com/"
+        }
+      ]
+    },
+    {
+      "personality": "ISTP",
+      "title": "The Craftsperson",
+      "careerPaths": [
+        "Engineering",
+        "Technical Support",
+        "Trades",
+        "Manufacturing",
+        "Emergency Services"
+      ],
+      "skillsToImprove": [
+        "Interpersonal Skills",
+        "Long-term Planning",
+        "Emotional Intelligence",
+        "Verbal Communication"
+      ],
+      "skillsToMaster": [
+        "Hands-on Problem Solving",
+        "Mechanical Aptitude",
+        "Analytical Thinking",
+        "Adaptability"
+      ],
+
+      "YouTubeChannels": [
+        {
+          "name": "Mark Rober",
+          "link": "https://www.youtube.com/user/markrober"
+        },
+        {
+          "name": "Smarter Every Day",
+          "link": "https://www.youtube.com/user/destinws2"
+        },
+        {
+          "name": "The Fab Lab",
+          "link": "https://www.youtube.com/user/TheFabLabChannel"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "HowStuffWorks",
+          "link": "https://www.howstuffworks.com/"
+        },
+        {
+          "name": "Instructables",
+          "link": "https://www.instructables.com/"
+        },
+        {
+          "name": "Hackster.io",
+          "link": "https://www.hackster.io/"
+        }
+      ]
+    },
+
+    {
+      "personality": "ISFP",
+      "title": "The Adventurer",
+      "careerPaths": [
+        "Art",
+        "Design",
+        "Culinary Arts",
+        "Counseling",
+        "Event Planning"
+      ],
+      "skillsToImprove": [
+        "Assertiveness",
+        "Long-term Planning",
+        "Analytical Thinking",
+        "Public Speaking"
+      ],
+      "skillsToMaster": [
+        "Creativity",
+        "Empathy",
+        "Adaptability",
+        "Aesthetic Sensitivity"
+      ],
+
+      "YouTubeChannels": [
+        {
+          "name": "The Art of Photography",
+          "link": "https://www.youtube.com/user/theartofphotography"
+        },
+        {
+          "name": "The Jealous Curator",
+          "link": "https://www.youtube.com/user/thejealouscurator"
+        },
+        {
+          "name": "Proko",
+          "link": "https://www.youtube.com/user/ProkoTV"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Skillshare",
+          "link": "https://www.skillshare.com/"
+        },
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "Udemy",
+          "link": "https://www.udemy.com/"
+        }
+      ]
+    },
+
+    {
+      "personality": "ESTP",
+      "title": "The Entrepreneur",
+      "careerPaths": [
+        "Sales",
+        "Marketing",
+        "Entrepreneurship",
+        "Emergency Services",
+        "Trades"
+      ],
+      "skillsToImprove": [
+        "Long-term Planning",
+        "Emotional Intelligence",
+        "Verbal Communication",
+        "Written Communication"
+      ],
+      "skillsToMaster": [
+        "Hands-on Problem Solving",
+        "Adaptability",
+        "Leadership",
+        "Resourcefulness"
+      ],
+
+      "YouTubeChannels": [
+        {
+          "name": "GaryVee",
+          "link": "https://www.youtube.com/user/garyvee05"
+        },
+        {
+          "name": "Entrepreneurs on Fire",
+          "link": "https://www.youtube.com/user/entrepreneursonfire"
+        },
+        {
+          "name": "The School of Greatness",
+          "link": "https://www.youtube.com/user/TheSchoolofGreatness"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Skillshare",
+          "link": "https://www.skillshare.com/"
+        },
+        {
+          "name": "LinkedIn Learning",
+          "link": "https://www.linkedin.com/learning/"
+        },
+        {
+          "name": "Udemy",
+          "link": "https://www.udemy.com/"
+        }
+      ]
+    },
+    {
+      "personality": "ESFP",
+      "title": "The Entertainer",
+      "careerPaths": [
+        "Sales",
+        "Marketing",
+        "Performing Arts",
+        "Event Planning",
+        "Teaching"
+      ],
+      "skillsToImprove": [
+        "Long-term Planning",
+        "Analytical Thinking",
+        "Written Communication",
+        "Self-discipline"
+      ],
+      "skillsToMaster": [
+        "Empathy",
+        "Interpersonal Skills",
+        "Adaptability",
+        "Communication"
+      ],
+
+      "YouTubeChannels": [
+        {
+          "name": "TED Talks",
+          "link": "https://www.youtube.com/user/TEDTalksOfficial"
+        },
+        {
+          "name": "The School of Life",
+          "link": "https://www.youtube.com/user/schoofthegreats"
+        },
+        {
+          "name": "BIG THINK",
+          "link": "https://www.youtube.com/bigthinkofficial"
+        }
+      ],
+      "Websites": [
+        {
+          "name": "Coursera",
+          "link": "https://www.coursera.org/"
+        },
+        {
+          "name": "edX",
+          "link": "https://www.edx.org/"
+        },
+        {
+          "name": "Skillshare",
+          "link": "https://www.skillshare.com/"
+        }
+      ]
+    }
+  ]
+]

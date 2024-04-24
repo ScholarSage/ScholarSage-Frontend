@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef , useEffect} from "react";
 import {
   Box,
   TextField,
@@ -6,13 +6,11 @@ import {
   Button,
   Avatar,
   MenuItem,
-  Select, 
-  InputLabel, 
+  Select,
+  InputLabel,
   FormControl,
-
 } from "@mui/material";
 import axios from "axios";
-import { useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -98,12 +96,15 @@ export default function UpdateProfile() {
 
   const getData=async()=>{
     try {
-      const response = await axios.post("http://localhost:8081/userData",{},
-      {
-        headers : {
-          Authorization : "Bearer " + localStorage.getItem("token")
+      const response = await axios.post(
+        "http://localhost:8081/userData",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
         }
-      })
+      );
       console.log(response.data);
       setUserData1(response.data.data);
       setContactNoInput(response.data.data.contactNumber);
@@ -117,31 +118,9 @@ export default function UpdateProfile() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.post("http://localhost:8081/userData", {
-    //       token: window.localStorage.getItem("token"),
-    //     });
-
-    //     const data = response.data;
-    //     console.log(data, "userData");
-    //     setUserData(data.data);
-
-    //     if (data.data === "token expired") {
-    //       alert("Token expired login again");
-    //       window.localStorage.clear();
-    //       window.location.href = "./";
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching user data:", error);
-    //   }
-    // };
-
-    // fetchData();
     getData();
   }, []); // empty dependency array means useEffect runs once after the initial render
 
@@ -175,6 +154,26 @@ export default function UpdateProfile() {
       setFile(null);
     } else {
       console.log("No new photo selected.");
+    }
+  };
+
+  const saveChanges = async () => {
+    try {
+      const response = await axios.put(
+        "http://localhost:8081/userData",
+        userData1,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(userData1);
+      console.log(response.data);
+      // Optionally, handle success response or display a message
+    } catch (error) {
+      console.log(error);
+      // Handle errors, such as displaying an error message
     }
   };
 
@@ -504,31 +503,39 @@ export default function UpdateProfile() {
   </FormControl>
 </Grid>
 
-{passwordChangeOption === "yes" && (
-  <>
-    {/* Current Password field */}
-    <TextField
-      required
-      type={showCurrentPassword ? "text" : "password"}
-      id="CurrentPassword"
-      label="Current Password"
-      placeholder="Current Password"
-      variant="outlined"
-      sx={{ width: "100%" }}
-      onChange={(e) => handleChange("currentPassword", e.target.value)}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-            >
-              {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
+              {passwordChangeOption === "yes" && (
+                <>
+                  {/* Current Password field */}
+                  <TextField
+                    required
+                    type={showCurrentPassword ? "text" : "password"}
+                    id="CurrentPassword"
+                    label="Current Password"
+                    placeholder="Current Password"
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                    onChange={(e) =>
+                      handleChange("currentPassword", e.target.value)
+                    }
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            edge="end"
+                            onClick={() =>
+                              setShowCurrentPassword(!showCurrentPassword)
+                            }
+                          >
+                            {showCurrentPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
 
     {/* New Password field */}
     <TextField

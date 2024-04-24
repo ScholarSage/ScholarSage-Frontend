@@ -69,7 +69,7 @@ export default function StudentDashBoard1() {
   return (
     <Layout>
       <Grid container spacing={2}>
-        <Grid item lg={10} md={9} xs={12} sm={12}>
+        <Grid item lg={10} md={12} xs={12} sm={12}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
               {/* <Card sx={{height:180}}>
