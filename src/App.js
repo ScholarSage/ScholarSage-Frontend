@@ -32,6 +32,8 @@ import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 import MentorRequests from "./formcontrol/Admin/MentorRequests";
+import MentorDetails from "./formcontrol/Admin/MentorDetails";
+import MentorUpdateProfile from "./formcontrol/mentor/MentorProfileUpdate";
 
 //import Box from "@mui/material/Box";
 //import TextField from "@mui/material/TextField";
@@ -126,7 +128,20 @@ function App() {
               path="/Mentor-Requests"
               element={<MentorRequests />}
             />
+            <Route
+              path="/MentorDetails/:mentorid"
+              element={<MentorDetails />}
+            />
+            <Route
+              path="/Mentor-Update-Profile"
+              element={<MentorUpdateProfile />}
+            />
+            <Route
+              path="/Mentor-Profile"
+              element={<MentorProfileView/>}
+            />
           </Routes>
+          
         </Paper>
       </div>
     </Router>

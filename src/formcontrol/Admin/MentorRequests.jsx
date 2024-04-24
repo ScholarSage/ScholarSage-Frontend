@@ -88,7 +88,8 @@ export default function MentorRequests() {
                 height:600
               }}
             onRowClick={(params) => {
-              navigate(`/MentorDertails/${params.row.mentorid}`);
+              const mentorid = params.row.mentorid;
+              navigate(`/MentorDetails/${mentorid}`);
             }}
           />
         </Box>

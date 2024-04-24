@@ -106,7 +106,7 @@ useEffect(() => {
         <Grid item xs={12} lg={12} sx={{display: 'flex',backgroundColor: '',justifyContent: 'center',marginTop: '2rem' }}  >
                 
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Avatar
+                <Avatar
                     sx={{
                       width: 150,
                       height: 150,
@@ -119,11 +119,11 @@ useEffect(() => {
                       border: '2px solid #ccc',
                     }}
                   >
-                    {profilePicture ? (
-                      <img src={profilePicture} alt="Profile Picture" style={{ width: '100%', height: 'auto' }} />
-                    ) : (
-                      <BlankAvatar />
-                    )}
+                    {MentorData.image ? (
+    <img src={`data:image/png;base64,${MentorData.image}`} alt="Profile Picture" style={{ width: '100%', height: '100%' }} />
+  ) : (
+    <BlankAvatar />
+  )}
                   </Avatar>
                   <br/><br/>
                     

@@ -149,7 +149,7 @@ export default function MentorDashBoard() {
                       borderRadius: "15px",
                     }}
                     onClick={() => {
-                      navigate("");
+                      navigate("/Mentor-Profile");
                     }}
                   >
                     <Typography

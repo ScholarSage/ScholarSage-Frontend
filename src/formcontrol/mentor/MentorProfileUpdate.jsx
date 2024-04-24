@@ -23,6 +23,12 @@ import Layout from "../../content/NavbarSidenavLayout";
 import toast from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import { DesktopTimePicker } from "@mui/x-date-pickers/DesktopTimePicker";
+
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 
 const drawerWidth = 240;
@@ -36,21 +42,20 @@ const Root = styled("div")(({ theme }) => ({
   },
 }));
 
-export default function UpdateProfile() {
+export default function MentorUpdateProfile() {
   const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const inputRef = useRef();
-  const [address, setAddressInput] = useState(null);
-  const [contactNo, setContactNoInput] = useState(null);
-  const [degreeProgram, setDegreeProgramInput] = useState(null);
-  const [academicLevel, setAcademicLevelInput] = useState(null);
-  const [year, setYearInput] = useState(null);
+  const [fname, setFNameInput] = useState(null);
   const [department, setDepartmentInput] = useState(null);
-  const [faculty, setFacultyInput] = useState(null);
+  const [lname, setLNameInput] = useState(null);
+  const [designation, setDesignationInput] = useState(null);
   const [currentPassword,setCurrentPassword] = useState(null);
   const [newPassword,setNewPassword] = useState(null);
   const [confirmNewPassword,setConfirmNewPassword] = useState(null);
   const [imageBase64, setImageBase64] = useState(null);
+  const [mobile, setMobileInput] = useState(null);
+  const [linkedin,setLinkedInInput] = useState(null);
   const navigate = useNavigate();
   
   // const [userData, setUserData] = useState({
@@ -75,19 +80,34 @@ export default function UpdateProfile() {
 
   const [userData1, setUserData1] = useState("");
 
+  const [selectedTime1, setSelectedTime1] = useState(null);
+  const [selectedTime2, setSelectedTime2] = useState(null);
+
+  const handleTimeChange1 = (newTime) => {
+    setSelectedTime1(newTime);
+  };
+
+  const handleTimeChange2 = (newTime) => {
+    setSelectedTime2(newTime);
+  };
+
+
+  
+
   const saveData=async()=>{
-    const response = await axios.post(`http://localhost:8081/update-profile/${userData1._id}`,{
-      address,
-      contactNo,
-      degreeProgram,
-      academicLevel,
-      year,
+    const response = await axios.post(`http://localhost:8081/update-mentor-profile/${userData1._id}`,{
+      fname,
+      lname,
+      mobile,
+      designation,
       department,
-      faculty,
+      linkedin,
       currentPassword,
       newPassword,
       confirmNewPassword,
       image: imageBase64,
+      availablefrom: selectedTime1 ? selectedTime1.format("HH:mm") : null,
+      availableto: selectedTime2 ? selectedTime2.format("HH:mm") : null,
     });
     if(response.data.status=="ok"){
       toast.success(response.data.message);
@@ -95,6 +115,8 @@ export default function UpdateProfile() {
       toast.error(response.data.message);
     }
   }
+
+
 
   const getData=async()=>{
     try {
@@ -106,44 +128,52 @@ export default function UpdateProfile() {
       })
       console.log(response.data);
       setUserData1(response.data.data);
-      setContactNoInput(response.data.data.contactNumber);
-      setAddressInput(response.data.data.address);
-      setDegreeProgramInput(response.data.data.degreeProgram);
-      setAcademicLevelInput(response.data.data.academicLevel);
-      setYearInput(response.data.data.year);
+      setFNameInput(response.data.data.fname);
+      setLNameInput(response.data.data.lname);
+      setMobileInput(response.data.data.mobile);
       setDepartmentInput(response.data.data.department);
-      setFacultyInput(response.data.data.faculty);
+      setDesignationInput(response.data.data.designation);
+      setLinkedInInput(response.data.data.linkedin);
       setImageBase64(response.data.data.image);
+
+      return dayjs(response.data.data.availablefrom, 'HH:mm');
+      
+         
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getData2=async()=>{
+    try {
+      const response = await axios.post("http://localhost:8081/userData",{},
+      {
+        headers : {
+          Authorization : "Bearer " + localStorage.getItem("token")
+        }
+      })
+      return dayjs(response.data.data.availableto, 'HH:mm');
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
+    const fetchData = async () => {
+      const time1 = await getData();
+      const time2 = await getData2();
+      if (time1) {
+        setSelectedTime1(time1);
+      }
+      if (time2) {
+        setSelectedTime2(time2);
+      }
+    };
 
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.post("http://localhost:8081/userData", {
-    //       token: window.localStorage.getItem("token"),
-    //     });
+    fetchData();
+  }, []);
 
-    //     const data = response.data;
-    //     console.log(data, "userData");
-    //     setUserData(data.data);
 
-    //     if (data.data === "token expired") {
-    //       alert("Token expired login again");
-    //       window.localStorage.clear();
-    //       window.location.href = "./";
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching user data:", error);
-    //   }
-    // };
-
-    // fetchData();
-    getData();
-  }, []); // empty dependency array means useEffect runs once after the initial render
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -180,30 +210,27 @@ export default function UpdateProfile() {
 
   const handleChange = (field, value) => {
     switch (field) {
-      case "address":
-        setAddressInput(value);
+      case "fname":
+        setFNameInput(value);
         break;
-      case "contactNo":
-        setContactNoInput(value);
-        break;
-      case "degreeProgram":
-        setDegreeProgramInput(value);
-        break;
-      case "academicLevel":
-        setAcademicLevelInput(value);
-        break;
-      case "year":
-        setYearInput(value);
+      case "lname":
+        setLNameInput(value);
         break;
       case "department":
         setDepartmentInput(value);
         break;
-      case "faculty":
-        setFacultyInput(value);
+      case "designation":
+        setDesignationInput(value);
         break;
+      case "mobile":
+        setMobileInput(value);
+        break;
+        case "linkedin":
+          setLinkedInInput(value);
+          break;
       case "currentPassword":
-        setCurrentPassword(value);
-        break;
+          setCurrentPassword(value);
+          break;
       case "newPassword":
         setNewPassword(value);
         break;
@@ -282,7 +309,7 @@ export default function UpdateProfile() {
                 <Root>
                   <Divider>
                     {" "}
-                    <h3>Personal Details</h3>
+                    <h3>Update Details </h3>
                   </Divider>
                 </Root>
             </Grid>
@@ -323,116 +350,65 @@ export default function UpdateProfile() {
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
-                id="Address"
-                label="Address"
-                placeholder="Address"
-                multiline
+                id="First Name"
+                label="First Name"
+                placeholder="First Name"
                 variant="outlined"
-                value={address}
-                onChange={(e) => handleChange("address", e.target.value)}
-                onBlur={userData1.address && userData1.address.length > 0 ? () => 
-                  { if (address.length === 0) 
-                    { setAddressInput(userData1.address); } 
+                value={fname}
+                onChange={(e) => handleChange("fname", e.target.value)}
+                onBlur={userData1.fname && userData1.fname.length > 0 ? () => 
+                  { if (fname.length === 0) 
+                    { setFNameInput(userData1.fname); } 
                   } 
                   : undefined
                 }
                 sx={{ width: "100%" }}
-                InputLabelProps={{ shrink: userData1.address && userData1.address.length > 0 }}
+                InputLabelProps={{ shrink: userData1.fname && userData1.fname.length > 0 }}
               />
             </Grid>
 
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
-                id="ContactNo"
-                label="Contact No:"
+                id="Last Name"
+                label="Last Name"
+                placeholder="Last Name"
+                variant="outlined"
+                value={lname}
+                onChange={(e) => handleChange("lname", e.target.value)}
+                onBlur={userData1.lname && userData1.lname.length > 0 ? () => 
+                  { if (lname.length === 0) 
+                    { setLNameInput(userData1.lname); } 
+                  } 
+                  : undefined
+                }
+                sx={{ width: "100%" }}
+                InputLabelProps={{ shrink: userData1.lname && userData1.lname.length > 0 }}
+              />
+            </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="Mobile"
+                label="Mobile:"
                 placeholder="07XXXXXXXX"
                 variant="outlined"
-                value={contactNo}
-                onChange={(e) => handleChange("contactNo", e.target.value)}
-                onBlur={userData1.contactNumber && userData1.contactNumber.length > 0 ? () => 
-                  { if (contactNo.length === 0) 
-                    { setContactNoInput(userData1.contactNumber); } 
+                value={mobile}
+                onChange={(e) => handleChange("mobile", e.target.value)}
+                onBlur={userData1.mobile && userData1.mobile.length > 0 ? () => 
+                  { if (mobile.length === 0) 
+                    { setMobileInput(userData1.mobile); } 
                   } 
                   : undefined
                 }
                 sx={{ width: "100%" }}
-                InputLabelProps={{ shrink: userData1.contactNumber && userData1.contactNumber.length > 0 }}
+                InputLabelProps={{ shrink: userData1.mobile && userData1.mobile.length > 0 }}
               />
             </Grid>
 
-          </Grid>
+          
 
-          <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
-            <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <p>
-                <Root>
-                  <Divider>
-                    {" "}
-                    <h3>Academic Details</h3>
-                  </Divider>
-                </Root>
-              </p>
-            </Grid>
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-            <TextField
-                required
-                id="DegreeProgram"
-                label="DegreeProgram"
-                placeholder="Degree Progree"
-                variant="outlined"
-                value={degreeProgram}
-                onChange={(e) => handleChange("degreeProgram", e.target.value)}
-                onBlur={userData1.degreeProgram && userData1.degreeProgram.length > 0 ? () => 
-                  { if (degreeProgram.length === 0) 
-                    { setDegreeProgramInput(userData1.degreeProgram); } 
-                  } 
-                  : undefined
-                }
-                sx={{ width: "100%" }}
-                InputLabelProps={{ shrink: userData1.degreeProgram && userData1.degreeProgram.length > 0 }}
-              />
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="AcademicLevel"
-                label="AcademicLevel"
-                placeholder="Academic Level"
-                variant="outlined"
-                value={academicLevel}
-                onChange={(e) => handleChange("academicLevel", e.target.value)}
-                onBlur={userData1.academicLevel && userData1.academicLevel.length > 0 ? () => 
-                  { if (academicLevel.length === 0) 
-                    { setAcademicLevelInput(userData1.academicLevel); } 
-                  } 
-                  : undefined
-                }
-                sx={{ width: "100%" }}
-                InputLabelProps={{ shrink: userData1.academicLevel && userData1.academicLevel.length > 0 }}
-              />
-            </Grid>
-
-            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
-              <TextField
-                required
-                id="Year"
-                label="Year"
-                placeholder="Year"
-                variant="outlined"
-                value={year}
-                onChange={(e) => handleChange("year", e.target.value)}
-                onBlur={userData1.year && userData1.year.length > 0 ? () => 
-                  { if (year.length === 0) 
-                    { setYearInput(userData1.year); } 
-                  } 
-                  : undefined
-                }
-                sx={{ width: "100%" }}
-                InputLabelProps={{ shrink: userData1.year && userData1.year.length > 0 }}
-              />
-            </Grid>
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
@@ -452,34 +428,96 @@ export default function UpdateProfile() {
                 InputLabelProps={{ shrink: userData1.department && userData1.department.length > 0 }}
               />
             </Grid>
+
             <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <TextField
                 required
-                select
-                id="Faculty"
-                label="Faculty"
-                placeholder="Faculty"
+                id="Designation"
+                label="Designation"
+                placeholder="Designation"
                 variant="outlined"
-                value={faculty}
-                onChange={(e) => handleChange("faculty", e.target.value)}
-                onBlur={userData1.faculty && userData1.faculty.length > 0 ? () => 
-                  { if (faculty.length === 0) 
-                    { setFacultyInput(userData1.faculty); } 
+                value={designation}
+                onChange={(e) => handleChange("department", e.target.value)}
+                onBlur={userData1.designation && userData1.designation.length > 0 ? () => 
+                  { if (designation.length === 0) 
+                    { setDesignationInput(userData1.designation); } 
                   } 
                   : undefined
                 }
                 sx={{ width: "100%" }}
-                InputLabelProps={{ shrink: userData1.faculty && userData1.faculty.length > 0 }}
-                >
-                  <MenuItem value="">Select Faculty</MenuItem>
-                  {['Agriculture', 'Allied Health Science', 'Engineering', 'Fisheries and Marine Sciences & Technology', 'Graduate Studies', 'Humanities and Social Sciences', 'Management & Finance', 'Medicine', 'Science', 'Technology'].map((option, index) => (
-                      <MenuItem key={index} value={option}>
-                        {option}
-                      </MenuItem>
-                    ))}
-              </TextField>
+                InputLabelProps={{ shrink: userData1.designation && userData1.designation.length > 0 }}
+              />
             </Grid>
-          </Grid>
+
+            <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
+              <TextField
+                required
+                id="Linkedin"
+                label="Linkedin"
+                placeholder="Designation"
+                variant="outlined"
+                value={linkedin}
+                onChange={(e) => handleChange("department", e.target.value)}
+                onBlur={userData1.linkedin && userData1.linkedin.length > 0 ? () => 
+                  { if (linkedin.length === 0) 
+                    { setLinkedInInput(userData1.linkedin); } 
+                  } 
+                  : undefined
+                }
+                sx={{ width: "100%" }}
+                InputLabelProps={{ shrink: userData1.linkedin && userData1.linkedin.length > 0 }}
+              />
+            </Grid>
+
+            <Grid container fullWidth>
+              
+              <Grid item xs={12} lg={6}  elevation={6} square ml={0}>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DesktopTimePicker", "DesktopDatePicker"]}>      
+                <DemoItem sx={{
+                    width:'100%'
+                  }}>
+                  <DesktopTimePicker
+                  label="From"
+                  value={selectedTime1}
+                  onChange={handleTimeChange1}
+                  renderInput={(params) => <TextField {
+                    ...params} variant="outlined" 
+                    sx={{ backgroundColor: "#F3EDFB" }}/>}
+                  defaultValue={dayjs()}
+                  />
+                </DemoItem>
+              </DemoContainer>
+              </LocalizationProvider>
+
+              </Grid>
+
+              <Grid item xs={12} lg={6}  elevation={6} ml={0} square>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DesktopTimePicker", "DesktopDatePicker"]}>      
+                <DemoItem sx={{
+                    width:'100%'
+                  }}>
+                  <DesktopTimePicker
+                  label="To"
+                  value={selectedTime2}
+                  onChange={handleTimeChange2}
+                  renderInput={(params) => <TextField {...params} variant="outlined" />}
+                  style={{ backgroundColor: "#F3EDFB" }}
+                  defaultValue={dayjs()}
+                  />
+                </DemoItem>
+              </DemoContainer>
+              </LocalizationProvider>
+
+              </Grid>
+
+              </Grid>
+
+            </Grid>
+
           <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
             <Grid item xs={12} sx={{ padding: "1em 1em 0em 1em !important" }}>
               <p>
@@ -627,3 +665,4 @@ export default function UpdateProfile() {
     </Layout>
   );
 }
+

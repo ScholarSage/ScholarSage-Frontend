@@ -31,6 +31,7 @@ const isEmail = (email) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 const isRegNum = (regNum) => /^[A-Z]{2}\/\d{4}\/\d+$/i.test(regNum);
 
+
 // .
 // .
 // .
@@ -359,7 +360,7 @@ export default function StudentSignup() {
                 variant="outlined"
                 size="small"
                 autoComplete="firstName"
-                autoFocus
+                
                 style={{ backgroundColor: "#F3EDFB" }}
               />
               {/* Last name */}

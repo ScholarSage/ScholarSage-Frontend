@@ -7,6 +7,9 @@ import { toast } from "react-hot-toast";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ChatIcon from '@mui/icons-material/Chat';
+import { useParams } from 'react-router-dom';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 const drawerWidth = 240;
@@ -33,34 +36,62 @@ const BlankAvatar = () => {
 
 
 
-export default function MentorProfileView() {
+export default function MentorDetails() {
   const navigate = useNavigate();
   const [profilePicture, setProfilePicture] = React.useState(null);
   const [userData,setUserData] = useState("");
+  const [MentorData,setMentorData] = useState("");
+  const  mentorid  = useParams();
 
-const getData = async () => {
+
+const MentorGetForAdmin = async (mentorID) => {
+  console.log(mentorID);
+  
   try {
-    const response = await axios.post(
-      "http://localhost:8081/userData",
-      {},
-      {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
+    const response = await axios.post("http://localhost:8081/MentorGetForAdmin/",
+      mentorID
     );
     console.log(response.data);
-    setUserData(response.data.data);
+    if(response.data.status=="ok"){
+      setMentorData(response.data.data);
+    }else if(response.data.status=="Mentor Not Found"){
+      toast.error("Mentor Not Found");
+    }else{
+      toast.error("Somthing Went Wrong");
+    }
+
   } catch (error) {
-    console.log(error);
-    return null;
+    console.error(error);
   }
 };
 
-useEffect(() => {
-  getData();
-}, []);
+const ApproveMentor = async (id) =>{
+  const status = "ok";
+  try {
+    const response = await axios.put(`http://localhost:8081/Approve-Mentor/${id}/${status}`);
+    toast.success(response.data.message);
+    navigate("/Mentor-Requests");
+  } catch (error) {
+    toast.error("Something Went Wrong");
+    console.error(error);
+  }
+}
 
+const RejectMentor = async (id) =>{
+  const status = "reject";
+  try {
+    const response = await axios.put(`http://localhost:8081/Approve-Mentor/${id}/${status}`);
+    toast.success(response.data.message);
+    navigate("/Mentor-Requests");
+  } catch (error) {
+    toast.error("Something Went Wrong");
+    console.error(error);
+  }
+}
+
+useEffect(() => {
+    MentorGetForAdmin(mentorid);
+}, []);
   return (
     <Layout>
       <Box p={4}>
@@ -79,7 +110,7 @@ useEffect(() => {
         <Grid item xs={12} lg={12} sx={{display: 'flex',backgroundColor: '',justifyContent: 'center',marginTop: '2rem' }}  >
                 
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Avatar
+                <Avatar
                     sx={{
                       width: 150,
                       height: 150,
@@ -92,8 +123,8 @@ useEffect(() => {
                       border: '2px solid #ccc',
                     }}
                   >
-                    {userData.image ? (
-    <img src={`data:image/png;base64,${userData.image}`} alt="Profile Picture" style={{ width: '100%', height: '100%' }} />
+                    {MentorData.image ? (
+                  <img src={`data:image/png;base64,${MentorData.image}`} alt="Profile Picture" style={{ width: '100%', height: '100%' }} />
   ) : (
     <BlankAvatar />
   )}
@@ -118,7 +149,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Name : {userData.fname} {userData.lname}
+                  Name : {MentorData.fname} {MentorData.lname}
                 </Typography>
                 
               </Grid>
@@ -132,7 +163,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Designation : {userData.designation}
+                  Designation :
                 </Typography>
                 
               </Grid>
@@ -146,7 +177,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Email : {userData.email}
+                  Email : {MentorData.email}
                 </Typography>
                 
               </Grid>
@@ -160,7 +191,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Department : {userData.department}
+                  Department :
                 </Typography>
                 
               </Grid>
@@ -174,7 +205,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Internal TP No : {userData.mentorid}
+                  Internal TP No : {MentorData.mentorid}
                 </Typography>
                 
               </Grid>
@@ -188,7 +219,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Mobile No :  {userData.mobile}
+                  Mobile No :
                 </Typography>
                 
               </Grid>
@@ -196,7 +227,7 @@ useEffect(() => {
           </Grid>
         </Grid>
         <Grid container spacing={2} sx={{ marginTop: '3rem' }}>
-          <Grid item lg={12} xs={12} sx={{
+          <Grid item lg={4} xs={12} sx={{
             display:'flex',
             justifyContent:'flex-end',
             display: 'flex',
@@ -205,7 +236,7 @@ useEffect(() => {
             }} >
             <Button
               variant="contained"
-              onClick={() => navigate("/Mentor-Update-Profile")}
+              onClick={() => navigate("/book-appointment")}
               sx={{
                 background:'#60008a',
                 pl:10,
@@ -214,9 +245,49 @@ useEffect(() => {
                 width:250,
               }}
             >
-              Update Profile
+              LinkedIn <LinkedInIcon/>
             </Button>
           </Grid>
+          <Grid item lg={4} xs={12} sx={{display:'flex',
+            justifyContent:'flex-start',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }} >
+            <Button
+              variant="contained"
+              onClick={() => ApproveMentor(MentorData._id)}
+              sx={{
+                background:'green',
+                pl:10,
+                pr:10,
+                borderRadius:3,
+                width:250,
+              }}
+            >
+              Accept <ThumbUpAltIcon/>
+            </Button>
+          </Grid>
+          <Grid item lg={4} xs={12} sx={{display:'flex',
+            justifyContent:'flex-start',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }} >
+          <Button
+                      variant="contained"
+                      onClick={() => RejectMentor(MentorData._id)}
+                      sx={{
+                        background:'red',
+                        pl:10,
+                        pr:10,
+                        borderRadius:3,
+                        width:250,
+                      }}
+                    >
+                    Reject <ClearIcon/>
+           </Button>
+           </Grid>
         </Grid>
         </Box>
     </Layout>
