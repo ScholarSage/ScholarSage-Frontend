@@ -1,22 +1,25 @@
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
-import MuiAppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-// import Typography from '@mui/material/Typography';
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
+import { useState, useEffect } from "react";
+import { useAppStore } from "../appStore";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import {
+  AppBar as MuiAppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  InputBase,
+  Badge,
+  MenuItem,
+  Menu,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { useAppStore } from "../appStore";
-import { useNavigate } from "react-router-dom";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -65,6 +68,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar() {
+  const [userData, setUserData] = useState("");
+  const getData = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/userData",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(response.data);
+      setUserData(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const updateOpen = useAppStore((state) => state.updateOpen);
@@ -225,7 +250,10 @@ export default function Navbar() {
                 navigate(`/notifications`);
               }}
             >
-              <Badge badgeContent={0} color="error">
+              <Badge
+                badgeContent={userData?.unseenNotifications?.length}
+                color="error"
+              >
                 <NotificationsIcon />
               </Badge>
             </IconButton>

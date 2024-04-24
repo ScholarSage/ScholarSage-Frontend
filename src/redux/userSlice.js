@@ -4,15 +4,15 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
-    reloadUser: true,
+    // reloadUser: true,
   },
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
     },
-    reloadUserData: (state, action) => {
-      state.reloadUser = action.payload;
-    },
+    // reloadUserData: (state, action) => {
+    //   state.reloadUser = action.payload;
+    // },
   },
 });
 

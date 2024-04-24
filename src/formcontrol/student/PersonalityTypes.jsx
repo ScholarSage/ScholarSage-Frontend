@@ -1,7 +1,5 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
-import Navbar from '../../content/Navbar';
-import Sidenav from '../../content/Sidenav';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../content/NavbarSidenavLayout';

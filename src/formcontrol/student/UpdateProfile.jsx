@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef , useEffect} from "react";
 import {
   Box,
   TextField,
@@ -11,7 +11,6 @@ import {
   FormControl,
 } from "@mui/material";
 import axios from "axios";
-import { useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -74,27 +73,6 @@ export default function UpdateProfile() {
   };
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.post("http://localhost:8081/userData", {
-    //       token: window.localStorage.getItem("token"),
-    //     });
-
-    //     const data = response.data;
-    //     console.log(data, "userData");
-    //     setUserData(data.data);
-
-    //     if (data.data === "token expired") {
-    //       alert("Token expired login again");
-    //       window.localStorage.clear();
-    //       window.location.href = "./";
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching user data:", error);
-    //   }
-    // };
-
-    // fetchData();
     getData();
   }, []); // empty dependency array means useEffect runs once after the initial render
 
@@ -130,6 +108,26 @@ export default function UpdateProfile() {
     }
   };
 
+  const saveChanges = async () => {
+    try {
+      const response = await axios.put(
+        "http://localhost:8081/userData",
+        userData,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(userData);
+      console.log(response.data);
+      // Optionally, handle success response or display a message
+    } catch (error) {
+      console.log(error);
+      // Handle errors, such as displaying an error message
+    }
+  };
+
   const handleChange = (field, value) => {
     setUserData((prevValues) => ({
       ...prevValues,
@@ -154,7 +152,7 @@ export default function UpdateProfile() {
             height="210vh"
             flexDirection="column"
           >
-            <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
+           <Grid container spacing={2} sx={{ width: "70%", mt: "1rem" }}>
               <Grid item xs={6} sx={{ padding: "1em 1em 0em 1em !important" }}>
                 <Avatar
                   alt="Profile Picture"
@@ -186,7 +184,7 @@ export default function UpdateProfile() {
                     handleSaveClick();
                   }}
                 >
-                  {file ? "Update Profile" : "Change Photo"}
+                  {file ? "Change Photo" : "Upload Photo"}
                 </Button>
               </Grid>
 
@@ -259,7 +257,7 @@ export default function UpdateProfile() {
                   placeholder="Registration Number"
                   variant="outlined"
                   sx={{ width: "100%" }}
-                  value={userData.scnumber}
+                  value={userData.scnumber || ''}
                   onChange={(e) => handleChange("scnumber", e.target.value)}
                 ></TextField>
               </Grid>
@@ -273,7 +271,7 @@ export default function UpdateProfile() {
                   multiline
                   variant="outlined"
                   sx={{ width: "100%" }}
-                  value={userData.address}
+                  value={userData.address || ''} 
                   onChange={(e) => handleChange("address", e.target.value)}
                 />
               </Grid>
@@ -286,7 +284,7 @@ export default function UpdateProfile() {
                   placeholder="07XXXXXXXX"
                   variant="outlined"
                   sx={{ width: "100%" }}
-                  value={userData.econtactNo}
+                  value={userData.contactNo || ''}
                   onChange={(e) => handleChange("contactNo", e.target.value)}
                 />
               </Grid>
@@ -311,7 +309,7 @@ export default function UpdateProfile() {
                   placeholder="Degree Progree"
                   variant="outlined"
                   sx={{ width: "100%" }}
-                  value={userData.degreeProgram}
+                  value={userData.degreeProgram || ''}
                   onChange={(e) =>
                     handleChange("degreeProgram", e.target.value)
                   }
@@ -326,7 +324,7 @@ export default function UpdateProfile() {
                   placeholder="Academic Level"
                   variant="outlined"
                   sx={{ width: "100%" }}
-                  value={userData.academicLevel}
+                  value={userData.academicLevel || ''}
                   onChange={(e) =>
                     handleChange("academicLevel", e.target.value)
                   }
@@ -341,7 +339,7 @@ export default function UpdateProfile() {
                   placeholder="Department"
                   variant="outlined"
                   sx={{ width: "100%" }}
-                  value={userData.department}
+                  value={userData.department || ''}
                   onChange={(e) => handleChange("department", e.target.value)}
                 />
               </Grid>
@@ -354,7 +352,7 @@ export default function UpdateProfile() {
                   placeholder="Faculty"
                   variant="outlined"
                   sx={{ width: "100%" }}
-                  value={userData.faculty}
+                  value={userData.faculty || ''}
                   onChange={(e) => handleChange("faculty", e.target.value)}
                 >
                   {[
@@ -520,6 +518,9 @@ export default function UpdateProfile() {
                   sx={{
                     marginTop: 2,
                     backgroundColor: "#42026F",
+                  }}
+                  onClick={() => {
+                    saveChanges();
                   }}
                 >
                   Save Changes
