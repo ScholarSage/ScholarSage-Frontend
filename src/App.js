@@ -12,7 +12,6 @@ import ForgotPassword from "./formcontrol/forgotPassword";
 import PersonalityTypes from "./formcontrol/student/PersonalityTypes";
 import PersonalityTypeDesc from "./formcontrol/student/PersonalityTypeDesc";
 //import Mentor from "./formcontrol/student/Mentor";
-import PersonalityTest from "./formcontrol/student/PersonalityTest";
 import StressFree from "./formcontrol/student/StressFree";
 import Resources from "./formcontrol/student/Resources";
 import GPA from "./formcontrol/student/GPA";
@@ -32,7 +31,7 @@ import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 import MentorRequests from "./formcontrol/Admin/MentorRequests";
-import YourPersonality from "./formcontrol/student/yourPersonality";
+//import YourPersonality from "./formcontrol/student/yourPersonality";
 
 //import Box from "@mui/material/Box";
 //import TextField from "@mui/material/TextField";
@@ -124,8 +123,6 @@ function App() {
             <Route path="/mentor" element={<Mentor />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/Mentor-Requests" element={<MentorRequests />} />
-
-            <Route path="/type" element={<YourPersonality />} />
           </Routes>
         </Paper>
       </div>
