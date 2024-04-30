@@ -133,7 +133,7 @@ const roles = {
     {
       label: "Personality Types",
       icon: PersonOutlineIcon,
-      route: "/Mentor-Personality-Types",
+      route: "/Student-Personality-Types",
     },
     {
       label: "Appointments",

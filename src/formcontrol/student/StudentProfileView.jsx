@@ -23,18 +23,26 @@ function StudentProfileView() {
   const [userData, setUserData] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(`http://localhost:8081/userData`);
-        console.log("API Response:", response.data);
-        setUserData(response.data);
-      } catch (error) {
-        console.error("Error fetching student details:", error);
-      }
-    };
+  const getData = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/userData",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(response.data);
+      setUserData(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    fetchData();
+  useEffect(() => {
+    getData();
   }, []);
 
   return (

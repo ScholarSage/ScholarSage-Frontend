@@ -36,27 +36,28 @@ const BlankAvatar = () => {
 
 
 
-export default function MentorDetails() {
+export default function StudentProfileForMentor() {
   const navigate = useNavigate();
   const [profilePicture, setProfilePicture] = React.useState(null);
   const [userData,setUserData] = useState("");
-  const [MentorData,setMentorData] = useState("");
-  const  {mentorid}  = useParams();
+  const [StudentData,setStudentData] = useState("");
+  const  {value1,value2,value3}  = useParams();
+  const scnumber = `${value1}/${value2}/${value3}`;
 
 
-const MentorGetForAdmin = async (mentorid) => {
-  console.log(mentorid);
+const OneStudentGetForMentor = async (scnumber) => {
+  console.log(scnumber);
   
   try {
-    const response = await axios.post("http://localhost:8081/MentorGetForAdmin/",{
-      mentorid,
+    const response = await axios.post("http://localhost:8081/OneStudentGetForMentor/",{
+      scnumber,
     }
     );
     console.log(response.data);
     if(response.data.status=="ok"){
-      setMentorData(response.data.data);
-    }else if(response.data.status=="Mentor Not Found"){
-      toast.error("Mentor Not Found");
+      setStudentData(response.data.data);
+    }else if(response.data.status=="Student Not Found"){
+      toast.error("Student Not Found");
     }else{
       toast.error("Somthing Went Wrong");
     }
@@ -66,32 +67,32 @@ const MentorGetForAdmin = async (mentorid) => {
   }
 };
 
-const ApproveMentor = async (id) =>{
-  const status = "ok";
-  try {
-    const response = await axios.put(`http://localhost:8081/Approve-Mentor/${id}/${status}`);
-    toast.success(response.data.message);
-    navigate("/Mentor-Requests");
-  } catch (error) {
-    toast.error("Something Went Wrong");
-    console.error(error);
-  }
-}
+// const ApproveMentor = async (id) =>{
+//   const status = "ok";
+//   try {
+//     const response = await axios.put(`http://localhost:8081/Approve-Mentor/${id}/${status}`);
+//     toast.success(response.data.message);
+//     navigate("/Mentor-Requests");
+//   } catch (error) {
+//     toast.error("Something Went Wrong");
+//     console.error(error);
+//   }
+// }
 
-const RejectMentor = async (id) =>{
-  const status = "reject";
-  try {
-    const response = await axios.put(`http://localhost:8081/Approve-Mentor/${id}/${status}`);
-    toast.success(response.data.message);
-    navigate("/Mentor-Requests");
-  } catch (error) {
-    toast.error("Something Went Wrong");
-    console.error(error);
-  }
-}
+// const RejectMentor = async (id) =>{
+//   const status = "reject";
+//   try {
+//     const response = await axios.put(`http://localhost:8081/Approve-Mentor/${id}/${status}`);
+//     toast.success(response.data.message);
+//     navigate("/Mentor-Requests");
+//   } catch (error) {
+//     toast.error("Something Went Wrong");
+//     console.error(error);
+//   }
+// }
 
 useEffect(() => {
-    MentorGetForAdmin(mentorid);
+    OneStudentGetForMentor(scnumber);
 }, []);
   return (
     <Layout>
@@ -103,7 +104,7 @@ useEffect(() => {
                   justifyContent: 'center'
               }} >
                 <Typography variant='h4' sx={{ textAlign: 'left' }}>
-                    Your Mentor
+                    Your Student
                 </Typography>
             </Grid>
         </Grid>
@@ -124,8 +125,8 @@ useEffect(() => {
                       border: '2px solid #ccc',
                     }}
                   >
-                    {MentorData.image ? (
-                  <img src={`data:image/png;base64,${MentorData.image}`} alt="Profile Picture" style={{ width: '100%', height: '100%' }} />
+                    {StudentData.image ? (
+                  <img src={`data:image/png;base64,${StudentData.image}`} alt="Profile Picture" style={{ width: '100%', height: '100%' }} />
   ) : (
     <BlankAvatar />
   )}
@@ -150,7 +151,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Name : {MentorData.fname} {MentorData.lname}
+                  Name : {StudentData.fname} {StudentData.lname}
                 </Typography>
                 
               </Grid>
@@ -164,7 +165,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Designation :
+                  Registration NO : {StudentData.scnumber}
                 </Typography>
                 
               </Grid>
@@ -178,7 +179,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Email : {MentorData.email}
+                  Email : {StudentData.email}
                 </Typography>
                 
               </Grid>
@@ -192,7 +193,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Department :
+                  Faculty : {StudentData.faculty}
                 </Typography>
                 
               </Grid>
@@ -206,7 +207,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Internal TP No : {MentorData.mentorid}
+                  Contact : {StudentData.contactNumber}
                 </Typography>
                 
               </Grid>
@@ -220,7 +221,37 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Mobile No :
+                  GPA : {StudentData.gpa}
+                </Typography>
+                
+              </Grid>
+
+              <Grid item xs={12} lg={6}>
+                <Typography 
+                  variant="body1" 
+                  sx={{ textAlign: 'center',
+                        background:'#deaef2', 
+                        p:1,
+                        borderRadius:4,
+                        fontSize:20 
+                        }}
+                  >
+                  Personality Type : {StudentData.personalitytype}
+                </Typography>
+                
+              </Grid>
+
+              <Grid item xs={12} lg={6}>
+                <Typography 
+                  variant="body1" 
+                  sx={{ textAlign: 'center',
+                        background:'#deaef2', 
+                        p:1,
+                        borderRadius:4,
+                        fontSize:20 
+                        }}
+                  >
+                  Address : {StudentData.address}
                 </Typography>
                 
               </Grid>
@@ -228,7 +259,7 @@ useEffect(() => {
           </Grid>
         </Grid>
         <Grid container spacing={2} sx={{ marginTop: '3rem' }}>
-          <Grid item lg={4} xs={12} sx={{
+          {/* <Grid item lg={4} xs={12} sx={{
             display:'flex',
             justifyContent:'flex-end',
             display: 'flex',
@@ -257,7 +288,7 @@ useEffect(() => {
           }} >
             <Button
               variant="contained"
-              onClick={() => ApproveMentor(MentorData._id)}
+            //   onClick={() => ApproveMentor(StudentData._id)}
               sx={{
                 background:'green',
                 pl:10,
@@ -277,7 +308,7 @@ useEffect(() => {
           }} >
           <Button
                       variant="contained"
-                      onClick={() => RejectMentor(MentorData._id)}
+                    //   onClick={() => RejectMentor(MentorData._id)}
                       sx={{
                         background:'red',
                         pl:10,
@@ -288,7 +319,7 @@ useEffect(() => {
                     >
                     Reject <ClearIcon/>
            </Button>
-           </Grid>
+           </Grid> */}
         </Grid>
         </Box>
     </Layout>

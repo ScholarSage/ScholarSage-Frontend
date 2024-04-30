@@ -95,8 +95,8 @@ export default function MyStudents() {
             display: "flex",
             alignItems: "center",
             height: 60, // Set the height of the title bar
-            //backgroundColor: "#42026F", // Change title bar background color
-            color: "#42026F", // Change title bar font color
+            backgroundColor: '#720dba', // Change title bar background color
+            color: 'white',
             paddingLeft: 2,
             justifyContent: "center",
           }}
