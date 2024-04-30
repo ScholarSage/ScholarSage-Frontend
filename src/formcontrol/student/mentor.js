@@ -112,52 +112,33 @@ export default function Mentor() {
             <h1 style={{ color: "#42026F" }}>Mentor Details </h1>
           </Grid>
         </Grid>
-        <Grid container spacing={2} sx={{ backgroundColor: "2rem" }}>
-          <Grid
-            item
-            xs={12}
-            lg={12}
-            sx={{
-              display: "flex",
-              backgroundColor: "",
-              justifyContent: "center",
-              marginTop: "2rem",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Avatar
-                sx={{
-                  width: 150,
-                  height: 150,
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  border: "2px solid #ccc",
-                }}
-              >
-                {profilePicture ? (
-                  <img
-                    src={profilePicture}
-                    alt="Profile Picture"
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                ) : (
-                  <BlankAvatar />
-                )}
-              </Avatar>
-              <br />
-              <br />
-            </Box>
-          </Grid>
+        <Grid container spacing={2} sx={{ backgroundColor: '2rem' }}>
+        <Grid item xs={12} lg={12} sx={{display: 'flex',backgroundColor: '',justifyContent: 'center',marginTop: '2rem' }}  >
+                
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Avatar
+                    sx={{
+                      width: 150,
+                      height: 150,
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      border: '2px solid #ccc',
+                    }}
+                  >
+                    {MentorData.image ? (
+    <img src={`data:image/png;base64,${MentorData.image}`} alt="Profile Picture" style={{ width: '100%', height: '100%' }} />
+  ) : (
+    <BlankAvatar />
+  )}
+                  </Avatar>
+                  <br/><br/>
+                    
+                </Box>
+                </Grid>
         </Grid>
         <Box
           fullwidth

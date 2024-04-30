@@ -7,6 +7,9 @@ import { toast } from "react-hot-toast";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ChatIcon from '@mui/icons-material/Chat';
+import { useParams } from 'react-router-dom';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 const drawerWidth = 240;
@@ -33,34 +36,64 @@ const BlankAvatar = () => {
 
 
 
-export default function MentorProfileView() {
+export default function StudentProfileForMentor() {
   const navigate = useNavigate();
   const [profilePicture, setProfilePicture] = React.useState(null);
   const [userData,setUserData] = useState("");
+  const [StudentData,setStudentData] = useState("");
+  const  {value1,value2,value3}  = useParams();
+  const scnumber = `${value1}/${value2}/${value3}`;
 
-const getData = async () => {
+
+const OneStudentGetForMentor = async (scnumber) => {
+  console.log(scnumber);
+  
   try {
-    const response = await axios.post(
-      "http://localhost:8081/userData",
-      {},
-      {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
+    const response = await axios.post("http://localhost:8081/OneStudentGetForMentor/",{
+      scnumber,
+    }
     );
     console.log(response.data);
-    setUserData(response.data.data);
+    if(response.data.status=="ok"){
+      setStudentData(response.data.data);
+    }else if(response.data.status=="Student Not Found"){
+      toast.error("Student Not Found");
+    }else{
+      toast.error("Somthing Went Wrong");
+    }
+
   } catch (error) {
-    console.log(error);
-    return null;
+    console.error(error);
   }
 };
 
-useEffect(() => {
-  getData();
-}, []);
+// const ApproveMentor = async (id) =>{
+//   const status = "ok";
+//   try {
+//     const response = await axios.put(`http://localhost:8081/Approve-Mentor/${id}/${status}`);
+//     toast.success(response.data.message);
+//     navigate("/Mentor-Requests");
+//   } catch (error) {
+//     toast.error("Something Went Wrong");
+//     console.error(error);
+//   }
+// }
 
+// const RejectMentor = async (id) =>{
+//   const status = "reject";
+//   try {
+//     const response = await axios.put(`http://localhost:8081/Approve-Mentor/${id}/${status}`);
+//     toast.success(response.data.message);
+//     navigate("/Mentor-Requests");
+//   } catch (error) {
+//     toast.error("Something Went Wrong");
+//     console.error(error);
+//   }
+// }
+
+useEffect(() => {
+    OneStudentGetForMentor(scnumber);
+}, []);
   return (
     <Layout>
       <Box p={4}>
@@ -71,7 +104,7 @@ useEffect(() => {
                   justifyContent: 'center'
               }} >
                 <Typography variant='h4' sx={{ textAlign: 'left' }}>
-                    Your Mentor
+                    Your Student
                 </Typography>
             </Grid>
         </Grid>
@@ -79,7 +112,7 @@ useEffect(() => {
         <Grid item xs={12} lg={12} sx={{display: 'flex',backgroundColor: '',justifyContent: 'center',marginTop: '2rem' }}  >
                 
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Avatar
+                <Avatar
                     sx={{
                       width: 150,
                       height: 150,
@@ -92,8 +125,8 @@ useEffect(() => {
                       border: '2px solid #ccc',
                     }}
                   >
-                    {userData.image ? (
-    <img src={`data:image/png;base64,${userData.image}`} alt="Profile Picture" style={{ width: '100%', height: '100%' }} />
+                    {StudentData.image ? (
+                  <img src={`data:image/png;base64,${StudentData.image}`} alt="Profile Picture" style={{ width: '100%', height: '100%' }} />
   ) : (
     <BlankAvatar />
   )}
@@ -118,7 +151,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Name : {userData.fname} {userData.lname}
+                  Name : {StudentData.fname} {StudentData.lname}
                 </Typography>
                 
               </Grid>
@@ -132,7 +165,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Designation : {userData.designation}
+                  Registration NO : {StudentData.scnumber}
                 </Typography>
                 
               </Grid>
@@ -146,7 +179,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Email : {userData.email}
+                  Email : {StudentData.email}
                 </Typography>
                 
               </Grid>
@@ -160,7 +193,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Department : {userData.department}
+                  Faculty : {StudentData.faculty}
                 </Typography>
                 
               </Grid>
@@ -174,7 +207,7 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Internal TP No : {userData.mentorid}
+                  Contact : {StudentData.contactNumber}
                 </Typography>
                 
               </Grid>
@@ -188,7 +221,37 @@ useEffect(() => {
                         fontSize:20 
                         }}
                   >
-                  Mobile No :  {userData.mobile}
+                  GPA : {StudentData.gpa}
+                </Typography>
+                
+              </Grid>
+
+              <Grid item xs={12} lg={6}>
+                <Typography 
+                  variant="body1" 
+                  sx={{ textAlign: 'center',
+                        background:'#deaef2', 
+                        p:1,
+                        borderRadius:4,
+                        fontSize:20 
+                        }}
+                  >
+                  Personality Type : {StudentData.personalitytype}
+                </Typography>
+                
+              </Grid>
+
+              <Grid item xs={12} lg={6}>
+                <Typography 
+                  variant="body1" 
+                  sx={{ textAlign: 'center',
+                        background:'#deaef2', 
+                        p:1,
+                        borderRadius:4,
+                        fontSize:20 
+                        }}
+                  >
+                  Address : {StudentData.address}
                 </Typography>
                 
               </Grid>
@@ -196,7 +259,7 @@ useEffect(() => {
           </Grid>
         </Grid>
         <Grid container spacing={2} sx={{ marginTop: '3rem' }}>
-          <Grid item lg={12} xs={12} sx={{
+          {/* <Grid item lg={4} xs={12} sx={{
             display:'flex',
             justifyContent:'flex-end',
             display: 'flex',
@@ -205,7 +268,7 @@ useEffect(() => {
             }} >
             <Button
               variant="contained"
-              onClick={() => navigate("/Mentor-Update-Profile")}
+              onClick={() => navigate("/book-appointment")}
               sx={{
                 background:'#60008a',
                 pl:10,
@@ -214,9 +277,49 @@ useEffect(() => {
                 width:250,
               }}
             >
-              Update Profile
+              LinkedIn <LinkedInIcon/>
             </Button>
           </Grid>
+          <Grid item lg={4} xs={12} sx={{display:'flex',
+            justifyContent:'flex-start',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }} >
+            <Button
+              variant="contained"
+            //   onClick={() => ApproveMentor(StudentData._id)}
+              sx={{
+                background:'green',
+                pl:10,
+                pr:10,
+                borderRadius:3,
+                width:250,
+              }}
+            >
+              Accept <ThumbUpAltIcon/>
+            </Button>
+          </Grid>
+          <Grid item lg={4} xs={12} sx={{display:'flex',
+            justifyContent:'flex-start',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }} >
+          <Button
+                      variant="contained"
+                    //   onClick={() => RejectMentor(MentorData._id)}
+                      sx={{
+                        background:'red',
+                        pl:10,
+                        pr:10,
+                        borderRadius:3,
+                        width:250,
+                      }}
+                    >
+                    Reject <ClearIcon/>
+           </Button>
+           </Grid> */}
         </Grid>
         </Box>
     </Layout>

@@ -19,12 +19,14 @@ import { Paper, Grid, Button, Box } from "@mui/material";
 import { TextField } from "@mui/material";
 
 function BookAppointment() {
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
+  // const [date, setDate] = useState();
+  // const [time, setTime] = useState();
   const [isAvailable, setIsAvailable] = useState();
   const navigate = useNavigate();
   const [userData, setUserData] = useState("");
   const [MentorData, setMentorData] = useState("");
+  const [date, setDate] = useState(dayjs(null));
+  const [time, setTime] = useState(dayjs(null));
 
   const params = useParams();
 
@@ -164,26 +166,25 @@ function BookAppointment() {
                   </Typography>
                   <Box mt={7} mb={4}>
                     <DemoItem>
-                      <DesktopDatePicker
-                        value={date}
-                        onChange={(newValue) => {
-                          setDate(newValue.format("DD-MM-YYYY"));
-                          //  setDate(moment(value).format("DD-MM-YYYY"));
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                        inputFormat="DD-MM-YYYY"
-                      />
+                    <DesktopDatePicker
+  value={date}
+  onChange={(newValue) => {
+    setDate(newValue);
+  }}
+  renderInput={(params) => <TextField {...params} />}
+  inputFormat="DD-MM-YYYY"
+/>
                     </DemoItem>
                   </Box>
 
                   <DemoItem>
-                    <DesktopTimePicker
-                      value={time}
-                      onChange={(newValues) => {
-                        setTime(newValues.format("HH:mm"));
-                      }}
-                      renderInput={(params) => <TextField {...params} />}
-                    />
+                  <DesktopTimePicker
+  value={time}
+  onChange={(newValues) => {
+    setTime(newValues);
+  }}
+  renderInput={(params) => <TextField {...params} />}
+/>
                   </DemoItem>
 
                   <Box

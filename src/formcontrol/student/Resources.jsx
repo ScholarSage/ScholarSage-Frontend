@@ -221,9 +221,9 @@ const Resource = () => {
               </Grid>
             </DialogContent>
             <DialogActions>
-              <Button onClick={onDelete} variant="contained" color="secondary">
+              {/* <Button onClick={onDelete} variant="contained" color="secondary">
                 Delete
-              </Button>
+              </Button> */}
               <Button onClick={onClose} color="primary">
                 Close
               </Button>
@@ -449,13 +449,7 @@ const Resource = () => {
               margin="dense"
               fullWidth
             />
-            <TextField
-              value={imgUrl}
-              onChange={(e) => setImgUrl(e.target.value)}
-              label="Image URL"
-              margin="dense"
-              fullWidth
-            />
+           
             {links.map((link, index) => (
               <div key={index} style={{ marginBottom: "16px" }}>
                 <TextField
@@ -500,12 +494,12 @@ const Resource = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleUpdate} color="primary">
+          {/* <Button onClick={handleUpdate} color="primary">
             Update
           </Button>
           <Button onClick={handleDelete} color="secondary">
             Delete
-          </Button>
+          </Button> */}
           <Button onClick={() => setOpenDialog(false)} color="primary">
             Cancel
           </Button>
