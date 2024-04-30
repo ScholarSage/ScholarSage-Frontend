@@ -34,6 +34,7 @@ import Backdrop from "@mui/material/Backdrop";
 import MentorRequests from "./formcontrol/Admin/MentorRequests";
 import MentorDetails from "./formcontrol/Admin/MentorDetails";
 import MentorUpdateProfile from "./formcontrol/mentor/MentorProfileUpdate";
+import StudentProfileForMentor from "./formcontrol/mentor/StudentProfile";
 
 //import Box from "@mui/material/Box";
 //import TextField from "@mui/material/TextField";
@@ -140,9 +141,14 @@ function App() {
               path="/Mentor-Profile"
               element={<MentorProfileView/>}
             />
+
+            <Route
+              path="/StudentDetails/:value1/:value2/:value3"
+              element={<StudentProfileForMentor/>}
+            />
           </Routes>
           
-        </Paper>
+        </Paper>         
       </div>
     </Router>
   );
